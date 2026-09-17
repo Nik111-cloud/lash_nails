@@ -188,10 +188,11 @@
 
   /* ---------- contacts ---------- */
   .contacts-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
-  .map-placeholder{
-    aspect-ratio:4/3; background:var(--bg-alt); border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center; color:var(--muted); font-size:14px;
-  }
+  .map-embed{
+  aspect-ratio:4/3; border:1px solid var(--line); overflow:hidden;
+}
+.map-embed > div{width:100%; height:100%;}
+.map-embed iframe{width:100%; height:100%; border:0; display:block;}
   .contact-line{display:flex; gap:10px; padding:10px 0; border-top:1px solid var(--line); font-size:15px;}
   .contact-line:last-child{border-bottom:1px solid var(--line);}
 
