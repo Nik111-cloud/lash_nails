@@ -132,14 +132,21 @@
   transition:opacity .6s ease;
 }
 .hero-slide.is-active{opacity:1;}
-.hero-slide-photo{
+/* Фото слайда (<img> или заглушка-div).
+   Селектор с .hero-slide нужен для веса: .photo-placeholder объявлен ниже
+   и иначе перебил бы border и aspect-ratio. */
+.hero-slide .hero-slide-photo{
   position:absolute; inset:0;
   width:100%; height:100%;
   aspect-ratio:auto;
   border:none;
-  background:
-    linear-gradient(180deg, rgba(20,14,10,.1), rgba(20,14,10,.6) 78%),
-    linear-gradient(135deg, var(--bg-alt), #e2cbb0 65%);
+  object-fit:cover;
+}
+/* Затемнение поверх фото, чтобы белый текст читался.
+   У <img> нельзя задать это через background — он рисуется под картинкой. */
+.hero-slide::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,14,10,.1), rgba(20,14,10,.6) 78%);
 }
 .hero-overlay-content{
   position:relative; z-index:2;
@@ -313,9 +320,11 @@
 <section class="hero-carousel" aria-label="Фото студии">
   <div class="hero-slides">
     <div class="hero-slide is-active">
-      <div class="photo-placeholder hero-slide-photo" role="img" aria-label="Крупный план — фото 1"></div>
+      <img class="hero-slide-photo" src="img1.png" alt="Крупный план — фото 1">
     </div>
     <div class="hero-slide">
+      <!-- Второе фото: когда появится img2.png, заменить div ниже на
+           <img class="hero-slide-photo" src="img2.png" alt="Крупный план — фото 2"> -->
       <div class="photo-placeholder hero-slide-photo" role="img" aria-label="Крупный план — фото 2"></div>
     </div>
   </div>
@@ -328,7 +337,7 @@
     <h1>Запись к мастеру, которому не нужно объяснять, что вы хотите</h1>
     <p class="lede">Работаю одна, поэтому на каждого клиента — полное внимание и без спешки. Приём по записи, Уфа, Ростовская улица, 18.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#booking-link">Записаться онлайн</a>
+      <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a>
       <a class="btn btn-ghost-light" href="https://wa.me/79649644775" target="_blank" rel="noopener">Написать в WhatsApp</a>
     </div>
     <p class="availability">Свободно 4 места на этой неделе</p>
@@ -488,6 +497,8 @@
     <iframe src="https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06" width="560" height="400" frameborder="1" allowfullscreen="true" style="position:relative;"></iframe>
   </div>
 </div>
+    </div>
+  </section>
 
 </main>
 
@@ -538,7 +549,7 @@
     });
   }
 })();
-</script>      
+</script>
 
 </body>
 </html>
