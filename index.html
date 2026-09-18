@@ -73,6 +73,20 @@
   }
   .muted{color:var(--muted);}
 
+  .cookie-banner{background:var(--ink); color:var(--bg);}
+.cookie-banner-inner{
+  max-width:var(--maxw); margin:0 auto; padding:16px 24px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px;
+}
+.cookie-banner-title{
+  flex:0 0 100%; margin:0 0 2px;
+  font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color:rgba(251,247,242,.6);
+}
+.cookie-banner-text{flex:1 1 480px; margin:0; font-size:14px; line-height:1.5; color:var(--bg);}
+.cookie-banner-text a{color:var(--bg); text-decoration:underline;}
+.cookie-banner #cookie-accept{flex:0 0 auto; white-space:nowrap;}
+
   /* ---------- top bar ---------- */
   .topbar{
     position:sticky; top:0; z-index:20;
@@ -229,6 +243,14 @@
 </style>
 </head>
 <body>
+
+  <div id="cookie-banner" class="cookie-banner">
+  <div class="cookie-banner-inner">
+    <p class="cookie-banner-title">Manage cookies</p>
+    <p class="cookie-banner-text">Для улучшения работы сайта мы используем файлы cookie и сервис Яндекс.Метрика. Продолжая работу с сайтом, Вы даёте согласие на использование данных сервисов в соответствии с <a href="#">Политикой в отношении обработки персональных данных</a> (п.2.14, 3.1, 3.2, 3.3). Если вы не хотите, чтобы ваши данные обрабатывались, вы можете отключить cookie-файлы в настройках вашего браузера. В этом случае некоторые возможности сайта могут быть недоступны.</p>
+    <button id="cookie-accept" class="btn btn-primary btn-small">Понятно</button>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="topbar-inner">
@@ -426,6 +448,27 @@
     <a class="book" href="https://dikidi.net/2038825?p=0.pi">Записаться</a>
   </div>
 </div>
+
+<script>
+(function(){
+  var KEY = 'cookieConsentAccepted';
+  var banner = document.getElementById('cookie-banner');
+  if(!banner) return;
+  try{
+    if(localStorage.getItem(KEY) === '1'){
+      banner.remove();
+      return;
+    }
+  }catch(e){}
+  var btn = document.getElementById('cookie-accept');
+  if(btn){
+    btn.addEventListener('click', function(){
+      try{ localStorage.setItem(KEY, '1'); }catch(e){}
+      banner.remove();
+    });
+  }
+})();
+</script>      
 
 </body>
 </html>
