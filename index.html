@@ -118,6 +118,25 @@
   .btn-ghost:hover{border-color:var(--ink);}
   .btn-small{padding:9px 16px; font-size:14px;}
 
+  .btn-wave{position:relative; overflow:hidden;}
+  .btn-wave::after{
+    content:"";
+    position:absolute; top:0; left:-150%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.2), transparent);
+    transform:skewX(-20deg);
+    pointer-events:none;
+    animation:btnWave 3.5s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .btn-wave::after{animation:none;}
+  }
+  @keyframes btnWave{
+    0%{left:-150%;}
+    35%{left:150%;}
+    100%{left:150%;}
+  }
+
   /* ---------- hero carousel ---------- */
 .hero-carousel{
   position:relative;
@@ -309,7 +328,7 @@
     <a class="brand" href="#top">Эстетика</a>
     <nav class="topbar-actions">
       <a class="btn btn-ghost btn-small" href="tel:+79649644775">Позвонить</a>
-      <a class="btn btn-primary btn-small" href="https://dikidi.net/2038825?p=0.pi">Записаться</a>
+      <a class="btn btn-primary btn-small btn-wave" href="https://dikidi.net/2038825?p=0.pi">Записаться</a>
     </nav>
   </div>
 </div>
