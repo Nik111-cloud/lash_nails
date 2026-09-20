@@ -131,7 +131,8 @@
   opacity:0;
   transition:opacity .6s ease;
 }
-.hero-slide.is-active{opacity:1;}
+.hero-slide{pointer-events:none;}
+.hero-slide.is-active{opacity:1; pointer-events:auto;}
 .hero-slide-photo{
   position:absolute; inset:0;
   width:100%; height:100%;
@@ -320,25 +321,34 @@
   <div class="hero-slides">
     <div class="hero-slide is-active">
       <img src="img1.png" class="hero-slide-photo" alt="Крупный план — фото 1">
+      <div class="hero-overlay-content">
+        <p class="eyebrow">Наращивание ресниц · Ламинирование бровей и ресниц · Маникюр · Перманентный макияж губ и бровей</p>
+        <h1>Запись к мастерам, которым не нужно объяснять, что вы хотите</h1>
+        <p class="lede">Приём по записи, Уфа, Ростовская улица, 18.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a>
+          <a class="btn btn-ghost-light" href="https://wa.me/79649644775" target="_blank" rel="noopener">Написать в WhatsApp</a>
+        </div>
+        <p class="availability">Свободно 4 места на этой неделе</p>
+      </div>
     </div>
     <div class="hero-slide">
       <img src="img2.png" class="hero-slide-photo" alt="Крупный план — фото 2">
+      <div class="hero-overlay-content">
+        <p class="eyebrow">Индивидуальный подход · стерильные инструменты · комфортная студия</p>
+        <h1>Результат, который держится и радует каждый день</h1>
+        <p class="lede">Работаю одна, поэтому на каждого клиента — полное внимание и без спешки.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a>
+          <a class="btn btn-ghost-light" href="https://wa.me/79649644775" target="_blank" rel="noopener">Написать в WhatsApp</a>
+        </div>
+        <p class="availability">Свободно 4 места на этой неделе</p>
+      </div>
     </div>
   </div>
 
   <button class="hero-arrow prev" type="button" aria-label="Предыдущее фото" onclick="heroSlide(-1)">‹</button>
   <button class="hero-arrow next" type="button" aria-label="Следующее фото" onclick="heroSlide(1)">›</button>
-
-  <div class="hero-overlay-content">
-    <p class="eyebrow">Наращивание ресниц · Ламинирование бровей и ресниц · Маникюр · Перманентный макияж губ и бровей</p>
-    <h1>Запись к мастерам, которым не нужно объяснять, что вы хотите</h1>
-    <p class="lede">Приём по записи, Уфа, Ростовская улица, 18.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a>
-      <a class="btn btn-ghost-light" href="https://wa.me/79649644775" target="_blank" rel="noopener">Написать в WhatsApp</a>
-    </div>
-    <p class="availability">Свободно 4 места на этой неделе</p>
-  </div>
 
   <div class="hero-dots">
     <button class="hero-dot is-active" type="button" onclick="heroGoTo(0)" aria-label="Слайд 1"></button>
@@ -515,13 +525,22 @@
   var slides = document.querySelectorAll('.hero-slide');
   var dots = document.querySelectorAll('.hero-dot');
   var current = 0;
+  var AUTOPLAY_DELAY = 5000;
+  var timer = null;
+
   function show(i){
     current = (i + slides.length) % slides.length;
     slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
     dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
   }
-  window.heroSlide = function(delta){ show(current + delta); };
-  window.heroGoTo = function(i){ show(i); };
+  function startAutoplay(){
+    if(timer){ clearInterval(timer); }
+    timer = setInterval(function(){ show(current + 1); }, AUTOPLAY_DELAY);
+  }
+  window.heroSlide = function(delta){ show(current + delta); startAutoplay(); };
+  window.heroGoTo = function(i){ show(i); startAutoplay(); };
+
+  startAutoplay();
 })();
 </script>
 
