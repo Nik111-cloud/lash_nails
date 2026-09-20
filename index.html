@@ -118,24 +118,19 @@
   .btn-ghost:hover{border-color:var(--ink);}
   .btn-small{padding:9px 16px; font-size:14px;}
 
-  .btn-wave{position:relative; overflow:hidden;}
-  .btn-wave::after{
-    content:"";
-    position:absolute; top:0; left:-150%;
-    width:60%; height:100%;
-    background:linear-gradient(120deg, transparent, rgba(255,255,255,.2), transparent);
-    transform:skewX(-20deg);
-    pointer-events:none;
-    animation:btnWave 3.5s ease-in-out infinite;
-  }
-  @media (prefers-reduced-motion: reduce){
-    .btn-wave::after{animation:none;}
-  }
-  @keyframes btnWave{
-    0%{left:-150%;}
-    35%{left:150%;}
-    100%{left:150%;}
-  }
+ .btn-wave{
+  background:linear-gradient(115deg, var(--accent) 25%, rgba(255,255,255,.55) 50%, var(--accent) 75%);
+  background-size:250% 100%;
+  animation:btnWave 3.5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce){
+  .btn-wave{animation:none; background-position:100% 0;}
+}
+@keyframes btnWave{
+  0%{background-position:100% 0;}
+  50%{background-position:0% 0;}
+  100%{background-position:100% 0;}
+}
 
   /* ---------- hero carousel ---------- */
 .hero-carousel{
