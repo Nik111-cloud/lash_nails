@@ -121,20 +121,20 @@
   .btn-wave{position:relative; overflow:hidden;}
   .btn-wave::after{
     content:"";
-    position:absolute; top:0; left:0;
-    width:100%; height:100%;
-    background:linear-gradient(135deg, transparent 40%, rgba(255,255,255,.55) 50%, transparent 60%);
-    transform:translate(-120%, 120%);
+    position:absolute; top:0; left:-150%;
+    width:60%; height:100%;
+    background:linear-gradient(120deg, transparent, rgba(255,255,255,.2), transparent);
+    transform:skewX(-20deg);
     pointer-events:none;
-    animation:btnWave 3s linear infinite;
+    animation:btnWave 3.5s ease-in-out infinite;
   }
   @media (prefers-reduced-motion: reduce){
     .btn-wave::after{animation:none;}
   }
   @keyframes btnWave{
-    0%{transform:translate(-120%, 120%);}
-    24%{transform:translate(120%, -120%);}
-    100%{transform:translate(120%, -120%);}
+    0%{left:-150%;}
+    35%{left:150%;}
+    100%{left:150%;}
   }
 
   /* ---------- hero carousel ---------- */
