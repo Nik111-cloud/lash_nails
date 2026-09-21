@@ -263,9 +263,13 @@
     display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; margin-top:32px;
     scrollbar-width:thin;
   }
-  .portfolio-strip .photo-placeholder{
-    flex:0 0 240px; aspect-ratio:4/5;
-  }
+  .portfolio-strip .portfolio-photo{
+  flex:0 0 240px;
+  width:240px;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  border:1px solid var(--line);
+}
 
   /* ---------- master ---------- */
   .master-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:48px; align-items:center;}
