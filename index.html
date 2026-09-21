@@ -269,7 +269,31 @@
   aspect-ratio:4/5;
   object-fit:cover;
   border:1px solid var(--line);
+  cursor:pointer;
 }
+
+   /* ---------- lightbox ---------- */
+  .lightbox{
+  position:fixed; inset:0; z-index:60;
+  background:rgba(20,14,10,.92);
+  display:flex; align-items:center; justify-content:center;
+  padding:24px;
+  opacity:0; visibility:hidden;
+  transition:opacity .25s ease;
+}
+.lightbox.is-active{opacity:1; visibility:visible;}
+.lightbox img{
+  max-width:100%; max-height:100%;
+  border-radius:2px;
+}
+.lightbox-close{
+  position:absolute; top:20px; right:24px; z-index:61;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(251,247,242,.15); border:1px solid rgba(251,247,242,.4);
+  color:var(--bg); font-size:22px; line-height:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.lightbox-close:hover{background:rgba(251,247,242,.28);}
 
   /* ---------- master ---------- */
   .master-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:48px; align-items:center;}
@@ -565,6 +589,12 @@
     <p>Переходим к онлайн-записи…</p>
   </div>
 </div>     
+
+      <!-- ================= OVERLAY ================= -->
+      <div id="lightbox" class="lightbox" aria-hidden="true">
+  <button class="lightbox-close" type="button" aria-label="Закрыть" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
       
 
       <script>
@@ -635,6 +665,38 @@
   }
 })();
 </script>      
+
+      <script>
+(function(){
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  if(!lightbox || !lightboxImg) return;
+
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.classList.add('is-active');
+    lightbox.setAttribute('aria-hidden', 'false');
+  }
+  window.closeLightbox = function(){
+    lightbox.classList.remove('is-active');
+    lightbox.setAttribute('aria-hidden', 'true');
+  };
+
+  document.querySelectorAll('.portfolio-photo').forEach(function(img){
+    img.addEventListener('click', function(){
+      openLightbox(img.src, img.alt);
+    });
+  });
+
+  lightbox.addEventListener('click', function(e){
+    if(e.target === lightbox){ closeLightbox(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeLightbox(); }
+  });
+})();
+</script>
 
 </body>
 </html>
