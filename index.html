@@ -613,6 +613,11 @@
       }, DELAY);
     });
   });
+
+   window.addEventListener('pageshow', function(){
+    overlay.classList.remove('is-active');
+    overlay.setAttribute('aria-hidden', 'true');
+  });
 })();
 </script>
 
