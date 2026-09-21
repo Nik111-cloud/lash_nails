@@ -159,10 +159,21 @@
 
   /* ---------- hero carousel ---------- */
 .hero-carousel{
-  position:relative;
+  position:sticky; top:var(--topbar-h); z-index:1;
   min-height:78vh;
   overflow:hidden;
   color:var(--bg);
+}
+.page-content{
+  position:relative; z-index:2;
+  background:var(--bg);
+}
+.page-content::before{ /* мягкая тень над верхней кромкой, чтобы наезд читался */
+  content:"";
+  position:absolute; left:0; right:0; bottom:100%;
+  height:48px;
+  background:linear-gradient(to top, rgba(20,14,10,.3), rgba(20,14,10,0));
+  pointer-events:none;
 }
 .hero-slides{position:absolute; inset:0;}
 .hero-slide{
@@ -413,6 +424,9 @@
   </div>
 </section>
 
+  <!-- Всё ниже карусели обёрнуто в .page-content — оно наезжает на карусель при скролле -->
+<div class="page-content">
+
   <!-- ================= SERVICES ================= -->
   <section class="section section-alt" id="services">
     <div class="wrap services-layout">
@@ -553,7 +567,6 @@
         <div class="contact-line"><strong>WhatsApp</strong><a href="https://wa.me/79649644775" target="_blank" rel="noopener">wa.me/79649644775</a></div>
         <p style="margin-top:28px;"><a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a></p>
       </div>
-     <!-- Сюда вставить код из "Яндекс Карты → Поделиться → Виджет" (или аналогичный из 2ГИС) -->
 <div class="map-embed">
   <div style="position:relative;overflow:hidden;">
     <a href="https://yandex.ru/maps/org/lash_studio/208313983820/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Lash studio</a>
@@ -561,6 +574,10 @@
     <iframe src="https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06" width="560" height="400" frameborder="1" allowfullscreen="true" loading="lazy" style="position:relative;"></iframe>
   </div>
 </div>
+      </div>
+  </section>
+
+</div><!-- /.page-content -->
 
 </main>
 
