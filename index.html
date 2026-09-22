@@ -302,26 +302,19 @@
 }
 .lightbox-close:hover{background:rgba(251,247,242,.28);}
 
-  /* ---------- reviews carousel ---------- */
-  .review-carousel{max-width:420px; margin-top:32px;}
-  .review-slide{display:none;}
-  .review-slide.is-active{display:block;}
-  .review-photo-full{
-    width:100%;
+   /* ---------- reviews strip ---------- */
+  .review-strip{
+    display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; margin-top:32px;
+    scrollbar-width:thin;
+  }
+  .review-strip .review-photo-full{
+    flex:0 0 auto;
+    height:320px;
+    width:auto;
+    object-fit:contain;
+    background:var(--bg-alt);
     border:1px solid var(--line);
-    border-radius:4px;
   }
-  .review-nav{display:flex; align-items:center; gap:16px; margin-top:20px;}
-  .review-arrow{
-    width:36px; height:36px; border-radius:50%;
-    background:var(--bg); border:1px solid var(--line);
-    color:var(--ink); font-size:18px; line-height:1;
-    display:flex; align-items:center; justify-content:center; cursor:pointer;
-  }
-  .review-arrow:hover{border-color:var(--ink);}
-  .review-dots{display:flex; gap:8px;}
-  .review-dot{width:8px; height:8px; border-radius:50%; background:var(--line); border:none; padding:0; cursor:pointer;}
-  .review-dot.is-active{background:var(--ink);}
 
   /* ---------- master ---------- */
   .master-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:48px; align-items:center;}
@@ -524,26 +517,11 @@
   </section>
   
 <!-- ================= REVIEWS ================= -->
-<div class="review-carousel">
-  <div class="review-slide is-active">
-    <img src="review1.jpg" class="review-photo-full" alt="Отзыв клиента 1">
-  </div>
-  <div class="review-slide">
-    <img src="review2.jpg" class="review-photo-full" alt="Отзыв клиента 2">
-  </div>
-  <div class="review-slide">
-    <img src="review3.jpg" class="review-photo-full" alt="Отзыв клиента 3">
-  </div>
-
-  <div class="review-nav">
-    <button class="review-arrow prev" type="button" aria-label="Предыдущий отзыв" onclick="reviewSlide(-1)">‹</button>
-    <div class="review-dots">
-      <button class="review-dot is-active" type="button" onclick="reviewGoTo(0)" aria-label="Отзыв 1"></button>
-      <button class="review-dot" type="button" onclick="reviewGoTo(1)" aria-label="Отзыв 2"></button>
-      <button class="review-dot" type="button" onclick="reviewGoTo(2)" aria-label="Отзыв 3"></button>
-    </div>
-    <button class="review-arrow next" type="button" aria-label="Следующий отзыв" onclick="reviewSlide(1)">›</button>
-  </div>
+<h2>Наши отзывы</h2>
+<div class="review-strip">
+  <img src="review1.jpg" class="review-photo-full" alt="Отзыв клиента 1">
+  <img src="review2.jpg" class="review-photo-full" alt="Отзыв клиента 2">
+  <img src="review3.jpg" class="review-photo-full" alt="Отзыв клиента 3">
 </div>
 
   <!-- ================= MASTER ================= -->
