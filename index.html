@@ -307,13 +307,13 @@
     display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; margin-top:32px;
     scrollbar-width:thin;
   }
-  .review-strip .review-photo-full{
-    flex:0 0 auto;
-    height:320px;
-    width:auto;
-    object-fit:contain;
-    background:var(--bg-alt);
+    .review-strip .review-photo-full{
+    flex:0 0 280px;
+    width:280px;
+    aspect-ratio:1/1;
+    object-fit:cover;
     border:1px solid var(--line);
+    border-radius:16px;
   }
 
   /* ---------- master ---------- */
