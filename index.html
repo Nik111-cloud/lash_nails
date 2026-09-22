@@ -34,6 +34,7 @@
     --available:#5f6b4e;
     --radius:2px;
     --maxw:1080px;
+    --topbar-h:60px
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -607,7 +608,18 @@
   <button class="lightbox-close" type="button" aria-label="Закрыть" onclick="closeLightbox()">×</button>
   <img id="lightbox-img" src="" alt="">
 </div>
-      
+
+
+  <script>
+(function(){
+  var topbar = document.querySelector('.topbar');
+  function setTopbarHeight(){
+    document.documentElement.style.setProperty('--topbar-h', topbar.offsetHeight + 'px');
+  }
+  setTopbarHeight();
+  window.addEventListener('resize', setTopbarHeight);
+})();
+</script>
 
       <script>
 (function(){
