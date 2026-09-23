@@ -69,18 +69,18 @@
   .muted{color:var(--muted);}
 
   .cookie-banner{background:var(--ink); color:var(--bg);}
-.cookie-banner-inner{
-  max-width:var(--maxw); margin:0 auto; padding:16px 24px;
-  display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px;
-}
-.cookie-banner-title{
-  flex:0 0 100%; margin:0 0 2px;
-  font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
-  color:rgba(251,247,242,.6);
-}
-.cookie-banner-text{flex:1 1 480px; margin:0; font-size:14px; line-height:1.5; color:var(--bg);}
-.cookie-banner-text a{color:var(--bg); text-decoration:underline;}
-.cookie-banner #cookie-accept{flex:0 0 auto; white-space:nowrap;}
+  .cookie-banner-inner{
+    max-width:var(--maxw); margin:0 auto; padding:16px 24px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 20px;
+  }
+  .cookie-banner-title{
+    flex:0 0 100%; margin:0 0 2px;
+    font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    color:rgba(251,247,242,.6);
+  }
+  .cookie-banner-text{flex:1 1 480px; margin:0; font-size:14px; line-height:1.5; color:var(--bg);}
+  .cookie-banner-text a{color:var(--bg); text-decoration:underline;}
+  .cookie-banner #cookie-accept{flex:0 0 auto; white-space:nowrap;}
 
   /* ---------- top bar ---------- */
   .topbar{
@@ -356,21 +356,26 @@
     opacity:0;
     pointer-events:none;
     transition:opacity .6s ease;
-    display:flex; align-items:flex-end;
   }
   .master-slide.is-active{opacity:1; pointer-events:auto;}
+  .master-frame{
+    position:absolute; inset:0;
+    left:50%; transform:translateX(-50%);
+    width:100%; max-width:var(--maxw);
+  }
   .master-overlay-content{
-    max-width:var(--maxw); margin:0 auto;
-    width:100%;
+    position:absolute; left:0; right:0; bottom:0;
     padding:0 24px 64px;
   }
   .master-overlay-content .eyebrow{color:rgba(251,247,242,.75); margin:0 0 10px;}
   .master-photo{
+    position:absolute;
+    left:24px; top:56px;
+    z-index:3;
     width:96px; height:96px; border-radius:50%;
     object-fit:cover;
     border:2px solid rgba(251,247,242,.6);
-    margin-bottom:16px;
-  }
+}
   .master-overlay-content h2{color:var(--bg); font-size:clamp(28px, 4vw, 42px); max-width:20ch;}
   .master-overlay-content .lede{font-size:17px; color:rgba(251,247,242,.85); max-width:52ch; margin:0 0 18px;}
   .master-credentials{list-style:none; padding:0; margin:0 0 24px; color:rgba(251,247,242,.8); font-size:15px; max-width:420px;}
@@ -447,7 +452,7 @@
   .service-row .book-link{grid-column:1 / -1;}
   .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
   .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
-  .master-photo{width:72px; height:72px; margin-bottom:12px;}
+  .master-photo{width:72px; height:72px; top:40px;}
 }
 </style>
 </head>
@@ -618,7 +623,7 @@
   </div>
 </section>
 
-  <!-- ================= MASTER CAROUSEL ================= -->
+<!-- ================= MASTER CAROUSEL ================= -->
 <section class="master-carousel" id="master" aria-label="Мастера студии">
   <div class="master-bg-slides">
     <img src="studio1.jpg" class="master-bg-slide is-active" alt="Фото студии 1">
@@ -626,62 +631,70 @@
   </div>
   <div class="master-slides">
     <div class="master-slide is-active">
-      <div class="master-overlay-content">
+      <div class="master-frame">
         <img src="master1.jpg" class="master-photo" alt="Фото мастера — Айгуль">
-        <p class="eyebrow">О мастере</p>
-        <h2>Айгуль</h2>
-        <p class="lede">Коротко о подходе к работе мастера.</p>
-        <ul class="master-credentials">
-          <li>Опыт работы — 7 лет</li>
-          <li>Специализация — Ресницы, перманент бровей и губ</li>
-          <li>Сертификаты — [если есть, перечислить]</li>
-        </ul>
-        <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373807">Записаться к этому мастеру</a>
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Айгуль</h2>
+          <p class="lede">Коротко о подходе к работе мастера.</p>
+          <ul class="master-credentials">
+            <li>Опыт работы — 7 лет</li>
+            <li>Специализация — Ресницы, перманент бровей и губ</li>
+            <li>Сертификаты — [если есть, перечислить]</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373807">Записаться к этому мастеру</a>
+        </div>
       </div>
     </div>
 
     <div class="master-slide">
-      <div class="master-overlay-content">
+      <div class="master-frame">
         <img src="master2.jpg" class="master-photo" alt="Фото мастера — Анастасия">
-        <p class="eyebrow">О мастере</p>
-        <h2>Анастасия</h2>
-        <p class="lede">Коротко о подходе к работе мастера.</p>
-        <ul class="master-credentials">
-          <li>Опыт работы — 3 года</li>
-          <li>Специализация — Ресницы</li>
-          <li>Сертификаты — [если есть, перечислить]</li>
-        </ul>
-        <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373819">Записаться к этому мастеру</a>
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Анастасия</h2>
+          <p class="lede">Коротко о подходе к работе мастера.</p>
+          <ul class="master-credentials">
+            <li>Опыт работы — 3 года</li>
+            <li>Специализация — Ресницы</li>
+            <li>Сертификаты — [если есть, перечислить]</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373819">Записаться к этому мастеру</a>
+        </div>
       </div>
     </div>
 
     <div class="master-slide">
-      <div class="master-overlay-content">
+      <div class="master-frame">
         <img src="master3.jpg" class="master-photo" alt="Фото мастера — Слава">
-        <p class="eyebrow">О мастере</p>
-        <h2>Слава</h2>
-        <p class="lede">Коротко о подходе к работе мастера.</p>
-        <ul class="master-credentials">
-          <li>Опыт работы — 2 года</li>
-          <li>Специализация — Маникюр</li>
-          <li>Сертификаты — [если есть, перечислить]</li>
-        </ul>
-        <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4396039">Записаться к этому мастеру</a>
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Слава</h2>
+          <p class="lede">Коротко о подходе к работе мастера.</p>
+          <ul class="master-credentials">
+            <li>Опыт работы — 2 года</li>
+            <li>Специализация — Маникюр</li>
+            <li>Сертификаты — [если есть, перечислить]</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4396039">Записаться к этому мастеру</a>
+        </div>
       </div>
     </div>
 
     <div class="master-slide">
-      <div class="master-overlay-content">
+      <div class="master-frame">
         <img src="master4.jpg" class="master-photo" alt="Фото мастера — Дияна">
-        <p class="eyebrow">О мастере</p>
-        <h2>Дияна</h2>
-        <p class="lede">Коротко о подходе к работе мастера.</p>
-        <ul class="master-credentials">
-          <li>Опыт работы — 3 года</li>
-          <li>Специализация — Ресницы</li>
-          <li>Сертификаты — [если есть, перечислить]</li>
-        </ul>
-        <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4399020">Записаться к этому мастеру</a>
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Дияна</h2>
+          <p class="lede">Коротко о подходе к работе мастера.</p>
+          <ul class="master-credentials">
+            <li>Опыт работы — 3 года</li>
+            <li>Специализация — Ресницы</li>
+            <li>Сертификаты — [если есть, перечислить]</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4399020">Записаться к этому мастеру</a>
+        </div>
       </div>
     </div>
   </div>
