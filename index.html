@@ -31,7 +31,6 @@
     --line:#c9b9a0;
     --accent:#a23b4e;
     --accent-ink:#fff9f6;
-    --available:#5f6b4e;
     --radius:2px;
     --maxw:1080px;
     --topbar-h:60px
@@ -135,7 +134,7 @@
   .btn-wave::after{animation:none; opacity:0;}
 }
 
-  .booking-overlay{
+.booking-overlay{
   position:fixed; inset:0; z-index:50;
   background:rgba(42,32,25,.92);
   color:var(--bg);
@@ -232,16 +231,6 @@
   background:rgba(251,247,242,.4); border:none; padding:0; cursor:pointer;
 }
 .hero-dot.is-active{background:var(--bg);}
-
-.photo-placeholder{
-  aspect-ratio:4/5;
-  background:
-    linear-gradient(135deg, var(--bg-alt), #e2cbb0 65%);
-  border:1px solid var(--line);
-  display:flex; align-items:flex-end;
-  padding:12px;
-  font-size:13px; color:var(--muted);
-}
 
 @media (prefers-reduced-motion: no-preference){
   .hero-overlay-content{animation:rise .7s ease-out both;}
@@ -355,7 +344,6 @@
     transition:opacity 1.2s ease;
   }
   .master-bg-slide.is-active{opacity:1;}
-  }
   .master-carousel::after{
     content:"";
     position:absolute; inset:0;
@@ -653,7 +641,7 @@
 
     <div class="master-slide">
       <div class="master-overlay-content">
-        <img src="master2.jpg" class="master-photo" alt="Фото мастера — Имя Фамилия 1">
+        <img src="master2.jpg" class="master-photo" alt="Фото мастера — Имя Фамилия 2">
         <p class="eyebrow">О мастере</p>
         <h2>Имя Фамилия 2</h2>
         <p class="lede">Коротко о подходе к работе второго мастера.</p>
