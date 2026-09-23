@@ -339,11 +339,65 @@
     border-radius:16px;
   }
 
-  /* ---------- master ---------- */
-  .master-grid{display:grid; grid-template-columns:.8fr 1.2fr; gap:48px; align-items:center;}
-  .master-grid .photo-placeholder{aspect-ratio:3/4;}
-  .master-credentials{list-style:none; padding:0; margin:20px 0 0; color:var(--muted); font-size:15px;}
-  .master-credentials li{padding:6px 0; border-top:1px solid var(--line);}
+    /* ---------- master carousel ---------- */
+  .master-carousel{
+    position:relative;
+    min-height:78vh;
+    overflow:hidden;
+    color:var(--bg);
+  }
+  .master-bg-photo{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .master-carousel::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,14,10,.25), rgba(20,14,10,.72) 85%);
+    pointer-events:none;
+  }
+  .master-slides{position:absolute; inset:0; z-index:2;}
+  .master-slide{
+    position:absolute; inset:0;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .6s ease;
+    display:flex; align-items:flex-end;
+  }
+  .master-slide.is-active{opacity:1; pointer-events:auto;}
+  .master-overlay-content{
+    max-width:var(--maxw); margin:0 auto;
+    width:100%;
+    padding:0 24px 64px;
+  }
+  .master-overlay-content .eyebrow{color:rgba(251,247,242,.75); margin:0 0 10px;}
+  .master-overlay-content h2{color:var(--bg); font-size:clamp(28px, 4vw, 42px); max-width:20ch;}
+  .master-overlay-content .lede{font-size:17px; color:rgba(251,247,242,.85); max-width:52ch; margin:0 0 18px;}
+  .master-credentials{list-style:none; padding:0; margin:0 0 24px; color:rgba(251,247,242,.8); font-size:15px; max-width:420px;}
+  .master-credentials li{padding:6px 0; border-top:1px solid rgba(251,247,242,.25);}
+
+  .master-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(251,247,242,.15); border:1px solid rgba(251,247,242,.45);
+    color:var(--bg); font-size:22px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .master-arrow:hover{background:rgba(251,247,242,.28);}
+  .master-arrow.prev{left:20px;}
+  .master-arrow.next{right:20px;}
+
+  .master-dots{
+    position:absolute; left:0; right:0; bottom:20px; z-index:3;
+    display:flex; justify-content:center; gap:8px;
+  }
+  .master-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(251,247,242,.4); border:none; padding:0; cursor:pointer;
+  }
+  .master-dot.is-active{background:var(--bg);}
 
   /* ---------- pricing table ---------- */
   table.pricing{width:100%; border-collapse:collapse; margin-top:28px;}
@@ -388,11 +442,14 @@
   body{padding-bottom:78px;}
   .mobile-bar{display:block;}
   .topbar-actions .btn-ghost{display:none;}
+  .master-carousel{min-height:auto; height:78vh;}
+  .master-arrow{top:18px; transform:none;}
 }
 @media (max-width:560px){
   .service-row{grid-template-columns:1fr 1fr; row-gap:8px;}
   .service-row .book-link{grid-column:1 / -1;}
   .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
+  .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
 }
 </style>
 </head>
@@ -563,22 +620,48 @@
   </div>
 </section>
   
-  <!-- ================= MASTER ================= -->
-  <section class="section section-alt" id="master">
-    <div class="wrap master-grid">
-      <div class="photo-placeholder" role="img" aria-label="Фото мастера">Фото мастера</div>
-      <div>
+  <!-- ================= MASTER CAROUSEL ================= -->
+<section class="master-carousel" id="master" aria-label="Мастера студии">
+  <img src="studio.jpg" class="master-bg-photo" alt="Фото студии">
+
+  <div class="master-slides">
+    <div class="master-slide is-active">
+      <div class="master-overlay-content">
         <p class="eyebrow">О мастере</p>
-        <h2>Имя Фамилия</h2>
-        <p>Коротко о подходе к работе и о том, что для клиента важно на приёме — тишина и время без спешки, стерильные инструменты, честный совет, если что-то не подходит.</p>
+        <h2>Имя Фамилия 1</h2>
+        <p class="lede">Коротко о подходе к работе и о том, что для клиента важно на приёме — тишина и время без спешки, стерильные инструменты, честный совет, если что-то не подходит.</p>
         <ul class="master-credentials">
           <li>Опыт работы — N лет</li>
-          <li>Специализация — [например, сложное окрашивание / наращивание]</li>
+          <li>Специализация — [например, ресницы / брови]</li>
           <li>Сертификаты — [если есть, перечислить]</li>
         </ul>
+        <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi&specialist_id=ID_МАСТЕРА_1">Записаться к этому мастеру</a>
       </div>
     </div>
-  </section>
+
+    <div class="master-slide">
+      <div class="master-overlay-content">
+        <p class="eyebrow">О мастере</p>
+        <h2>Имя Фамилия 2</h2>
+        <p class="lede">Коротко о подходе к работе второго мастера.</p>
+        <ul class="master-credentials">
+          <li>Опыт работы — N лет</li>
+          <li>Специализация — [например, маникюр / перманентный макияж]</li>
+          <li>Сертификаты — [если есть, перечислить]</li>
+        </ul>
+        <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi&specialist_id=ID_МАСТЕРА_2">Записаться к этому мастеру</a>
+      </div>
+    </div>
+  </div>
+
+  <button class="master-arrow prev" type="button" aria-label="Предыдущий мастер" onclick="masterSlide(-1)">‹</button>
+  <button class="master-arrow next" type="button" aria-label="Следующий мастер" onclick="masterSlide(1)">›</button>
+
+  <div class="master-dots">
+    <button class="master-dot is-active" type="button" onclick="masterGoTo(0)" aria-label="Мастер 1"></button>
+    <button class="master-dot" type="button" onclick="masterGoTo(1)" aria-label="Мастер 2"></button>
+  </div>
+</section>
 
   <!-- ================= PRICING ================= -->
   <section class="section section-alt" id="pricing">
@@ -825,6 +908,21 @@
   }
   enableHorizontalScroll('.portfolio-strip');
   enableHorizontalScroll('.review-strip');
+})();
+</script>
+
+  <script>
+(function(){
+  var slides = document.querySelectorAll('.master-slide');
+  var dots = document.querySelectorAll('.master-dot');
+  var current = 0;
+  function show(i){
+    current = (i + slides.length) % slides.length;
+    slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
+    dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
+  }
+  window.masterSlide = function(delta){ show(current + delta); };
+  window.masterGoTo = function(i){ show(i); };
 })();
 </script>
 
