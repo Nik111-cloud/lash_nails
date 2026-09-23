@@ -325,6 +325,11 @@
     scrollbar-width:none;
   }
   .review-strip::-webkit-scrollbar{display:none;}
+  .portfolio-strip:focus-visible,
+  .review-strip:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
     .review-strip .review-photo-full{
     flex:0 0 320px;
     width:320px;
@@ -514,7 +519,7 @@
       <p class="eyebrow">Наш стиль</p>
       <h2>Портфолио</h2>
       <p class="muted" style="max-width:56ch">Фото важнее любого описания.</p>
-      <div class="portfolio-strip">
+      <div class="portfolio-strip" tabindex="0">
         <img src="9.jpg" class="portfolio-photo" alt="Работа мастера — фото 1">
         <img src="1.jpeg" class="portfolio-photo" alt="Работа мастера — фото 2">
         <img src="2.jpg" class="portfolio-photo" alt="Работа мастера — фото 3">
@@ -541,7 +546,7 @@
 <section class="section" id="reviews">
   <div class="wrap">
     <h2>Наши отзывы</h2>
-    <div class="review-strip">
+    <div class="review-strip" tabindex="0">
       <img src="review8.jpg" class="review-photo-full" alt="Отзыв клиента 3">
       <img src="review9.jpg" class="review-photo-full" alt="Отзыв клиента 3">
       <img src="review4.jpg" class="review-photo-full" alt="Отзыв клиента 3">
@@ -799,6 +804,27 @@
 
   bindScrollIndicator('portfolio-strip');
   bindScrollIndicator('review-strip');
+})();
+</script>
+
+  <script>
+(function(){
+  function enableHorizontalScroll(selector){
+    var el = document.querySelector(selector);
+    if(!el) return;
+    el.addEventListener('wheel', function(e){
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        el.scrollLeft += e.deltaY;
+        e.preventDefault();
+      }
+    }, {passive:false});
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight'){ el.scrollLeft += 120; e.preventDefault(); }
+      if(e.key === 'ArrowLeft'){ el.scrollLeft -= 120; e.preventDefault(); }
+    });
+  }
+  enableHorizontalScroll('.portfolio-strip');
+  enableHorizontalScroll('.review-strip');
 })();
 </script>
 
