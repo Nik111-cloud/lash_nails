@@ -436,7 +436,6 @@
 
   @media (max-width: 900px){
   .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
-  .reviews-grid{grid-template-columns:1fr;}
   .hero-carousel, .hero-overlay-content{min-height:auto; height:88vh;}
   .hero-arrow{top:18px; transform:none;}
   body{padding-bottom:78px;}
@@ -734,22 +733,7 @@
   <img id="lightbox-img" src="" alt="">
 </div>
 
-   <!-- ======================== JS Scripts ======================== -->
-<script>
-(function(){
-  var slides = document.querySelectorAll('.review-slide');
-  var dots = document.querySelectorAll('.review-dot');
-  var current = 0;
-  function show(i){
-    current = (i + slides.length) % slides.length;
-    slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
-    dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
-  }
-  window.reviewSlide = function(delta){ show(current + delta); };
-  window.reviewGoTo = function(i){ show(i); };
-})();
-</script>
-  
+   <!-- ======================== JS Scripts ======================== --> 
   <script>
 (function(){
   var topbar = document.querySelector('.topbar');
