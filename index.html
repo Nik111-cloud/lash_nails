@@ -426,12 +426,12 @@
     display:none;
     position:fixed; left:0; right:0; bottom:0; z-index:30;
     background:var(--bg); border-top:1px solid var(--line);
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    padding:8px 12px calc(8px + env(safe-area-inset-bottom));
   }
   .mobile-bar-inner{display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:8px;}
   .mobile-bar a{
     display:flex; align-items:center; justify-content:center; gap:6px;
-    padding:12px 8px; font-size:14px; font-weight:600; text-decoration:none; border-radius:var(--radius);
+    padding:9px 8px; font-size:13px; font-weight:600; text-decoration:none; border-radius:var(--radius);
   }
   .mobile-bar .call{border:1px solid var(--line); color:var(--ink);}
   .mobile-bar .wa{border:1px solid var(--line); color:var(--ink);}
@@ -441,7 +441,8 @@
   .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
   .hero-carousel, .hero-overlay-content{min-height:auto; height:88vh;}
   .hero-arrow{top:18px; transform:none;}
-  .hero-dots{bottom:90px;}
+  .hero-overlay-content{padding-bottom:88px;}
+  .hero-dots{bottom:66px;}
    body{padding-bottom:78px;}
   .mobile-bar{display:block;}
   .topbar-actions .btn-ghost{display:none;}
