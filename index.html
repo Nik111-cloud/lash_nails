@@ -985,14 +985,28 @@
     var el = document.querySelector(selector);
     if(!el) return;
 
-    var startX = 0, startY = 0, tracking = false;
+    var startX = 0, startY = 0, tracking = false, lockDirection = null;
     var THRESHOLD = 40; // минимальное расстояние свайпа в пикселях
 
     el.addEventListener('touchstart', function(e){
       startX = e.touches[0].clientX;
       startY = e.touches[0].clientY;
       tracking = true;
+      lockDirection = null;
     }, {passive:true});
+
+    el.addEventListener('touchmove', function(e){
+      if(!tracking) return;
+      var deltaX = e.touches[0].clientX - startX;
+      var deltaY = e.touches[0].clientY - startY;
+
+      if(lockDirection === null && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)){
+        lockDirection = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical';
+      }
+      if(lockDirection === 'horizontal'){
+        e.preventDefault();
+      }
+    }, {passive:false});
 
     el.addEventListener('touchend', function(e){
       if(!tracking) return;
@@ -1007,7 +1021,7 @@
       }
     }, {passive:true});
   }
-
+  
   enableSwipe('.hero-carousel', function(){ heroSlide(1); }, function(){ heroSlide(-1); });
   enableSwipe('.master-carousel', function(){ masterSlide(1); }, function(){ masterSlide(-1); });
 })();
