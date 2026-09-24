@@ -977,5 +977,39 @@
 })();
 </script>
 
+  <script>
+(function(){
+  function enableSwipe(selector, onSwipeLeft, onSwipeRight){
+    var el = document.querySelector(selector);
+    if(!el) return;
+
+    var startX = 0, startY = 0, tracking = false;
+    var THRESHOLD = 40; // минимальное расстояние свайпа в пикселях
+
+    el.addEventListener('touchstart', function(e){
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, {passive:true});
+
+    el.addEventListener('touchend', function(e){
+      if(!tracking) return;
+      tracking = false;
+      var endX = e.changedTouches[0].clientX;
+      var endY = e.changedTouches[0].clientY;
+      var deltaX = endX - startX;
+      var deltaY = endY - startY;
+
+      if(Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > THRESHOLD){
+        if(deltaX < 0){ onSwipeLeft(); } else { onSwipeRight(); }
+      }
+    }, {passive:true});
+  }
+
+  enableSwipe('.hero-carousel', function(){ heroSlide(1); }, function(){ heroSlide(-1); });
+  enableSwipe('.master-carousel', function(){ masterSlide(1); }, function(){ masterSlide(-1); });
+})();
+</script>
+
 </body>
 </html>
