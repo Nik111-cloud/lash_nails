@@ -981,11 +981,11 @@
 
   <script>
 (function(){
-  function enableSwipe(selector, onSwipeLeft, onSwipeRight){
+  function enableSwipe(selector, slideSelector, onSwipeLeft, onSwipeRight){
     var el = document.querySelector(selector);
     if(!el) return;
 
-    var startX = 0, startY = 0, tracking = false, lockDirection = null;
+    var startX = 0, startY = 0, tracking = false, lockDirection = null, activeSlide = null;
     var THRESHOLD = 40; // минимальное расстояние свайпа в пикселях
 
     el.addEventListener('touchstart', function(e){
@@ -993,6 +993,8 @@
       startY = e.touches[0].clientY;
       tracking = true;
       lockDirection = null;
+      activeSlide = el.querySelector(slideSelector + '.is-active');
+      if(activeSlide){ activeSlide.style.transition = 'none'; }
     }, {passive:true});
 
     el.addEventListener('touchmove', function(e){
@@ -1005,6 +1007,9 @@
       }
       if(lockDirection === 'horizontal'){
         e.preventDefault();
+        if(activeSlide){
+          activeSlide.style.transform = 'translateX(' + deltaX + 'px)';
+        }
       }
     }, {passive:false});
 
@@ -1015,15 +1020,26 @@
       var endY = e.changedTouches[0].clientY;
       var deltaX = endX - startX;
       var deltaY = endY - startY;
+      var swiped = Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > THRESHOLD;
 
-      if(Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > THRESHOLD){
+      if(activeSlide){
+        var slideToReset = activeSlide;
+        slideToReset.style.transition = 'transform .25s ease';
+        slideToReset.style.transform = 'translateX(0px)';
+        setTimeout(function(){
+          slideToReset.style.transition = '';
+          slideToReset.style.transform = '';
+        }, 260);
+      }
+
+      if(swiped){
         if(deltaX < 0){ onSwipeLeft(); } else { onSwipeRight(); }
       }
     }, {passive:true});
   }
   
-  enableSwipe('.hero-carousel', function(){ heroSlide(1); }, function(){ heroSlide(-1); });
-  enableSwipe('.master-carousel', function(){ masterSlide(1); }, function(){ masterSlide(-1); });
+  enableSwipe('.hero-carousel', '.hero-slide', function(){ heroSlide(1); }, function(){ heroSlide(-1); });
+  enableSwipe('.master-carousel', '.master-slide', function(){ masterSlide(1); }, function(){ masterSlide(-1); });
 })();
 </script>
 
