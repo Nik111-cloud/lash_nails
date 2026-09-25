@@ -806,42 +806,56 @@
       <script>
 (function(){
   var track = document.querySelector('.hero-slides');
-  var slides = document.querySelectorAll('.hero-slide');
   var dots = document.querySelectorAll('.hero-dot');
-  var current = 0;
+  if(!track) return;
+
+  var realSlides = Array.prototype.slice.call(track.children);
+  var realCount = realSlides.length;
+  var firstClone = realSlides[0].cloneNode(true);
+  var lastClone = realSlides[realCount - 1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden', 'true');
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, realSlides[0]);
+
+  var trackIndex = 1; // 0 — клон последнего, 1..realCount — настоящие, realCount+1 — клон первого
   var AUTOPLAY_DELAY = 5000;
   var timer = null;
 
-  function render(){
-    track.style.transform = 'translateX(-' + (current * 100) + '%)';
-    slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
-    dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
+  function realIndexOf(idx){
+    return ((idx - 1) % realCount + realCount) % realCount;
   }
-  function show(i){
-    current = (i + slides.length) % slides.length;
-    render();
+  function render(withTransition){
+    track.style.transition = withTransition ? 'transform .5s ease' : 'none';
+    track.style.transform = 'translateX(-' + (trackIndex * 100) + '%)';
+    var real = realIndexOf(trackIndex);
+    dots.forEach(function(d, i){ d.classList.toggle('is-active', i === real); });
   }
+  track.addEventListener('transitionend', function(){
+    if(trackIndex === realCount + 1){ trackIndex = 1; render(false); }
+    else if(trackIndex === 0){ trackIndex = realCount; render(false); }
+  });
+  function move(delta){ trackIndex += delta; render(true); }
+  function goTo(realIdx){ trackIndex = realIdx + 1; render(true); }
+
   function startAutoplay(){
     if(timer){ clearInterval(timer); }
-    timer = setInterval(function(){ show(current + 1); }, AUTOPLAY_DELAY);
+    timer = setInterval(function(){ move(1); }, AUTOPLAY_DELAY);
   }
-  window.heroSlide = function(delta){ show(current + delta); startAutoplay(); };
-  window.heroGoTo = function(i){ show(i); startAutoplay(); };
+  window.heroSlide = function(delta){ move(delta); startAutoplay(); };
+  window.heroGoTo = function(i){ goTo(i); startAutoplay(); };
 
   window.heroTrackDrag = function(deltaPx){
     track.style.transition = 'none';
-    track.style.transform = 'translateX(calc(-' + (current * 100) + '% + ' + deltaPx + 'px))';
+    track.style.transform = 'translateX(calc(-' + (trackIndex * 100) + '% + ' + deltaPx + 'px))';
   };
   window.heroTrackRelease = function(deltaPx, threshold){
-    track.style.transition = 'transform .35s ease';
-    if(Math.abs(deltaPx) > threshold){
-      show(current + (deltaPx < 0 ? 1 : -1));
-    } else {
-      render();
-    }
+    if(Math.abs(deltaPx) > threshold){ move(deltaPx < 0 ? 1 : -1); }
+    else { render(true); }
     startAutoplay();
   };
 
+  render(false);
   startAutoplay();
 })();
 </script>
