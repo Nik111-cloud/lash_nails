@@ -846,6 +846,7 @@
   }
   window.heroSlide = function(delta){ move(delta); startAutoplay(); };
   window.heroGoTo = function(i){ goTo(i); startAutoplay(); };
+  window.__heroRerender = function(){ render(false); };
 
   var dragFrame = null;
   var pendingDelta = 0;
@@ -1133,15 +1134,8 @@ window.heroTrackDrag = function(deltaPx){
 
 <script>
 (function(){
-  function nudgeRepaint(el){
-    if(!el) return;
-    el.style.transform = 'translateZ(0)';
-    void el.offsetHeight; // форсируем реальный reflow, а не просто присвоение стиля
-    el.style.transform = '';
-  }
   function repaintStickyBits(){
-    nudgeRepaint(document.querySelector('.hero-carousel'));
-    nudgeRepaint(document.querySelector('.topbar'));
+    if(window.__heroRerender){ window.__heroRerender(); }
   }
   document.addEventListener('visibilitychange', function(){
     if(document.visibilityState === 'visible'){ repaintStickyBits(); }
