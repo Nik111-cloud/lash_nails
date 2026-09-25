@@ -794,7 +794,7 @@
 </div>
 
    <!-- ======================== JS Scripts ======================== --> 
-  <script>
+<script>
 (function(){
   var topbar = document.querySelector('.topbar');
   function setTopbarHeight(){
@@ -805,7 +805,7 @@
 })();
 </script>
 
-      <script>
+<script>
 (function(){
   var track = document.querySelector('.hero-slides');
   var dots = document.querySelectorAll('.hero-dot');
@@ -872,7 +872,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-      <script>
+<script>
 (function(){
   var BOOKING_PREFIX = 'https://dikidi.net/2038825';
   var DELAY = 550;
@@ -919,7 +919,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>      
 
-      <script>
+<script>
 (function(){
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightbox-img');
@@ -951,7 +951,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-  <script>
+<script>
 (function(){
   function bindScrollIndicator(stripClass){
     var strip = document.querySelector('.' + stripClass);
@@ -979,7 +979,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-  <script>
+<script>
 (function(){
   function enableHorizontalScroll(selector){
     var el = document.querySelector(selector);
@@ -1000,7 +1000,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-  <script>
+<script>
 (function(){
   var slides = document.querySelectorAll('.master-slide');
   var dots = document.querySelectorAll('.master-dot');
@@ -1015,7 +1015,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-  <script>
+<script>
 (function(){
   var bgSlides = document.querySelectorAll('.master-bg-slide');
   if(!bgSlides.length) return;
@@ -1030,7 +1030,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-  <script>
+<script>
 (function(){
   function enableSwipe(selector, slideSelector, onSwipeLeft, onSwipeRight){
     var el = document.querySelector(selector);
@@ -1093,7 +1093,7 @@ window.heroTrackDrag = function(deltaPx){
 })();
 </script>
 
-  <script>
+<script>
 (function(){
   var el = document.querySelector('.hero-carousel');
   if(!el) return;
@@ -1128,6 +1128,25 @@ window.heroTrackDrag = function(deltaPx){
     var horizontal = Math.abs(deltaX) > Math.abs(deltaY);
     window.heroTrackRelease(horizontal ? deltaX : 0, THRESHOLD);
   }, {passive:true});
+})();
+</script>
+
+<script>
+(function(){
+  function nudgeRepaint(el){
+    if(!el) return;
+    el.style.transform = 'translateZ(0)';
+    void el.offsetHeight; // форсируем реальный reflow, а не просто присвоение стиля
+    el.style.transform = '';
+  }
+  function repaintStickyBits(){
+    nudgeRepaint(document.querySelector('.hero-carousel'));
+    nudgeRepaint(document.querySelector('.topbar'));
+  }
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState === 'visible'){ repaintStickyBits(); }
+  });
+  window.addEventListener('pageshow', repaintStickyBits);
 })();
 </script>
 
