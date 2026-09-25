@@ -433,12 +433,12 @@
     display:none;
     position:fixed; left:0; right:0; bottom:0; z-index:30;
     background:var(--bg); border-top:1px solid var(--line);
-    padding:8px 12px calc(8px + env(safe-area-inset-bottom));
+    padding:6px 10px calc(6px + env(safe-area-inset-bottom));
   }
-  .mobile-bar-inner{display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:8px;}
+  .mobile-bar-inner{display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:6px;}
   .mobile-bar a{
     display:flex; align-items:center; justify-content:center; gap:6px;
-    padding:9px 8px; font-size:13px; font-weight:600; text-decoration:none; border-radius:var(--radius);
+    padding:7px 6px; font-size:12px; font-weight:600; text-decoration:none; border-radius:var(--radius);
   }
   .mobile-bar .call{border:1px solid var(--line); color:var(--ink);}
   .mobile-bar .wa{border:1px solid var(--line); color:var(--ink);}
@@ -455,8 +455,9 @@
   .topbar-actions .btn-ghost{display:none;}
   .master-carousel{min-height:88vh; height:auto;}
   .master-arrow{top:18px; transform:none;}
-  #portfolio{padding-top:32px;}
+  #portfolio{padding-top:32px; padding-bottom:38px;}
   #reviews{padding-top:32px;}
+  #pricing{padding-top:48px;}
 }
   
 @media (max-width:560px){
