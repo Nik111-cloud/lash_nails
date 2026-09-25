@@ -164,6 +164,7 @@
   overflow:hidden;
   color:var(--bg);
 }
+  
 .page-content{
   position:relative; z-index:2;
   background:var(--bg);
@@ -175,14 +176,17 @@
   background:linear-gradient(to top, rgba(20,14,10,.3), rgba(20,14,10,0));
   pointer-events:none;
 }
-.hero-slides{position:absolute; inset:0;}
-.hero-slide{
+  
+.hero-slides{
   position:absolute; inset:0;
-  opacity:0;
-  transition:opacity .6s ease;
+  display:flex;
+  transition:transform .5s ease;
 }
-.hero-slide{pointer-events:none;}
-.hero-slide.is-active{opacity:1; pointer-events:auto;}
+.hero-slide{
+  position:relative;
+  flex:0 0 100%;
+}
+  
 .hero-slide-photo{
   position:absolute; inset:0;
   width:100%; height:100%;
@@ -797,16 +801,21 @@
 
       <script>
 (function(){
+  var track = document.querySelector('.hero-slides');
   var slides = document.querySelectorAll('.hero-slide');
   var dots = document.querySelectorAll('.hero-dot');
   var current = 0;
   var AUTOPLAY_DELAY = 5000;
   var timer = null;
 
-  function show(i){
-    current = (i + slides.length) % slides.length;
+  function render(){
+    track.style.transform = 'translateX(-' + (current * 100) + '%)';
     slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
     dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
+  }
+  function show(i){
+    current = (i + slides.length) % slides.length;
+    render();
   }
   function startAutoplay(){
     if(timer){ clearInterval(timer); }
@@ -814,6 +823,20 @@
   }
   window.heroSlide = function(delta){ show(current + delta); startAutoplay(); };
   window.heroGoTo = function(i){ show(i); startAutoplay(); };
+
+  window.heroTrackDrag = function(deltaPx){
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(calc(-' + (current * 100) + '% + ' + deltaPx + 'px))';
+  };
+  window.heroTrackRelease = function(deltaPx, threshold){
+    track.style.transition = 'transform .35s ease';
+    if(Math.abs(deltaPx) > threshold){
+      show(current + (deltaPx < 0 ? 1 : -1));
+    } else {
+      render();
+    }
+    startAutoplay();
+  };
 
   startAutoplay();
 })();
