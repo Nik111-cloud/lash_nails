@@ -181,7 +181,9 @@
   position:absolute; inset:0;
   display:flex;
   transition:transform .5s ease;
+  will-change:transform;
 }
+  
 .hero-slide{
   position:relative;
   flex:0 0 100%;
@@ -845,10 +847,20 @@
   window.heroSlide = function(delta){ move(delta); startAutoplay(); };
   window.heroGoTo = function(i){ goTo(i); startAutoplay(); };
 
-  window.heroTrackDrag = function(deltaPx){
+  var dragFrame = null;
+  var pendingDelta = 0;
+  function applyDrag(){
     track.style.transition = 'none';
-    track.style.transform = 'translateX(calc(-' + (trackIndex * 100) + '% + ' + deltaPx + 'px))';
-  };
+    track.style.transform = 'translateX(calc(-' + (trackIndex * 100) + '% + ' + pendingDelta + 'px))';
+    dragFrame = null;
+  }
+window.heroTrackDrag = function(deltaPx){
+  pendingDelta = deltaPx;
+  if(dragFrame === null){
+    dragFrame = requestAnimationFrame(applyDrag);
+  }
+ };
+  
   window.heroTrackRelease = function(deltaPx, threshold){
     if(Math.abs(deltaPx) > threshold){ move(deltaPx < 0 ? 1 : -1); }
     else { render(true); }
