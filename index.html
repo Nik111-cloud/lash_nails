@@ -325,7 +325,7 @@
     outline:2px solid var(--accent);
     outline-offset:2px;
   }
-    .review-strip .review-photo-full{
+  .review-strip .review-photo-full{
     flex:0 0 320px;
     width:320px;
     aspect-ratio:1/1;
@@ -333,7 +333,9 @@
     border:1px solid var(--line);
     border-radius:16px;
   }
-
+  .review-strip .review-photo-full{cursor:pointer;}
+  .portfolio-photo:focus-visible,
+  .review-photo-full:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
     /* ---------- master carousel ---------- */
   .master-carousel{
     position:relative;
