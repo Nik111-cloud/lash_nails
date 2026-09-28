@@ -823,50 +823,99 @@
   var trackIndex = 1; // 0 — клон последнего, 1..realCount — настоящие, realCount+1 — клон первого
   var AUTOPLAY_DELAY = 5000;
   var timer = null;
+  var settleTimer = null;
+  var dragFrame = null;
+  var pendingDelta = 0;
 
   function realIndexOf(idx){
     return ((idx - 1) % realCount + realCount) % realCount;
   }
+
   function render(withTransition){
     track.style.transition = withTransition ? 'transform .5s ease' : 'none';
     track.style.transform = 'translateX(-' + (trackIndex * 100) + '%)';
     var real = realIndexOf(trackIndex);
     dots.forEach(function(d, i){ d.classList.toggle('is-active', i === real); });
+    clearTimeout(settleTimer);
+    if(withTransition){ settleTimer = setTimeout(normalize, 600); } // страховка, если transitionend не придёт
   }
-  track.addEventListener('transitionend', function(){
-    if(trackIndex === realCount + 1){ trackIndex = 1; render(false); }
-    else if(trackIndex === 0){ trackIndex = realCount; render(false); }
+
+  // Если стоим на клоне или индекс вылез за границы — тихо перескакиваем на настоящий слайд
+  function normalize(){
+    if(trackIndex < 1 || trackIndex > realCount){
+      trackIndex = realIndexOf(trackIndex) + 1;
+      render(false);
+    }
+  }
+
+  track.addEventListener('transitionend', function(e){
+    if(e.target === track){ normalize(); }
   });
-  function move(delta){ trackIndex += delta; render(true); }
+
+  function move(delta){
+    var next = trackIndex + delta;
+    if(next < 0 || next > realCount + 1){ render(true); return; } // упёрлись в край — вернуть трек на место
+    trackIndex = next;
+    render(true);
+  }
   function goTo(realIdx){ trackIndex = realIdx + 1; render(true); }
 
+  function stopAutoplay(){
+    if(timer){ clearInterval(timer); timer = null; }
+  }
   function startAutoplay(){
-    if(timer){ clearInterval(timer); }
+    stopAutoplay();
     timer = setInterval(function(){ move(1); }, AUTOPLAY_DELAY);
   }
+
   window.heroSlide = function(delta){ move(delta); startAutoplay(); };
   window.heroGoTo = function(i){ goTo(i); startAutoplay(); };
-  window.__heroRerender = function(){ render(false); };
+  window.__heroRerender = function(){ normalize(); render(false); };
 
-  var dragFrame = null;
-  var pendingDelta = 0;
+  // ----- свайп -----
   function applyDrag(){
     track.style.transition = 'none';
     track.style.transform = 'translateX(calc(-' + (trackIndex * 100) + '% + ' + pendingDelta + 'px))';
     dragFrame = null;
   }
-window.heroTrackDrag = function(deltaPx){
-  pendingDelta = deltaPx;
-  if(dragFrame === null){
-    dragFrame = requestAnimationFrame(applyDrag);
+  function cancelDrag(){
+    if(dragFrame !== null){ cancelAnimationFrame(dragFrame); dragFrame = null; }
+    pendingDelta = 0;
   }
- };
-  
+  window.heroTrackDrag = function(deltaPx){
+    stopAutoplay(); // пока тянут пальцем, автопрокрутка не должна менять слайд
+    pendingDelta = deltaPx;
+    if(dragFrame === null){ dragFrame = requestAnimationFrame(applyDrag); }
+  };
   window.heroTrackRelease = function(deltaPx, threshold){
+    cancelDrag();
     if(Math.abs(deltaPx) > threshold){ move(deltaPx < 0 ? 1 : -1); }
     else { render(true); }
     startAutoplay();
   };
+  window.heroTrackCancel = function(){ // касание прервано системой (звонок, сворачивание и т. п.)
+    cancelDrag();
+    render(true);
+    startAutoplay();
+  };
+
+  // ----- возврат на вкладку / из фона -----
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){
+      stopAutoplay();
+    } else {
+      cancelDrag();
+      normalize();
+      render(false);
+      startAutoplay();
+    }
+  });
+  window.addEventListener('pageshow', function(){
+    cancelDrag();
+    normalize();
+    render(false);
+    startAutoplay();
+  });
 
   render(false);
   startAutoplay();
@@ -1129,18 +1178,6 @@ window.heroTrackDrag = function(deltaPx){
     var horizontal = Math.abs(deltaX) > Math.abs(deltaY);
     window.heroTrackRelease(horizontal ? deltaX : 0, THRESHOLD);
   }, {passive:true});
-})();
-</script>
-
-<script>
-(function(){
-  function repaintStickyBits(){
-    if(window.__heroRerender){ window.__heroRerender(); }
-  }
-  document.addEventListener('visibilitychange', function(){
-    if(document.visibilityState === 'visible'){ repaintStickyBits(); }
-  });
-  window.addEventListener('pageshow', repaintStickyBits);
 })();
 </script>
 
