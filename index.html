@@ -1068,12 +1068,29 @@
   function enableHorizontalScroll(selector){
     var el = document.querySelector(selector);
     if(!el) return;
+ 
     el.addEventListener('wheel', function(e){
-      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
-        el.scrollLeft += e.deltaY;
-        e.preventDefault();
-      }
+      // Горизонтальный жест трекпада, Shift+колесо, pinch-zoom (ctrlKey) — браузер справится сам
+      if(e.ctrlKey || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+ 
+      var maxScroll = el.scrollWidth - el.clientWidth;
+      if(maxScroll <= 0) return; // лента целиком помещается — нечего прокручивать
+ 
+      var atStart = el.scrollLeft <= 0;
+      var atEnd = el.scrollLeft >= maxScroll - 1;
+ 
+      // Дошли до края в эту сторону — отдаём прокрутку странице
+      if((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+ 
+      // Firefox может отдавать дельту в строках/страницах, а не в пикселях
+      var delta = e.deltaY;
+      if(e.deltaMode === 1){ delta *= 40; }
+      else if(e.deltaMode === 2){ delta *= el.clientWidth; }
+ 
+      el.scrollLeft += delta;
+      e.preventDefault();
     }, {passive:false});
+ 
     el.addEventListener('keydown', function(e){
       if(e.key === 'ArrowRight'){ el.scrollLeft += 120; e.preventDefault(); }
       if(e.key === 'ArrowLeft'){ el.scrollLeft -= 120; e.preventDefault(); }
