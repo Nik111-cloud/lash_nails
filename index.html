@@ -925,47 +925,53 @@
 <script>
 (function(){
   var BOOKING_PREFIX = 'https://dikidi.net/2038825';
-  var DELAY = 550;
+  var NAV_DELAY = 550;   // пауза перед переходом, чтобы оверлей успел показаться
+  var HIDE_AFTER = 4000; // страховка: если переход не случился, убрать оверлей через это время
   var overlay = document.getElementById('booking-overlay');
   if(!overlay) return;
-
-  document.querySelectorAll('a[href^="' + BOOKING_PREFIX + '"]').forEach(function(link){
-    link.addEventListener('click', function(e){
-      e.preventDefault();
-      var targetUrl = link.href;
-      overlay.classList.add('is-active');
-      overlay.setAttribute('aria-hidden', 'false');
-      setTimeout(function(){
-        window.location.href = targetUrl;
-      }, DELAY);
-    });
-  });
-
-   window.addEventListener('pageshow', function(){
+ 
+  var navTimer = null;
+  var hideTimer = null;
+ 
+  function hideOverlay(){
+    clearTimeout(navTimer);
+    clearTimeout(hideTimer);
     overlay.classList.remove('is-active');
     overlay.setAttribute('aria-hidden', 'true');
-  });
-})();
-</script>
-
-<script>
-(function(){
-  var KEY = 'cookieConsentAccepted';
-  var banner = document.getElementById('cookie-banner');
-  if(!banner) return;
-  try{
-    if(localStorage.getItem(KEY) === '1'){
-      banner.remove();
-      return;
-    }
-  }catch(e){}
-  var btn = document.getElementById('cookie-accept');
-  if(btn){
-    btn.addEventListener('click', function(){
-      try{ localStorage.setItem(KEY, '1'); }catch(e){}
-      banner.remove();
-    });
   }
+ 
+  // Делегирование: работает и для клонов в hero-карусели
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href^="' + BOOKING_PREFIX + '"]');
+    if(!link) return;
+ 
+    // Ctrl/⌘/Shift/Alt-клик и «в новой вкладке» — не вмешиваемся, пусть работает браузер
+    if(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if(link.target && link.target !== '_self') return;
+ 
+    e.preventDefault();
+    var url = link.href;
+ 
+    clearTimeout(navTimer);
+    clearTimeout(hideTimer);
+    overlay.classList.add('is-active');
+    overlay.setAttribute('aria-hidden', 'false');
+ 
+    navTimer = setTimeout(function(){ window.location.href = url; }, NAV_DELAY);
+    hideTimer = setTimeout(hideOverlay, NAV_DELAY + HIDE_AFTER);
+  });
+ 
+  // Ручное закрытие: клик по оверлею или Esc
+  overlay.addEventListener('click', hideOverlay);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ hideOverlay(); }
+  });
+ 
+  // Возврат на страницу (кнопка «назад», bfcache, возврат из другого приложения)
+  window.addEventListener('pageshow', hideOverlay);
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden){ hideOverlay(); }
+  });
 })();
 </script>      
 
@@ -974,29 +980,55 @@
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightbox-img');
   if(!lightbox || !lightboxImg) return;
-
-  function openLightbox(src, alt){
-    lightboxImg.src = src;
-    lightboxImg.alt = alt || '';
+ 
+  var closeBtn = lightbox.querySelector('.lightbox-close');
+  var SELECTOR = '.portfolio-photo, .review-photo-full';
+  var lastTrigger = null;
+ 
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.setAttribute('aria-label', 'Просмотр фото');
+ 
+  // Делаем фото доступными с клавиатуры
+  document.querySelectorAll(SELECTOR).forEach(function(img){
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+  });
+ 
+  function openLightbox(img){
+    lastTrigger = img;
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt || '';
     lightbox.classList.add('is-active');
     lightbox.setAttribute('aria-hidden', 'false');
+    if(closeBtn){ closeBtn.focus(); }
   }
+ 
   window.closeLightbox = function(){
+    if(!lightbox.classList.contains('is-active')) return;
     lightbox.classList.remove('is-active');
     lightbox.setAttribute('aria-hidden', 'true');
+    if(lastTrigger){
+      lastTrigger.focus({preventScroll:true});
+      lastTrigger = null;
+    }
   };
-
-  document.querySelectorAll('.portfolio-photo').forEach(function(img){
-    img.addEventListener('click', function(){
-      openLightbox(img.src, img.alt);
-    });
+ 
+  document.addEventListener('click', function(e){
+    var img = e.target.closest(SELECTOR);
+    if(img){ openLightbox(img); }
   });
-
+ 
   lightbox.addEventListener('click', function(e){
     if(e.target === lightbox){ closeLightbox(); }
   });
+ 
   document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape'){ closeLightbox(); }
+    if(e.key === 'Escape'){ closeLightbox(); return; }
+    if((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches(SELECTOR)){
+      e.preventDefault();
+      openLightbox(e.target);
+    }
   });
 })();
 </script>
