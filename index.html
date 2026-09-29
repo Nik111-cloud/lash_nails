@@ -457,30 +457,40 @@
   .mobile-bar .book{background:var(--accent); color:var(--accent-ink);}
 
   @media (max-width: 900px){
-  .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
-  .hero-carousel, .hero-overlay-content{min-height:auto; height:88vh;}
-  .hero-arrow{top:18px; transform:none;}
-  .hero-overlay-content{padding-bottom:148px;}
-  .hero-dots{bottom:126px;}
-   body{padding-bottom:78px;}
-  .mobile-bar{display:block;}
-  .topbar-actions .btn-ghost{display:none;}
-  .master-carousel{min-height:0; height:auto;}
-  .master-slides{position:relative; inset:auto; display:grid;}
-  .master-slide{position:relative; inset:auto; grid-area:1 / 1; align-items:flex-start;}
-  .master-frame{padding-top:80px; padding-bottom:56px;}
-  .master-arrow{top:18px; transform:none;}
+    .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
+    .hero-carousel, .hero-overlay-content{min-height:auto; height:88vh;}
+    .hero-arrow{top:18px; transform:none;}
+    .hero-overlay-content{padding-bottom:148px;}
+    .hero-dots{bottom:126px;}
+     body{padding-bottom:78px;}
+    .mobile-bar{display:block;}
+    .topbar-actions .btn-ghost{display:none;}
+   .master-carousel{min-height:0; height:auto;}
+    .master-slides{position:relative; inset:auto; display:grid;}
+    .master-slide{position:relative; inset:auto; grid-area:1 / 1; align-items:flex-start;}
+    .master-frame{padding-top:80px; padding-bottom:56px;}
+    .master-arrow{top:18px; transform:none;}
   #portfolio{padding-top:32px; padding-bottom:38px;}
   #reviews{padding-top:32px;}
   #pricing{padding-top:48px;}
-}
+  }
+
+  @media (max-width:900px) and (orientation:landscape) and (max-height:500px){
+    .hero-carousel, .hero-overlay-content{height:100dvh;}
+    .hero-overlay-content{padding-bottom:88px;}
+    .hero-overlay-content .eyebrow{display:none;}
+    .hero-overlay-content .lede{display:none;}
+    .hero-overlay-content h1{font-size:clamp(22px, 5vw, 30px);}
+    .hero-dots{bottom:64px;}
+    .hero-arrow{top:14px; width:36px; height:36px; font-size:18px;}
+  }
   
-@media (max-width:560px){
-  .service-row{grid-template-columns:1fr 1fr; row-gap:8px;}
-  .service-row .book-link{grid-column:1 / -1;}
-  .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
-  .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
-}
+  @media (max-width:560px){
+    .service-row{grid-template-columns:1fr 1fr; row-gap:8px;}
+    .service-row .book-link{grid-column:1 / -1;}
+    .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
+    .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
+  }
   
 </style>
 </head>
@@ -639,10 +649,10 @@
       <img src="review4.jpg" class="review-photo-full" alt="Отзыв клиента 3">
       <img src="review6.jpg" class="review-photo-full" alt="Отзыв клиента 3">
       <img src="review2.jpg" class="review-photo-full" alt="Отзыв клиента 2">
-      <img src="review3.jpg" class="review-photo-full" alt="Отзыв клиента 3">
-      <img src="review5.jpg" class="review-photo-full" alt="Отзыв клиента 3">
-      <img src="review7.jpg" class="review-photo-full" alt="Отзыв клиента 3">
-      <img src="review1.jpg" class="review-photo-full" alt="Отзыв клиента 1">
+      <img src="review3.jpg" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review5.jpg" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review7.jpg" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review1.jpg" class="review-photo-full" alt="Отзыв клиента 1" loading="lazy">
     </div>
     <div class="scroll-indicator" aria-hidden="true">
       <div class="scroll-indicator-thumb" data-track-for="review-strip"></div>
