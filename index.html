@@ -90,6 +90,14 @@
   .cookie-toast.is-visible{opacity:1; transform:translateY(0); pointer-events:auto;}
   .cookie-toast-text{margin:0; font-size:13px; line-height:1.5; color:var(--bg);}
   .cookie-toast-text a{color:var(--bg); text-decoration:underline;}
+  .cookie-toast-title{
+    margin:0;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:rgba(251,247,242,.6);
+   }
   .cookie-toast-actions{display:flex; justify-content:flex-end;}
   .cookie-toast #cookie-accept{padding:8px 16px; font-size:13px;}
 
@@ -503,6 +511,7 @@
 <body>
 
 <div id="cookie-banner" class="cookie-toast" aria-live="polite">
+  <p class="cookie-toast-title">Manage cookies</p>
   <p class="cookie-toast-text">Мы используем cookie и Яндекс.Метрику, чтобы улучшать работу сайта. Продолжая пользоваться сайтом, вы соглашаетесь с политикой обработки данных.</p>
   <div class="cookie-toast-actions">
     <button id="cookie-accept" class="btn btn-primary btn-small">Понятно</button>
