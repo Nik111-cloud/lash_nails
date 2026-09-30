@@ -76,20 +76,26 @@
   }
   .muted{color:var(--muted);}
 
-  .cookie-banner{background:var(--ink); color:var(--bg);}
-  .cookie-banner-inner{
-    max-width:var(--maxw); margin:0 auto; padding:10px 16px;
-    display:flex; align-items:center; justify-content:space-between; gap:14px;
-  }
-  .cookie-banner-text{flex:1 1 auto; margin:0; font-size:12.5px; line-height:1.4; color:var(--bg);}
-  .cookie-banner-text a{color:var(--bg); text-decoration:underline;}
-  .cookie-banner #cookie-accept{flex:0 0 auto; white-space:nowrap; padding:8px 14px; font-size:13px;}
+  .cookie-toast{
+    position:fixed; left:16px; bottom:16px; z-index:40;
+    width:calc(100% - 32px); max-width:360px;
+    background:var(--ink); color:var(--bg);
+    border-radius:12px;
+    box-shadow:0 12px 32px rgba(20,14,10,.28);
+    padding:16px 18px;
+    display:flex; flex-direction:column; gap:12px;
+    opacity:0; transform:translateY(12px); pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+   }
+  .cookie-toast.is-visible{opacity:1; transform:translateY(0); pointer-events:auto;}
+  .cookie-toast-text{margin:0; font-size:13px; line-height:1.5; color:var(--bg);}
+  .cookie-toast-text a{color:var(--bg); text-decoration:underline;}
+  .cookie-toast-actions{display:flex; justify-content:flex-end;}
+  .cookie-toast #cookie-accept{padding:8px 16px; font-size:13px;}
 
-@media (max-width:380px){
-  .cookie-banner-inner{flex-wrap:wrap;}
-  .cookie-banner-text{flex:1 1 100%;}
-  }
-
+@media (max-width:900px){
+  .cookie-toast{bottom:90px;}
+}
   /* ---------- top bar ---------- */
   .topbar{
     position:sticky; top:0; z-index:20;
@@ -496,9 +502,9 @@
 </head>
 <body>
 
-<div id="cookie-banner" class="cookie-banner">
-  <div class="cookie-banner-inner">
-    <p class="cookie-banner-text">Мы используем cookie и Яндекс.Метрику, чтобы улучшать работу сайта. Продолжая пользоваться сайтом, вы соглашаетесь с политикой обработки данных.</p>
+<div id="cookie-banner" class="cookie-toast" aria-live="polite">
+  <p class="cookie-toast-text">Мы используем cookie и Яндекс.Метрику, чтобы улучшать работу сайта. Продолжая пользоваться сайтом, вы соглашаетесь с политикой обработки данных.</p>
+  <div class="cookie-toast-actions">
     <button id="cookie-accept" class="btn btn-primary btn-small">Понятно</button>
   </div>
 </div>
@@ -1250,6 +1256,29 @@
     var horizontal = Math.abs(deltaX) > Math.abs(deltaY);
     window.heroTrackRelease(horizontal ? deltaX : 0, THRESHOLD);
   }, {passive:true});
+})();
+</script>
+
+<script>
+(function(){
+  var KEY = 'cookieConsentAccepted';
+  var banner = document.getElementById('cookie-banner');
+  if(!banner) return;
+
+  var accepted = false;
+  try{ accepted = localStorage.getItem(KEY) === '1'; }catch(e){}
+  if(accepted){ banner.remove(); return; } // уже приняли раньше — вообще не показываем
+
+  var showTimer = setTimeout(function(){ banner.classList.add('is-visible'); }, 800);
+
+  var btn = document.getElementById('cookie-accept');
+  if(btn){
+    btn.addEventListener('click', function(){
+      try{ localStorage.setItem(KEY, '1'); }catch(e){}
+      banner.classList.remove('is-visible');
+      setTimeout(function(){ banner.remove(); }, 300);
+    });
+  }
 })();
 </script>
 
