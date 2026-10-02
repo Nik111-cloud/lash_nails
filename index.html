@@ -181,15 +181,22 @@
 
   /* ---------- hero carousel ---------- */
 .hero-carousel{
-  position:relative;
+  position:sticky; top:var(--topbar-h); z-index:1;
   min-height:78vh;
   overflow:hidden;
   color:var(--bg);
 }
-
+  
 .page-content{
-  position:relative;
+  position:relative; z-index:2;
   background:var(--bg);
+}
+.page-content::before{ /* мягкая тень над верхней кромкой, чтобы наезд читался */
+  content:"";
+  position:absolute; left:0; right:0; bottom:100%;
+  height:48px;
+  background:linear-gradient(to top, rgba(20,14,10,.3), rgba(20,14,10,0));
+  pointer-events:none;
 }
   
 .hero-slides{
@@ -310,11 +317,13 @@
     object-fit:cover;
     display:block;
   }
-  .effect-card::after{
-    content:"";
-    position:absolute; inset:0;
-    background:linear-gradient(180deg, rgba(20,14,10,0) 40%, rgba(20,14,10,.75) 100%);
-    pointer-events:none;
+  .effect-card{
+    position:relative;
+    z-index:0;
+    aspect-ratio:4/5;
+    border-radius:20px;
+    overflow:hidden;
+    color:var(--bg);
   }
   .effect-badge{
     position:absolute; top:16px; left:16px; z-index:2;
