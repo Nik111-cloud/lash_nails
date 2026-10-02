@@ -297,6 +297,58 @@
   cursor:pointer;
 }
 
+    /* ---------- lash effects ---------- */
+  .effects-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:32px;
+  }
+  .effect-card{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:20px;
+    overflow:hidden;
+    color:var(--bg);
+  }
+  .effect-photo{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .effect-card::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,14,10,0) 40%, rgba(20,14,10,.75) 100%);
+    pointer-events:none;
+  }
+  .effect-badge{
+    position:absolute; top:16px; left:16px; z-index:2;
+    background:rgba(251,247,242,.18);
+    backdrop-filter:blur(4px);
+    border:1px solid rgba(251,247,242,.35);
+    color:var(--bg);
+    font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+    padding:8px 14px;
+    border-radius:999px;
+  }
+  .effect-body{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:20px;
+  }
+  .effect-body h3{color:var(--bg); font-size:22px; margin:0 0 6px;}
+  .effect-body p{color:rgba(251,247,242,.85); font-size:14px; margin:0; max-width:34ch;}
+
+  @media (min-width:900px){
+    .effects-grid{
+      grid-template-columns:repeat(3, 1fr);
+      grid-auto-rows:280px;
+    }
+    .effect-card{aspect-ratio:auto;} /* высоту на десктопе задаёт сетка, а не aspect-ratio */
+    .effect-card:nth-child(4){grid-column:span 2;} /* «Мокрый» — широкая карточка снизу слева */
+  }
+
     /* ---------- scroll indicator ---------- */
   .scroll-indicator{
     position:relative;
@@ -624,6 +676,69 @@
       </div>
     </div>
   </section>
+
+        </div>
+    </div>
+  </section>
+
+  <!-- ================= LASH EFFECTS ================= -->
+  <section class="section" id="lash-effects">
+    <div class="wrap">
+      <p class="eyebrow">Ресницы</p>
+      <h2>Какой эффект наращивания выбрать</h2>
+      <p class="muted" style="max-width:56ch">Мастер подбирает длину и изгиб под форму ваших глаз — вот как выглядит каждый эффект.</p>
+      <div class="effects-grid">
+
+        <div class="effect-card">
+          <img src="effect-natural.avif" class="effect-photo" alt="Натуральный эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">01 · Натурал</span>
+          <div class="effect-body">
+            <h3>Натуральный эффект</h3>
+            <p>Лёгкий и максимально естественный объём. Ресницы выглядят ухоженно, а не «накрашенно» — хороший выбор для первого наращивания.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="effect-fox.avif" class="effect-photo" alt="Лисий эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">02 · Фокс</span>
+          <div class="effect-body">
+            <h3>Лисий эффект</h3>
+            <p>Слегка приподнятые кончики к внешнему уголку — взгляд становится вытянутым и собранным, как при лёгкой стрелке.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="effect-doll.avif" class="effect-photo" alt="Кукольный эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">03 · Долл</span>
+          <div class="effect-body">
+            <h3>Кукольный эффект</h3>
+            <p>Акцент на центр глаза, ресницы распределены равномерно по всей длине — взгляд открытый и выразительный.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="effect-wet.avif" class="effect-photo" alt="Мокрый эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">04 · Мокрый</span>
+          <div class="effect-body">
+            <h3>Мокрый эффект</h3>
+            <p>Пушистый, но плотный эффект с характерным блеском — будто ресницы только что подкрашены тушью.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="effect-volume.avif" class="effect-photo" alt="Яркий объём наращивания ресниц" loading="lazy">
+          <span class="effect-badge">05 · Объём</span>
+          <div class="effect-body">
+            <h3>Яркий объём</h3>
+            <p>Максимально плотный и заметный результат для тех, кто не любит частые коррекции.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTFOLIO ================= -->
 
   <!-- ================= PORTFOLIO ================= -->
   <section class="section" id="portfolio">
