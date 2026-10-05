@@ -538,8 +538,20 @@
     .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
     .hero-carousel, .hero-overlay-content{min-height:auto; height:max(560px, 66vh);}
     .hero-arrow{top:18px; transform:none;}
-    .hero-overlay-content{padding-bottom:148px;}
-    .hero-dots{bottom:126px;}
+    .hero-carousel{
+      --dots-bottom:104px;   /* воздух под точками до низа баннера */
+      --dots-gap:24px;       /* зазор между кнопкой и точками */
+    }
+    .hero-dots{bottom:var(--dots-bottom);}
+    .hero-overlay-content{
+      padding-bottom:calc(var(--dots-bottom) + 8px + var(--dots-gap)); /* 8px — высота точки */
+    }
+
+    /* ритм: услуги → оффер → адрес → кнопка */
+    .hero-overlay-content .eyebrow{margin:0 0 clamp(12px, 1.8vh, 16px);}
+    .hero-overlay-content h1{margin:0 0 clamp(16px, 2.4vh, 22px);}
+    .hero-overlay-content .lede{margin:0 0 clamp(26px, 3.4vh, 32px);}
+    .hero-actions{margin-bottom:0;}
      body{padding-bottom:78px;}
     .mobile-bar{display:block;}
     .topbar-actions .btn-ghost{display:none;}
