@@ -538,14 +538,12 @@
     .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
     .hero-carousel, .hero-overlay-content{min-height:auto; height:max(560px, 66vh);}
     .hero-arrow{top:18px; transform:none;}
-    .hero-carousel{
-      --dots-bottom:104px;   /* воздух под точками до низа баннера */
-      --dots-gap:24px;       /* зазор между кнопкой и точками */
-    }
-    .hero-dots{bottom:var(--dots-bottom);}
     .hero-overlay-content{
-      padding-bottom:calc(var(--dots-bottom) + 8px + var(--dots-gap)); /* 8px — высота точки */
+      justify-content:flex-start;   /* текст сверху, а не снизу */
+      padding-top:76px;             /* стрелки: 18px сверху + 40px высота + запас */
+      padding-bottom:0;
     }
+    .hero-dots{bottom:64px;}        /* точки примерно по центру свободной зоны под кнопкой */
 
     /* ритм: услуги → оффер → адрес → кнопка */
     .hero-overlay-content .eyebrow{margin:0 0 clamp(12px, 1.8vh, 16px);}
