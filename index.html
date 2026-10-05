@@ -342,6 +342,15 @@
   .effect-body h3{color:var(--bg); font-size:22px; margin:0 0 6px;}
   .effect-body p{color:rgba(251,247,242,.85); font-size:14px; margin:0; max-width:34ch;}
 
+  .effect-card::after{
+    content:"";
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(20,14,10,0) 35%, rgba(20,14,10,.55) 65%, rgba(20,14,10,.88) 100%);
+    pointer-events:none;
+  }
+  .effect-body h3{text-shadow:0 1px 6px rgba(20,14,10,.5);}
+  .effect-body p{color:rgba(251,247,242,.95); font-size:15px; text-shadow:0 1px 4px rgba(20,14,10,.6);}
+
   @media (min-width:900px){
     .effects-grid{
       grid-template-columns:repeat(3, 1fr);
