@@ -103,7 +103,7 @@
 
 @media (max-width:900px){
   .cookie-toast{bottom:90px;}
-}
+  }
   /* ---------- top bar ---------- */
   .topbar{
     position:sticky; top:0; z-index:20;
@@ -115,9 +115,9 @@
     max-width:var(--maxw); margin:0 auto; padding:14px 24px;
     display:flex; align-items:center; justify-content:space-between; gap:16px;
   }
-  .brand{font-family:'Playfair Display',serif; font-size:20px; font-weight:600; text-decoration:none;}
-  .topbar-actions{display:flex; gap:10px;}
-  .topbar-actions a{font-size:15px;}
+  .brand{font-family:'Playfair Display',serif; text-decoration:none; display:block; line-height:1.1;}
+  .brand-name{display:block; font-size:20px; font-weight:600;}
+  .brand-sub{display:block; font-family:'Golos Text', sans-serif; font-size:12px; font-weight:500; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; white-space:nowrap;}
 
   /* ---------- buttons ---------- */
   .btn{
