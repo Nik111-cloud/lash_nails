@@ -232,7 +232,18 @@
   padding:0 24px 64px;
   display:flex; flex-direction:column; justify-content:flex-end;
 }
-.hero-overlay-content .eyebrow{color:rgba(251,247,242,.75); margin:0 0 10px;}
+.hero-overlay-content .eyebrow{
+  align-self:flex-start;
+  background:rgba(251,247,242,.18);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border:1px solid rgba(251,247,242,.35);
+  color:var(--bg);
+  font-size:13px; font-weight:600; letter-spacing:.04em;
+  padding:8px 14px;
+  border-radius:999px;
+  margin:0 0 10px;
+}
 .hero-overlay-content h1{color:var(--bg); font-size:clamp(32px, 4.6vw, 52px); max-width:15ch;}
 .hero-overlay-content .lede{font-size:18px; color:rgba(251,247,242,.85); max-width:42ch; margin:0 0 26px;}
 .hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px;}
