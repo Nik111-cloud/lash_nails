@@ -76,6 +76,25 @@
   }
   .muted{color:var(--muted);}
 
+  .section .eyebrow{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+    color:var(--ink);
+    font-weight:600;
+    background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(255,255,255,.28));
+    backdrop-filter:blur(10px) saturate(160%);
+    -webkit-backdrop-filter:blur(10px) saturate(160%);
+    border:1px solid rgba(201,185,160,.55);
+    box-shadow:0 4px 16px rgba(42,32,25,.08), inset 0 1px 0 rgba(255,255,255,.85);
+  }
+/* h2 в роли плашки (отзывы): шрифт и отступы как у обычной плашки */
+ .section h2.eyebrow{
+   font-family:'Golos Text','PT Sans',-apple-system,sans-serif;
+   line-height:1.55;
+   margin:0 0 10px;
+  }
+
   .cookie-toast{
     position:fixed; left:16px; bottom:16px; z-index:40;
     width:calc(100% - 32px); max-width:360px;
@@ -311,14 +330,14 @@
   }
   .portfolio-strip::-webkit-scrollbar{display:none;}
   .portfolio-strip .portfolio-photo{
-  flex:0 0 320px;
-  width:320px;
-  aspect-ratio:4/5;
-  object-fit:cover;
-  border:1px solid var(--line);
-  border-radius:20px;
-  cursor:pointer;
-}
+    flex:0 0 320px;
+    width:320px;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    border:1px solid var(--line);
+    border-radius:20px;
+    cursor:pointer;
+  }
 
     /* ---------- lash effects ---------- */
   .effects-grid{
@@ -430,7 +449,7 @@
   .lightbox-close:hover{background:rgba(251,247,242,.28);}
 
    /* ---------- reviews strip ---------- */
-    .review-strip{
+  .review-strip{
     display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; margin-top:32px;
     scrollbar-width:none;
   }
@@ -489,7 +508,18 @@
     padding:0 24px 64px;
   }
   .master-overlay-content{}
-  .master-overlay-content .eyebrow{color:rgba(251,247,242,.75); margin:0 0 10px;}
+  .master-overlay-content .eyebrow{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(251,247,242,.18);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    border:1px solid rgba(251,247,242,.35);
+    color:var(--bg);
+    font-weight:600;
+    margin:0 0 12px;
+  }
   .master-photo{
     width:96px; height:96px; border-radius:50%;
     object-fit:cover;
@@ -805,7 +835,7 @@
 <!-- ================= REVIEWS ================= -->
 <section class="section section-alt" id="reviews">
   <div class="wrap">
-    <h2>Наши отзывы</h2>
+    <h2 class="eyebrow">Наши отзывы</h2>
     <div class="review-strip" tabindex="0">
       <img src="review8.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
       <img src="review9.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
