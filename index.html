@@ -281,17 +281,28 @@
 
   /* ---------- services ---------- */
   .services-layout{display:grid; grid-template-columns:.55fr 1.45fr; gap:48px;}
-  .services-list{border-top:1px solid var(--line);}
+  .services-list{display:flex; flex-direction:column; gap:16px;}
   .service-row{
-    padding:28px 0;
-    border-bottom:1px solid var(--line);
+    position:relative; isolation:isolate; overflow:hidden;
+    min-height:140px;
+    padding:28px;
+    border-radius:20px;
+    color:var(--bg);
+    background:var(--ink) var(--row-bg) center/cover no-repeat;
     display:grid; grid-template-columns:1.3fr .5fr .5fr auto; gap:18px; align-items:center;
-    scroll-margin-top:88px; /* offset for sticky header when jumping via anchor */
+    scroll-margin-top:88px;
   }
-  .service-row h3{font-size:22px; margin:0 0 6px;}
-  .service-row .desc{color:var(--muted); font-size:15px; margin:0;}
-  .service-row .price{font-weight:600;}
-  .service-row .duration{color:var(--muted); font-size:14px;}
+  .service-row::before{ /* затемнение под текст */
+    content:"";
+    position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(90deg, rgba(20,14,10,.82), rgba(20,14,10,.45));
+  }
+  .service-row h3{font-size:22px; margin:0 0 6px; color:var(--bg);}
+  .service-row .desc{color:rgba(251,247,242,.85); font-size:15px; margin:0;}
+  .service-row .price{font-weight:600; color:var(--bg);}
+  .service-row .duration{color:rgba(251,247,242,.8); font-size:14px;}
+  .service-row .btn-ghost{color:var(--bg); border-color:rgba(251,247,242,.55); background:rgba(251,247,242,.12);}
+  .service-row .btn-ghost:hover{background:rgba(251,247,242,.24); border-color:var(--bg);}
 
   /* ---------- portfolio ---------- */
   .portfolio-strip{
@@ -571,7 +582,7 @@
   #portfolio{padding-top:32px; padding-bottom:38px;}
   #reviews{padding-top:32px;}
   #pricing{padding-top:48px;}
-  }
+ }
 
   @media (max-width:900px) and (orientation:landscape) and (max-height:500px){
     .hero-carousel, .hero-overlay-content{height:100dvh;}
@@ -584,7 +595,7 @@
   }
   
   @media (max-width:560px){
-    .service-row{grid-template-columns:1fr 1fr; row-gap:8px;}
+    .service-row{grid-template-columns:1fr 1fr; row-gap:8px; padding:20px;}
     .service-row .book-link{grid-column:1 / -1;}
     .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
     .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
@@ -665,7 +676,7 @@
       </div>
       <div class="services-list">
 
-        <div class="service-row" id="lashes">
+        <div class="service-row" id="lashes" style="--row-bg:url('service-lashes.avif')">
           <div>
             <h3>Ресницы</h3>
             <p class="desc">Наращивание ресниц</p>
@@ -675,7 +686,7 @@
           <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
         </div>
 
-        <div class="service-row" id="lashes">
+        <div class="service-row" id="brows" style="--row-bg:url('service-brows.avif')">
           <div>
             <h3>Брови</h3>
             <p class="desc">Ламинирование бровей</p>
@@ -685,7 +696,7 @@
           <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
         </div>
 
-        <div class="service-row" id="manicure">
+        <div class="service-row" id="manicure" style="--row-bg:url('service-manicure.avif')">
           <div>
             <h3>Маникюр с покрытием гель-лак</h3>
             <p class="desc">Классический или аппаратный, гель-лак, укрепление</p>
@@ -695,7 +706,7 @@
           <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
         </div>
 
-         <div class="service-row" id="makeup">
+         <div class="service-row" id="makeup" style="--row-bg:url('service-makeup.avif')">
           <div>
             <h3>Вечерний макияж</h3>
             <p class="desc">Вечерний макияж</p>
