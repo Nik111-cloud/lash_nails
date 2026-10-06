@@ -536,14 +536,13 @@
     background:var(--bg); border-top:1px solid var(--line);
     padding:6px 10px calc(6px + env(safe-area-inset-bottom));
   }
-  .mobile-bar-inner{display:grid; grid-template-columns:1fr 1fr 1.3fr; gap:6px;}
+  .mobile-bar-inner{display:grid; grid-template-columns:1fr 1fr; gap:6px;}
   .mobile-bar a{
     display:flex; align-items:center; justify-content:center; gap:6px;
     padding:7px 6px; font-size:12px; font-weight:600; text-decoration:none; border-radius:var(--radius);
   }
   .mobile-bar .call{border:1px solid var(--line); color:var(--ink);}
   .mobile-bar .wa{border:1px solid var(--line); color:var(--ink);}
-  .mobile-bar .book{background:var(--accent); color:var(--accent-ink);}
 
   @media (max-width: 900px){
     .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
@@ -949,7 +948,6 @@
   <div class="mobile-bar-inner">
     <a class="call" href="tel:+79649644775">Позвонить</a>
     <a class="wa" href="https://wa.me/79649644775" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="book" href="https://dikidi.net/2038825?p=0.pi">Записаться</a>
   </div>
 </div>
 
