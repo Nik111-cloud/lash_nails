@@ -640,6 +640,24 @@
     .service-row .book-link{grid-column:1 / -1;}
     .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
     .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
+
+  @media (max-width:900px){
+    #pricing{background:#fff;}
+
+    table.pricing{table-layout:auto;}
+    table.pricing th,
+    table.pricing td{padding:14px 6px;}
+    table.pricing th:first-child,
+    table.pricing td:first-child{padding-left:0; width:auto;}   /* «Услуга» занимает всё свободное место */
+    table.pricing th:last-child,
+    table.pricing td:last-child{
+      padding-right:0;
+      width:1%;                 /* «Цена» сжимается до ширины содержимого */
+      white-space:nowrap;       /* «от 2 500 ₽» всегда в одну строку */
+      text-align:right;
+  }
+}
+    
   }
   
 </style>
