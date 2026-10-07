@@ -1,3 +1,6 @@
+@font-face{font-family:Golos Text;font-style:normal;font-weight:400 700;font-display:swap;src:url(fonts/golos.woff2) format('woff2')}
+@font-face{font-family:Playfair Display;font-style:normal;font-weight:600;font-display:swap;src:url(fonts/playfair.woff2) format('woff2')}
+/* Locally hosted Google Fonts; licenses are in fonts/. */
 :root{--ink:#2a2019;--muted:#6b5c4e;--bg:#fbf7f2;--bg-alt:#efe3d3;--line:#c9b9a0;--accent:#a23b4e;--maxw:1120px;--topbar-h:72px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--topbar-h) + 20px)}
@@ -35,6 +38,9 @@ button,a{touch-action:manipulation}
 .btn-ghost{background:transparent;border-color:var(--line)}
 .btn-ghost:hover{border-color:var(--ink)}
 .btn-small{padding:10px 16px;font-size:14px;min-height:44px}
+.btn-wave{position:relative;overflow:hidden}
+.btn-wave::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.32);transform-origin:left center;transform:scaleX(0);pointer-events:none;animation:btn-wave 6s ease-in-out infinite}
+@keyframes btn-wave{0%{transform:scaleX(0);opacity:1}20%{transform:scaleX(1);opacity:1}35%{transform:scaleX(1);opacity:0}36%,100%{transform:scaleX(0);opacity:0}}
 .hero-carousel{position:relative;overflow:hidden;background:var(--ink);color:var(--bg)}
 .hero-slides{display:flex;align-items:stretch;transition:transform .45s ease}
 .hero-slide{position:relative;flex:0 0 100%;min-width:0}

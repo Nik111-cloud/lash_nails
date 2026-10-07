@@ -29,11 +29,11 @@
 
 <!-- /Yandex.Metrika counter -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Golos+Text:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Golos+Text:wght@400;500;600;700&display=swap"></noscript>
+<link rel="preload" as="image" href="img1.avif" fetchpriority="high">
+<link rel="preload" as="font" href="fonts/playfair.woff2" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="fonts/golos.woff2" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css">
+<noscript><style>[data-src]{display:none}.hero-arrow,.hero-dots,.master-arrow,.master-dots{display:none}#lashes{--row-bg:url(service-lashes.avif)}#brows{--row-bg:url(service-brows.avif)}#manicure{--row-bg:url(service-manicure.avif)}#makeup{--row-bg:url(service-makeup.avif)}</style></noscript>
 </head>
 <body>
 <noscript><div><img src="https://mc.yandex.ru/watch/113129252" style="position:absolute;left:-9999px" alt=""></div></noscript>
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div class="hero-slide" inert aria-hidden="true">
-      <img src="img2.avif" class="hero-slide-photo" alt="Работа мастера студии «Эстетика»" width="1680" height="936" decoding="async">
+      <img data-src="img2.avif" class="hero-slide-photo" alt="Работа мастера студии «Эстетика»" width="1680" height="936" decoding="async"><noscript><img src="img2.avif" class="hero-slide-photo" alt="Работа мастера студии «Эстетика»" width="1680" height="936" decoding="async"></noscript>
       <div class="hero-overlay-content">
         <p class="eyebrow">Индивидуальный подход · стерильные инструменты · комфортная студия</p>
         <h2>Результат, который радует каждый день</h2>
@@ -112,7 +112,7 @@
       </div>
       <div class="services-list">
 
-        <div class="service-row" id="lashes" style="--row-bg:url('service-lashes.avif')">
+        <div class="service-row" id="lashes" data-background="service-lashes.avif">
           <div>
             <h3>Ресницы</h3>
             <p class="desc">Наращивание ресниц</p>
@@ -122,7 +122,7 @@
           <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
         </div>
 
-        <div class="service-row" id="brows" style="--row-bg:url('service-brows.avif')">
+        <div class="service-row" id="brows" data-background="service-brows.avif">
           <div>
             <h3>Брови</h3>
             <p class="desc">Ламинирование бровей</p>
@@ -132,7 +132,7 @@
           <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
         </div>
 
-        <div class="service-row" id="manicure" style="--row-bg:url('service-manicure.avif')">
+        <div class="service-row" id="manicure" data-background="service-manicure.avif">
           <div>
             <h3>Маникюр с покрытием гель-лак</h3>
             <p class="desc">Классический или аппаратный, гель-лак, укрепление</p>
@@ -142,7 +142,7 @@
           <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
         </div>
 
-         <div class="service-row" id="makeup" style="--row-bg:url('service-makeup.avif')">
+         <div class="service-row" id="makeup" data-background="service-makeup.avif">
           <div>
             <h3>Вечерний макияж</h3>
             <p class="desc">Образ для особого случая</p>
@@ -165,7 +165,7 @@
       <div class="effects-grid">
 
         <div class="effect-card">
-          <img src="natural.avif" class="effect-photo" alt="Натуральный эффект наращивания ресниц" loading="lazy" width="1024" height="1536" decoding="async">
+          <img data-src="natural.avif" class="effect-photo" alt="Натуральный эффект наращивания ресниц" loading="lazy" width="1024" height="1536" decoding="async"><noscript><img src="natural.avif" class="effect-photo" alt="Натуральный эффект наращивания ресниц" loading="lazy" width="1024" height="1536" decoding="async"></noscript>
           <span class="effect-badge">01 · Натуральный</span>
           <div class="effect-body">
             <h3>Натуральный эффект</h3>
@@ -174,7 +174,7 @@
         </div>
 
         <div class="effect-card">
-          <img src="foxy.avif" class="effect-photo" alt="Лисий эффект наращивания ресниц" loading="lazy" width="1280" height="960" decoding="async">
+          <img data-src="foxy.avif" class="effect-photo" alt="Лисий эффект наращивания ресниц" loading="lazy" width="1280" height="960" decoding="async"><noscript><img src="foxy.avif" class="effect-photo" alt="Лисий эффект наращивания ресниц" loading="lazy" width="1280" height="960" decoding="async"></noscript>
           <span class="effect-badge">02 · Лисий</span>
           <div class="effect-body">
             <h3>Лисий эффект</h3>
@@ -183,7 +183,7 @@
         </div>
 
         <div class="effect-card">
-          <img src="doll.avif" class="effect-photo" alt="Кукольный эффект наращивания ресниц" loading="lazy" width="1086" height="1448" decoding="async">
+          <img data-src="doll.avif" class="effect-photo" alt="Кукольный эффект наращивания ресниц" loading="lazy" width="1086" height="1448" decoding="async"><noscript><img src="doll.avif" class="effect-photo" alt="Кукольный эффект наращивания ресниц" loading="lazy" width="1086" height="1448" decoding="async"></noscript>
           <span class="effect-badge">03 · Кукольный</span>
           <div class="effect-body">
             <h3>Кукольный эффект</h3>
@@ -192,7 +192,7 @@
         </div>
 
         <div class="effect-card">
-          <img src="wet.avif" class="effect-photo" alt="Мокрый эффект наращивания ресниц" loading="lazy" width="640" height="640" decoding="async">
+          <img data-src="wet.avif" class="effect-photo" alt="Мокрый эффект наращивания ресниц" loading="lazy" width="640" height="640" decoding="async"><noscript><img src="wet.avif" class="effect-photo" alt="Мокрый эффект наращивания ресниц" loading="lazy" width="640" height="640" decoding="async"></noscript>
           <span class="effect-badge">04 · Мокрый</span>
           <div class="effect-body">
             <h3>Мокрый эффект</h3>
@@ -211,19 +211,19 @@
       <h2>Работы наших мастеров</h2>
       <p class="muted">Листайте фотографии. Нажмите на фото, чтобы рассмотреть детали.</p>
       <div class="portfolio-strip" tabindex="0" role="region" aria-label="Фотографии работ">
-        <img src="9.avif" class="portfolio-photo" alt="Работа мастера — фото 1" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="1.avif" class="portfolio-photo" alt="Работа мастера — фото 2" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="2.avif" class="portfolio-photo" alt="Работа мастера — фото 3" loading="lazy" width="1024" height="1024" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="5.avif" class="portfolio-photo" alt="Работа мастера — фото 4" loading="lazy" width="1010" height="1558" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="8.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="10.avif" class="portfolio-photo" alt="Работа мастера — фото 6" loading="lazy" width="1024" height="1024" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="11.avif" class="portfolio-photo" alt="Работа мастера — фото 7" loading="lazy" width="941" height="1672" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="12.avif" class="portfolio-photo" alt="Работа мастера — фото 8" loading="lazy" width="1031" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="13.avif" class="portfolio-photo" alt="Работа мастера — фото 9" loading="lazy" width="1091" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="14.avif" class="portfolio-photo" alt="Работа мастера — фото 10" loading="lazy" width="1440" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="15.avif" class="portfolio-photo" alt="Работа мастера — фото 11" loading="lazy" width="1920" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="16.avif" class="portfolio-photo" alt="Работа мастера — фото 12" loading="lazy" width="1920" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-        <img src="18.avif" class="portfolio-photo" alt="Работа мастера — фото 13" loading="lazy" width="720" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
+        <img data-src="9.avif" class="portfolio-photo" alt="Работа мастера — фото 1" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="9.avif" class="portfolio-photo" alt="Работа мастера — фото 1" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="1.avif" class="portfolio-photo" alt="Работа мастера — фото 2" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="1.avif" class="portfolio-photo" alt="Работа мастера — фото 2" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="2.avif" class="portfolio-photo" alt="Работа мастера — фото 3" loading="lazy" width="1024" height="1024" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="2.avif" class="portfolio-photo" alt="Работа мастера — фото 3" loading="lazy" width="1024" height="1024" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="5.avif" class="portfolio-photo" alt="Работа мастера — фото 4" loading="lazy" width="1010" height="1558" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="5.avif" class="portfolio-photo" alt="Работа мастера — фото 4" loading="lazy" width="1010" height="1558" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="8.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="8.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy" width="853" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="10.avif" class="portfolio-photo" alt="Работа мастера — фото 6" loading="lazy" width="1024" height="1024" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="10.avif" class="portfolio-photo" alt="Работа мастера — фото 6" loading="lazy" width="1024" height="1024" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="11.avif" class="portfolio-photo" alt="Работа мастера — фото 7" loading="lazy" width="941" height="1672" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="11.avif" class="portfolio-photo" alt="Работа мастера — фото 7" loading="lazy" width="941" height="1672" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="12.avif" class="portfolio-photo" alt="Работа мастера — фото 8" loading="lazy" width="1031" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="12.avif" class="portfolio-photo" alt="Работа мастера — фото 8" loading="lazy" width="1031" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="13.avif" class="portfolio-photo" alt="Работа мастера — фото 9" loading="lazy" width="1091" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="13.avif" class="portfolio-photo" alt="Работа мастера — фото 9" loading="lazy" width="1091" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="14.avif" class="portfolio-photo" alt="Работа мастера — фото 10" loading="lazy" width="1440" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="14.avif" class="portfolio-photo" alt="Работа мастера — фото 10" loading="lazy" width="1440" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="15.avif" class="portfolio-photo" alt="Работа мастера — фото 11" loading="lazy" width="1920" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="15.avif" class="portfolio-photo" alt="Работа мастера — фото 11" loading="lazy" width="1920" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="16.avif" class="portfolio-photo" alt="Работа мастера — фото 12" loading="lazy" width="1920" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="16.avif" class="portfolio-photo" alt="Работа мастера — фото 12" loading="lazy" width="1920" height="2560" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+        <img data-src="18.avif" class="portfolio-photo" alt="Работа мастера — фото 13" loading="lazy" width="720" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="18.avif" class="portfolio-photo" alt="Работа мастера — фото 13" loading="lazy" width="720" height="1280" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
       </div>
       <div class="scroll-indicator" aria-hidden="true">
         <div class="scroll-indicator-thumb" data-track-for="portfolio-strip"></div>
@@ -239,15 +239,15 @@
     <h2>Что говорят наши клиенты</h2>
     <p class="muted">Нажмите на отзыв, чтобы прочитать его целиком.</p>
     <div class="review-strip" tabindex="0" role="region" aria-label="Отзывы клиентов">
-      <img src="review8.avif" class="review-photo-full" alt="Отзыв клиента 1" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review9.avif" class="review-photo-full" alt="Отзыв клиента 2" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review4.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review6.avif" class="review-photo-full" alt="Отзыв клиента 4" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review2.avif" class="review-photo-full" alt="Отзыв клиента 5" loading="lazy" width="1179" height="981" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review3.avif" class="review-photo-full" alt="Отзыв клиента 6" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review5.avif" class="review-photo-full" alt="Отзыв клиента 7" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review7.avif" class="review-photo-full" alt="Отзыв клиента 8" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
-      <img src="review1.avif" class="review-photo-full" alt="Отзыв клиента 9" loading="lazy" width="1178" height="841" decoding="async" tabindex="0" role="button" aria-haspopup="dialog">
+      <img data-src="review8.avif" class="review-photo-full" alt="Отзыв клиента 1" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review8.avif" class="review-photo-full" alt="Отзыв клиента 1" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review9.avif" class="review-photo-full" alt="Отзыв клиента 2" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review9.avif" class="review-photo-full" alt="Отзыв клиента 2" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review4.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review4.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review6.avif" class="review-photo-full" alt="Отзыв клиента 4" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review6.avif" class="review-photo-full" alt="Отзыв клиента 4" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review2.avif" class="review-photo-full" alt="Отзыв клиента 5" loading="lazy" width="1179" height="981" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review2.avif" class="review-photo-full" alt="Отзыв клиента 5" loading="lazy" width="1179" height="981" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review3.avif" class="review-photo-full" alt="Отзыв клиента 6" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review3.avif" class="review-photo-full" alt="Отзыв клиента 6" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review5.avif" class="review-photo-full" alt="Отзыв клиента 7" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review5.avif" class="review-photo-full" alt="Отзыв клиента 7" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review7.avif" class="review-photo-full" alt="Отзыв клиента 8" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review7.avif" class="review-photo-full" alt="Отзыв клиента 8" loading="lazy" width="640" height="640" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
+      <img data-src="review1.avif" class="review-photo-full" alt="Отзыв клиента 9" loading="lazy" width="1178" height="841" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"><noscript><img src="review1.avif" class="review-photo-full" alt="Отзыв клиента 9" loading="lazy" width="1178" height="841" decoding="async" tabindex="0" role="button" aria-haspopup="dialog"></noscript>
     </div>
     <div class="scroll-indicator" aria-hidden="true">
       <div class="scroll-indicator-thumb" data-track-for="review-strip"></div>
@@ -258,13 +258,13 @@
 <!-- ================= MASTER CAROUSEL ================= -->
 <section class="master-carousel" id="master" aria-label="Мастера студии">
   <div class="master-bg-slides">
-    <img src="studio1.avif" class="master-bg-slide is-active" alt="Фото студии 1" width="1086" height="1448" decoding="async" loading="lazy">
-    <img src="studio2.avif" class="master-bg-slide" alt="Фото студии 2" width="1086" height="1448" decoding="async" loading="lazy">
+    <img data-src="studio1.avif" class="master-bg-slide is-active" alt="Фото студии 1" width="1086" height="1448" decoding="async" loading="lazy"><noscript><img src="studio1.avif" class="master-bg-slide is-active" alt="Фото студии 1" width="1086" height="1448" decoding="async" loading="lazy"></noscript>
+    <img data-src="studio2.avif" class="master-bg-slide" alt="Фото студии 2" width="1086" height="1448" decoding="async" loading="lazy"><noscript><img src="studio2.avif" class="master-bg-slide" alt="Фото студии 2" width="1086" height="1448" decoding="async" loading="lazy"></noscript>
   </div>
   <div class="master-slides">
     <div class="master-slide is-active">
       <div class="master-frame">
-        <img src="master1.avif" class="master-photo" alt="Фото мастера — Айгуль" width="200" height="200" decoding="async" loading="lazy">
+        <img data-src="master1.avif" class="master-photo" alt="Фото мастера — Айгуль" width="200" height="200" decoding="async" loading="lazy"><noscript><img src="master1.avif" class="master-photo" alt="Фото мастера — Айгуль" width="200" height="200" decoding="async" loading="lazy"></noscript>
         <div class="master-overlay-content">
           <p class="eyebrow">О мастере</p>
           <h2>Айгуль</h2>
@@ -281,7 +281,7 @@
 
     <div class="master-slide" inert aria-hidden="true">
       <div class="master-frame">
-        <img src="master2.avif" class="master-photo" alt="Фото мастера — Анастасия" width="200" height="200" decoding="async" loading="lazy">
+        <img data-src="master2.avif" class="master-photo" alt="Фото мастера — Анастасия" width="200" height="200" decoding="async" loading="lazy"><noscript><img src="master2.avif" class="master-photo" alt="Фото мастера — Анастасия" width="200" height="200" decoding="async" loading="lazy"></noscript>
         <div class="master-overlay-content">
           <p class="eyebrow">О мастере</p>
           <h2>Анастасия</h2>
@@ -298,7 +298,7 @@
 
     <div class="master-slide" inert aria-hidden="true">
       <div class="master-frame">
-        <img src="master3.avif" class="master-photo" alt="Фото мастера — Ярослава" width="200" height="200" decoding="async" loading="lazy">
+        <img data-src="master3.avif" class="master-photo" alt="Фото мастера — Ярослава" width="200" height="200" decoding="async" loading="lazy"><noscript><img src="master3.avif" class="master-photo" alt="Фото мастера — Ярослава" width="200" height="200" decoding="async" loading="lazy"></noscript>
         <div class="master-overlay-content">
           <p class="eyebrow">О мастере</p>
           <h2>Ярослава</h2>
@@ -314,7 +314,7 @@
 
     <div class="master-slide" inert aria-hidden="true">
       <div class="master-frame">
-        <img src="master4.avif" class="master-photo" alt="Фото мастера — Дияна" width="200" height="200" decoding="async" loading="lazy">
+        <img data-src="master4.avif" class="master-photo" alt="Фото мастера — Дияна" width="200" height="200" decoding="async" loading="lazy"><noscript><img src="master4.avif" class="master-photo" alt="Фото мастера — Дияна" width="200" height="200" decoding="async" loading="lazy"></noscript>
         <div class="master-overlay-content">
           <p class="eyebrow">О мастере</p>
           <h2>Дияна</h2>
@@ -392,7 +392,7 @@
   <div style="position:relative;overflow:hidden;">
     <a href="https://yandex.ru/maps/org/lash_studio/208313983820/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Lash studio</a>
     <a href="https://yandex.ru/maps/172/ufa/category/eyebrow_and_eyelash_salon/7407769291/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Салон бровей и ресниц в Уфе</a>
-    <iframe title="Студия на карте Уфы" src="https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06" width="560" height="400" allowfullscreen loading="lazy" style="position:relative;"></iframe>
+    <iframe title="Студия на карте Уфы" data-src="https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06" width="560" height="400" allowfullscreen loading="lazy" style="position:relative;"></iframe><noscript><iframe title="Студия на карте Уфы" src="https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06" width="560" height="400" allowfullscreen loading="lazy" style="position:relative;"></iframe></noscript>
   </div>
 </div>
       </div>

@@ -9,23 +9,33 @@ const output = process.env.REVIEW_OUTPUT;
 (async () => {
   const browser = await chromium.launch({headless: true, channel: 'chrome'});
   const errors = [];
-  const sizes = process.env.CHECK_LIVE_ONLY ? [] : [[320,740],[360,800],[390,844],[768,900],[900,900],[1024,900],[1440,900],[844,390]];
+  const sizes = process.env.CHECK_LIVE_ONLY || process.env.REVIEW_FAST_ONLY ? [] : [[320,740],[360,800],[390,844],[768,900],[900,900],[1024,900],[1440,900],[844,390]];
   try {
     for (const [width,height] of sizes) {
       const context = await browser.newContext({viewport:{width,height},reducedMotion:'reduce'});
       await context.route('**/mc.yandex.ru/**', route => route.abort());
       const page = await context.newPage();
+      const requests = [];
+      page.on('request', request => requests.push(request.url()));
       page.on('pageerror', error => errors.push(error.message));
       await page.goto(base, {waitUntil:'networkidle'});
       await page.getByRole('button',{name:'Понятно',exact:true}).click();
       assert.equal(await page.locator('h1').count(),1);
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true,`Overflow at ${width}`);
+      assert.equal(requests.some(url=>url.includes('fonts.googleapis.com') || url.includes('fonts.gstatic.com')),false,'Fonts must be hosted locally');
+      assert.equal(requests.some(url=>/\/review\d+\.avif/.test(url)),false,'Reviews must not compete with the first screen');
+      assert.equal(requests.some(url=>url.endsWith('/img2.avif')),false,'Hidden hero slide must not download on first load');
       await page.locator('.hero-arrow.next').click();
       assert.equal(await page.locator('.hero-slide').nth(0).evaluate(el => el.inert),true);
       assert.equal(await page.locator('.hero-dot').nth(1).getAttribute('aria-current'),'true');
       await page.locator('.hero-arrow.prev').click();
+      await page.locator('#lash-effects').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('.effect-photo').naturalWidth > 0);
+      await page.locator('#portfolio').scrollIntoViewIfNeeded();
+      await page.waitForFunction(()=>document.querySelector('.portfolio-photo').naturalWidth > 0);
       // All images, including those intentionally lazy loaded, must actually decode.
       const images = await page.evaluate(async () => {
+        document.querySelectorAll('img[data-src]').forEach(img=>loadMedia(img));
         const images = [...document.images].filter(img => img.getAttribute('src') && !img.src.includes('mc.yandex.ru'));
         await Promise.all(images.map(async img => {img.loading='eager'; try{await img.decode();}catch(_){}}));
         return images.filter(img => !img.naturalWidth).map(img => img.getAttribute('src'));
@@ -112,6 +122,7 @@ const output = process.env.REVIEW_OUTPUT;
         fs.mkdirSync(output,{recursive:true});
         await page.evaluate(async () => {
           document.activeElement?.blur();
+          document.querySelectorAll('[data-src],[data-background]').forEach(element=>loadMedia(element));
           await Promise.all([...document.images].filter(img=>img.getAttribute('src')).map(async img=>{img.loading='eager';try{await img.decode();}catch(_){}}));
           await document.fonts.ready;
         });
@@ -133,6 +144,19 @@ const output = process.env.REVIEW_OUTPUT;
     assert.equal(await fallback.locator('#pricing noscript').isVisible(),true);
     await noJs.close();
     console.log('PASS no-JavaScript fallback; no runtime errors');
+    const fast = await browser.newContext({viewport:{width:390,height:844}});
+    await fast.route('**/mc.yandex.ru/**',route=>route.abort());
+    let releaseHero;
+    const heroHeld = new Promise(resolve=>{releaseHero=resolve;});
+    await fast.route('**/img1.avif',async route=>{await heroHeld;await route.continue();});
+    const fastPage=await fast.newPage();
+    try {
+      await fastPage.goto(base,{waitUntil:'domcontentloaded'});
+      assert.equal(await fastPage.locator('.hero-slide-photo').first().evaluate(img=>img.complete),false);
+      await fastPage.locator('#portfolio').scrollIntoViewIfNeeded();
+      await fastPage.waitForFunction(()=>document.querySelector('.portfolio-photo').naturalWidth>0);
+      console.log('PASS immediate scroll loads photos even while the hero image is still downloading');
+    } finally {releaseHero();await fast.close();}
     if (process.env.CHECK_LIVE) {
       const live = await browser.newContext();
       await live.route('**/mc.yandex.ru/**',route=>route.abort());

@@ -1,5 +1,44 @@
 'use strict';
 
+function loadMedia(element) {
+  const items = element.matches('[data-src], [data-background]') ? [element] : [...element.querySelectorAll('[data-src], [data-background]')];
+  items.forEach(item => {
+    if (item.dataset.src) {
+      if (item.tagName === 'IMG') item.loading = 'eager';
+      item.src = item.dataset.src;
+      delete item.dataset.src;
+    }
+    if (item.dataset.background) {
+      item.style.setProperty('--row-bg', `url("${item.dataset.background}")`);
+      delete item.dataset.background;
+    }
+  });
+}
+
+// Start below-the-fold media after the first image has been painted. Native lazy
+// loading may otherwise download several screens of photos on a slow connection.
+(() => {
+  const hero = document.querySelector('.hero-slide-photo');
+  let started = false;
+  function observe() {
+    if (started) return;
+    started = true;
+    const items = document.querySelectorAll('[data-src], [data-background]');
+    if (!('IntersectionObserver' in window)) {items.forEach(loadMedia); return;}
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting || entry.target.closest('[inert]')) return;
+        loadMedia(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, {rootMargin:'400px 0px',threshold:0.01});
+    items.forEach(item => observer.observe(item));
+  }
+  // A visitor who scrolls immediately should not wait for the hero image.
+  window.addEventListener('scroll', observe, {once:true,passive:true});
+  hero.decode().catch(() => {}).then(() => requestAnimationFrame(() => requestAnimationFrame(observe)));
+})();
+
 (() => {
   const topbar = document.querySelector('.topbar');
   const update = () => document.documentElement.style.setProperty('--topbar-h', `${topbar.offsetHeight}px`);
@@ -14,13 +53,14 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
   const dots = [...root.querySelectorAll(dotSelector)];
   const track = trackSelector && root.querySelector(trackSelector);
   let index = 0;
-  function show(next) {
+  function show(next, fromUser = false) {
     index = (next + slides.length) % slides.length;
     slides.forEach((slide, i) => {
       const active = i === index;
       slide.classList.toggle('is-active', active);
       slide.inert = !active;
       slide.setAttribute('aria-hidden', String(!active));
+      if (active && fromUser) loadMedia(slide);
     });
     dots.forEach((dot, i) => {
       dot.classList.toggle('is-active', i === index);
@@ -29,16 +69,17 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
     if (track) track.style.transform = `translateX(-${index * 100}%)`;
     root.querySelectorAll('.master-bg-slide').forEach((bg, i, backgrounds) => {
       bg.classList.toggle('is-active', i === index % backgrounds.length);
+      if (fromUser && i === index % backgrounds.length) loadMedia(bg);
     });
   }
-  root.querySelector('.prev').addEventListener('click', () => show(index - 1));
-  root.querySelector('.next').addEventListener('click', () => show(index + 1));
-  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i)));
+  root.querySelector('.prev').addEventListener('click', () => show(index - 1, true));
+  root.querySelector('.next').addEventListener('click', () => show(index + 1, true));
+  dots.forEach((dot, i) => dot.addEventListener('click', () => show(i, true)));
   root.addEventListener('keydown', event => {
     if (event.target.matches('input,select,textarea')) return;
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
       event.preventDefault();
-      show(index + (event.key === 'ArrowRight' ? 1 : -1));
+      show(index + (event.key === 'ArrowRight' ? 1 : -1), true);
     }
   });
   let start = null;
@@ -60,7 +101,7 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
     if (!start) return;
     const dx = event.changedTouches[0].clientX - start.x;
     const dy = event.changedTouches[0].clientY - start.y;
-    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(index + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) show(index + (dx < 0 ? 1 : -1), true);
     start = null;
   }, {passive: true});
   root.addEventListener('touchcancel', () => {start = null; suppressClick = false;}, {passive: true});
@@ -146,6 +187,7 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     apply();
   }
   function open(img) {
+    loadMedia(img);
     trigger = img;
     reset();
     image.src = img.currentSrc || img.src;
