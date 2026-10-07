@@ -53,8 +53,26 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
   const dots = [...root.querySelectorAll(dotSelector)];
   const track = trackSelector && root.querySelector(trackSelector);
   let index = 0;
+  let moving = false;
+  let settleTimer;
+  function settleTrack() {
+    if (!track) return;
+    clearTimeout(settleTimer);
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(0)';
+    slides.forEach((slide, i) => {
+      const slot = (i - index + slides.length) % slides.length;
+      slide.style.transform = `translateX(${(slot - i) * 100}%)`;
+    });
+    moving = false;
+  }
+  if (track) track.addEventListener('transitionend', event => {
+    if (event.target === track && event.propertyName === 'transform') settleTrack();
+  });
   function show(next, fromUser = false) {
-    index = (next + slides.length) % slides.length;
+    if (track && moving) return;
+    const previous = index;
+    index = ((next % slides.length) + slides.length) % slides.length;
     slides.forEach((slide, i) => {
       const active = i === index;
       slide.classList.toggle('is-active', active);
@@ -66,7 +84,26 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
       dot.classList.toggle('is-active', i === index);
       dot.setAttribute('aria-current', String(i === index));
     });
-    if (track) track.style.transform = `translateX(-${index * 100}%)`;
+    if (track) {
+      if (!fromUser || index === previous || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        settleTrack();
+      } else {
+        // Place the real next slide beside the current one in the gesture's
+        // direction. Rebase after the animation without cloning content.
+        const direction = Math.sign(next - previous);
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0)';
+        slides.forEach((slide, i) => {
+          const slot = i === previous ? 0 : i === index ? direction : direction * (2 + i);
+          slide.style.transform = `translateX(${(slot - i) * 100}%)`;
+        });
+        void track.offsetWidth;
+        moving = true;
+        track.style.transition = '';
+        track.style.transform = `translateX(${-direction * 100}%)`;
+        settleTimer = setTimeout(settleTrack, 600);
+      }
+    }
     root.querySelectorAll('.master-bg-slide').forEach((bg, i, backgrounds) => {
       bg.classList.toggle('is-active', i === index % backgrounds.length);
       if (fromUser && i === index % backgrounds.length) loadMedia(bg);
