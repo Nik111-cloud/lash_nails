@@ -1,0 +1,1628 @@
+<!--
+  1. Счётчик Яндекс.Метрики — вставить код в <head>, см. комментарий "МЕТРИКА".
+  2. Коллтрекинг сознательно не используется — единый номер телефона на всех каналах, звонки не привязываются к конкретной кампании.
+  6. Тексты про мастера, услуги, цены, отзывы, адрес — заменить на настоящие.
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Эстетика — ресницы, брови, губы, маникюр в Уфе</title>
+<link rel="icon" href="favicon.png">
+<meta name="description" content="Наращивание ресниц, перманентный макияж бровей и губ, маникюр в Уфе. Студия «Эстетика» — запись онлайн.">
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113129252', 'ym');
+
+    ym(113129252, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113129252" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Golos+Text:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Golos+Text:wght@400;500;600;700&display=swap"></noscript>
+<style>
+  :root{
+    --ink:#2a2019;
+    --muted:#6b5c4e;
+    --bg:#fbf7f2;
+    --bg-alt:#efe3d3;
+    --line:#c9b9a0;
+    --accent:#a23b4e;
+    --accent-ink:#fff9f6;
+    --radius:2px;
+    --maxw:1080px;
+    --topbar-h:60px
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Golos Text', 'PT Sans', -apple-system, sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Playfair Display', Georgia, serif;
+    font-weight:600;
+    line-height:1.15;
+    margin:0 0 .4em;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  .section{padding:76px 0; }
+  .section-alt{background:var(--bg-alt);}
+  .section-white{background:#fff;}
+  .eyebrow{
+    color:var(--muted);
+    font-size:15px;
+    margin:0 0 10px;
+  }
+  .muted{color:var(--muted);}
+
+  .section .eyebrow{
+    display:inline-block;
+    padding:8px 16px;
+    border-radius:999px;
+    color:var(--ink);
+    font-weight:600;
+    background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(255,255,255,.28));
+    backdrop-filter:blur(10px) saturate(160%);
+    -webkit-backdrop-filter:blur(10px) saturate(160%);
+    border:1px solid rgba(201,185,160,.55);
+    box-shadow:0 4px 16px rgba(42,32,25,.08), inset 0 1px 0 rgba(255,255,255,.85);
+  }
+/* h2 в роли плашки (отзывы): шрифт и отступы как у обычной плашки */
+ .section h2.eyebrow{
+   font-family:'Golos Text','PT Sans',-apple-system,sans-serif;
+   line-height:1.55;
+   margin:0 0 10px;
+  }
+    #reviews .eyebrow,
+    #lash-effects .eyebrow,
+    #pricing .eyebrow{background:linear-gradient(135deg, rgba(239,227,211,.9), rgba(239,227,211,.5));}
+
+  .cookie-toast{
+    position:fixed; left:16px; bottom:16px; z-index:40;
+    width:calc(100% - 32px); max-width:360px;
+    background:var(--ink); color:var(--bg);
+    border-radius:12px;
+    box-shadow:0 12px 32px rgba(20,14,10,.28);
+    padding:16px 18px;
+    display:flex; flex-direction:column; gap:12px;
+    opacity:0; transform:translateY(12px); pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease;
+   }
+  .cookie-toast.is-visible{opacity:1; transform:translateY(0); pointer-events:auto;}
+  .cookie-toast-text{margin:0; font-size:13px; line-height:1.5; color:var(--bg);}
+  .cookie-toast-text a{color:var(--bg); text-decoration:underline;}
+  .cookie-toast-title{
+    margin:0;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:rgba(251,247,242,.6);
+   }
+  .cookie-toast-actions{display:flex; justify-content:flex-end;}
+  .cookie-toast #cookie-accept{padding:8px 16px; font-size:13px;}
+
+@media (max-width:900px){
+  .cookie-toast{bottom:90px;}
+  }
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:20;
+    background:rgba(251,247,242,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{font-family:'Playfair Display',serif; text-decoration:none; display:block; line-height:1.1;}
+  .brand-name{display:block; font-size:20px; font-weight:600;}
+  .brand-sub{display:block; font-family:'Golos Text', sans-serif; font-size:12px; font-weight:500; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; white-space:nowrap;}
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    font-size:16px; font-weight:600;
+    border:1px solid transparent;
+    cursor:pointer;
+  }
+  .btn-primary{background:var(--accent); color:var(--accent-ink);}
+  .btn-primary:hover{background:#8c3241;}
+  .btn-ghost{background:transparent; color:var(--ink); border-color:var(--line);}
+  .btn-ghost:hover{border-color:var(--ink);}
+  .btn-small{padding:9px 16px; font-size:14px;}
+
+.btn-wave{position:relative; overflow:hidden;}
+.btn-wave::after{
+  content:"";
+  position:absolute; inset:0;
+  background:rgba(255,255,255,.32);
+  transform-origin:left center;
+  transform:scaleX(0);
+  pointer-events:none;
+  animation:btnWave 6s ease-in-out infinite;
+}
+@keyframes btnWave{
+  0%{ transform:scaleX(0); opacity:1; }
+  20%{ transform:scaleX(1); opacity:1; }
+  35%{ transform:scaleX(1); opacity:0; }
+  36%{ transform:scaleX(0); opacity:0; }
+  100%{ transform:scaleX(0); opacity:0; }
+}
+@media (prefers-reduced-motion: reduce){
+  .btn-wave::after{animation:none; opacity:0;}
+}
+
+.booking-overlay{
+  position:fixed; inset:0; z-index:50;
+  background:rgba(42,32,25,.92);
+  color:var(--bg);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0; visibility:hidden;
+  transition:opacity .2s ease;
+}
+.booking-overlay.is-active{opacity:1; visibility:visible;}
+.booking-overlay-inner{display:flex; flex-direction:column; align-items:center; gap:16px;}
+.booking-overlay-inner p{margin:0; font-size:15px; color:var(--bg);}
+.booking-spinner{
+  width:36px; height:36px;
+  border:3px solid rgba(251,247,242,.25);
+  border-top-color:var(--bg);
+  border-radius:50%;
+  animation:bookingSpin .8s linear infinite;
+}
+@keyframes bookingSpin{ to{ transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){
+  .booking-spinner{animation-duration:1.6s;}
+}
+
+  /* ---------- hero carousel ---------- */
+.hero-carousel{
+  position:sticky; top:var(--topbar-h); z-index:1;
+  min-height:78vh;
+  overflow:hidden;
+  color:var(--bg);
+}
+  
+.page-content{
+  position:relative; z-index:2;
+  background:var(--bg);
+}
+.page-content::before{ /* мягкая тень над верхней кромкой, чтобы наезд читался */
+  content:"";
+  position:absolute; left:0; right:0; bottom:100%;
+  height:48px;
+  background:linear-gradient(to top, rgba(20,14,10,.3), rgba(20,14,10,0));
+  pointer-events:none;
+}
+  
+.hero-slides{
+  position:absolute; inset:0;
+  display:flex;
+  transition:transform .5s ease;
+  will-change:transform;
+}
+  
+.hero-slide{
+  position:relative;
+  flex:0 0 100%;
+}
+  
+.hero-slide-photo{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  aspect-ratio:auto;
+  object-fit:cover;
+  border:none;
+  display:block;
+}
+.hero-slide::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,14,10,.1), rgba(20,14,10,.6) 78%);
+  pointer-events:none;
+}
+.hero-overlay-content{
+  position:relative; z-index:2;
+  max-width:var(--maxw); margin:0 auto;
+  height:78vh;
+  padding:0 24px 64px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+}
+.hero-overlay-content .eyebrow{
+  align-self:flex-start;
+  background:rgba(251,247,242,.18);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border:1px solid rgba(251,247,242,.35);
+  color:var(--bg);
+  font-size:13px; font-weight:600; letter-spacing:.04em;
+  padding:8px 14px;
+  border-radius:999px;
+  margin:0 0 10px;
+}
+.hero-overlay-content h1{color:var(--bg); font-size:clamp(32px, 4.6vw, 52px); max-width:15ch;}
+.hero-overlay-content .lede{font-size:18px; color:rgba(251,247,242,.85); max-width:42ch; margin:0 0 26px;}
+.hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-bottom:20px;}
+.btn-ghost-light{background:rgba(251,247,242,.12); color:var(--bg); border-color:rgba(251,247,242,.5);}
+.btn-ghost-light:hover{background:rgba(251,247,242,.22);}
+
+.hero-arrow{
+  position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+  width:44px; height:44px; border-radius:50%;
+  background:rgba(251,247,242,.15); border:1px solid rgba(251,247,242,.45);
+  color:var(--bg); font-size:22px; line-height:1;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+}
+.hero-arrow:hover{background:rgba(251,247,242,.28);}
+.hero-arrow.prev{left:20px;}
+.hero-arrow.next{right:20px;}
+
+.hero-dots{
+  position:absolute; left:0; right:0; bottom:20px; z-index:3;
+  display:flex; justify-content:center; gap:8px;
+}
+.hero-dot{
+  width:8px; height:8px; border-radius:50%;
+  background:rgba(251,247,242,.4); border:none; padding:0; cursor:pointer;
+}
+.hero-dot.is-active{background:var(--bg);}
+
+@media (prefers-reduced-motion: no-preference){
+  .hero-overlay-content{animation:rise .7s ease-out both;}
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+}
+
+  /* ---------- services ---------- */
+  .services-layout{display:grid; grid-template-columns:.55fr 1.45fr; gap:48px;}
+  .services-list{display:flex; flex-direction:column; gap:16px;}
+  .service-row{
+    position:relative; isolation:isolate; overflow:hidden;
+    min-height:140px;
+    padding:28px;
+    border-radius:20px;
+    color:var(--bg);
+    background:var(--ink) var(--row-bg) center/cover no-repeat;
+    display:grid; grid-template-columns:1.3fr .5fr .5fr auto; gap:18px; align-items:center;
+    scroll-margin-top:88px;
+  }
+  .service-row::before{ /* затемнение под текст */
+    content:"";
+    position:absolute; inset:0; z-index:-1;
+    background:linear-gradient(90deg, rgba(20,14,10,.82), rgba(20,14,10,.45));
+  }
+  .service-row h3{font-size:22px; margin:0 0 6px; color:var(--bg);}
+  .service-row .desc{color:rgba(251,247,242,.85); font-size:15px; margin:0;}
+  .service-row .price{font-weight:600; color:var(--bg);}
+  .service-row .duration{color:rgba(251,247,242,.8); font-size:14px;}
+  .service-row .btn-ghost{color:var(--bg); border-color:rgba(251,247,242,.55); background:rgba(251,247,242,.12);}
+  .service-row .btn-ghost:hover{background:rgba(251,247,242,.24); border-color:var(--bg);}
+
+  /* ---------- portfolio ---------- */
+  .portfolio-strip{
+    display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; margin-top:32px;
+    scrollbar-width:none;
+  }
+  .portfolio-strip::-webkit-scrollbar{display:none;}
+  .portfolio-strip .portfolio-photo{
+    flex:0 0 320px;
+    width:320px;
+    aspect-ratio:4/5;
+    object-fit:cover;
+    border:1px solid var(--line);
+    border-radius:20px;
+    cursor:pointer;
+  }
+
+    /* ---------- lash effects ---------- */
+  .effects-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+    margin-top:32px;
+  }
+  .effect-card{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:20px;
+    overflow:hidden;
+    color:var(--bg);
+  }
+  .effect-photo{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .effect-card{
+    position:relative;
+    z-index:0;
+    aspect-ratio:4/5;
+    border-radius:20px;
+    overflow:hidden;
+    color:var(--bg);
+  }
+  .effect-badge{
+    position:absolute; top:16px; left:16px; z-index:2;
+    background:rgba(251,247,242,.18);
+    backdrop-filter:blur(4px);
+    border:1px solid rgba(251,247,242,.35);
+    color:var(--bg);
+    font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+    padding:8px 14px;
+    border-radius:999px;
+  }
+  .effect-body{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:20px;
+  }
+  .effect-body h3{color:var(--bg); font-size:22px; margin:0 0 6px;}
+  .effect-body p{color:rgba(251,247,242,.85); font-size:14px; margin:0; max-width:34ch;}
+
+  .effect-card::after{
+    content:"";
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(180deg, rgba(20,14,10,0) 35%, rgba(20,14,10,.55) 65%, rgba(20,14,10,.88) 100%);
+    pointer-events:none;
+  }
+  .effect-body h3{text-shadow:0 1px 6px rgba(20,14,10,.5);}
+  .effect-body p{color:rgba(251,247,242,.95); font-size:15px; text-shadow:0 1px 4px rgba(20,14,10,.6);}
+
+  @media (min-width:900px){
+    .effects-grid{
+      grid-template-columns:repeat(3, 1fr);
+      grid-auto-rows:280px;
+    }
+    .effect-card{aspect-ratio:auto;} /* высоту на десктопе задаёт сетка, а не aspect-ratio */
+    .effect-card:nth-child(4){grid-column:span 2;} /* «Мокрый» — широкая карточка снизу слева */
+  }
+
+    /* ---------- scroll indicator ---------- */
+  .scroll-indicator{
+    position:relative;
+    height:3px;
+    background:var(--line);
+    border-radius:2px;
+    margin-top:10px;
+    overflow:hidden;
+  }
+  .scroll-indicator-thumb{
+    position:absolute; top:0; left:0; height:100%;
+    width:30%;
+    background:var(--accent);
+    border-radius:2px;
+  }
+
+   /* ---------- lightbox ---------- */
+ .lightbox{
+   position:fixed; inset:0; z-index:60;
+   background:rgba(20,14,10,.92);
+   display:flex; align-items:center; justify-content:center;
+   padding:24px;
+   opacity:0; visibility:hidden;
+   transition:opacity .25s ease;
+   touch-action:none;            /* браузер не зумит страницу жестами внутри лайтбокса */
+   overscroll-behavior:contain;
+  }
+  .lightbox.is-active{opacity:1; visibility:visible;}
+  .lightbox img{
+    max-width:100%; max-height:100%;
+    border-radius:2px;
+    transform-origin:center center;
+    will-change:transform;
+    touch-action:none;
+    user-select:none; -webkit-user-select:none;
+    -webkit-user-drag:none;
+  }
+  .lightbox-close{
+    position:absolute; top:20px; right:24px; z-index:61;
+    width:40px; height:40px; border-radius:50%;
+    background:rgba(251,247,242,.15); border:1px solid rgba(251,247,242,.4);
+    color:var(--bg); font-size:22px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .lightbox-close:hover{background:rgba(251,247,242,.28);}
+
+   /* ---------- reviews strip ---------- */
+  .review-strip{
+    display:flex; gap:16px; overflow-x:auto; padding-bottom:8px; margin-top:32px;
+    scrollbar-width:none;
+  }
+  .review-strip::-webkit-scrollbar{display:none;}
+  .portfolio-strip:focus-visible,
+  .review-strip:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+  .review-strip .review-photo-full{
+    flex:0 0 320px;
+    width:320px;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border:1px solid var(--line);
+    border-radius:20px;
+  }
+  .review-strip .review-photo-full{cursor:pointer;}
+  .portfolio-photo:focus-visible,
+  .review-photo-full:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+    /* ---------- master carousel ---------- */
+  .master-carousel{
+    position:relative;
+    min-height:78vh;
+    overflow:hidden;
+    color:var(--bg);
+  }
+  .master-bg-slides{position:absolute; inset:0;}
+  .master-bg-slide{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 1.2s ease;
+  }
+  .master-bg-slide.is-active{opacity:1;}
+  .master-carousel::after{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(20,14,10,.25), rgba(20,14,10,.72) 85%);
+    pointer-events:none;
+  }
+  .master-slides{position:absolute; inset:0; z-index:2;}
+  .master-slide{
+    position:absolute; inset:0;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .6s ease;
+    display:flex; align-items:flex-end;
+  }
+  .master-slide.is-active{opacity:1; pointer-events:auto;}
+  .master-frame{
+    position:relative;
+    width:100%; max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 24px 64px;
+  }
+  .master-overlay-content{}
+  .master-overlay-content .eyebrow{
+    display:inline-block;
+    padding:8px 14px;
+    border-radius:999px;
+    background:rgba(251,247,242,.18);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    border:1px solid rgba(251,247,242,.35);
+    color:var(--bg);
+    font-weight:600;
+    margin:0 0 12px;
+  }
+  .master-photo{
+    width:96px; height:96px; border-radius:50%;
+    object-fit:cover;
+    border:2px solid rgba(251,247,242,.6);
+    margin-bottom:16px;
+  }
+  .master-overlay-content h2{color:var(--bg); font-size:clamp(28px, 4vw, 42px); max-width:20ch;}
+  .master-overlay-content .lede{
+    font-size:17px; color:rgba(251,247,242,.85); max-width:52ch; margin:0 0 18px;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .master-credentials{list-style:none; padding:0; margin:0 0 24px; color:rgba(251,247,242,.8); font-size:15px; max-width:420px;}
+  .master-credentials li{padding:6px 0; border-top:1px solid rgba(251,247,242,.25);}
+
+  .master-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(251,247,242,.15); border:1px solid rgba(251,247,242,.45);
+    color:var(--bg); font-size:22px; line-height:1;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .master-arrow:hover{background:rgba(251,247,242,.28);}
+  .master-arrow.prev{left:20px;}
+  .master-arrow.next{right:20px;}
+
+  .master-dots{
+    position:absolute; left:0; right:0; bottom:20px; z-index:3;
+    display:flex; justify-content:center; gap:8px;
+  }
+  .master-dot{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(251,247,242,.4); border:none; padding:0; cursor:pointer;
+  }
+  .master-dot.is-active{background:var(--bg);}
+
+  /* ---------- pricing table ---------- */
+  table.pricing{width:100%; border-collapse:collapse; margin-top:28px;}
+  table.pricing th, table.pricing td{
+    text-align:left; padding:14px 10px; border-bottom:1px solid var(--line); font-size:15px;
+  }
+  table.pricing th{color:var(--muted); font-weight:500; font-size:14px;}
+
+  /* ---------- contacts ---------- */
+  .contacts-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px;}
+  .map-embed{
+  aspect-ratio:4/3; border:1px solid var(--line); overflow:hidden;
+}
+.map-embed > div{width:100%; height:100%;}
+.map-embed iframe{width:100%; height:100%; border:0; display:block;}
+  .contact-line{display:flex; gap:10px; padding:10px 0; border-top:1px solid var(--line); font-size:15px;}
+  .contact-line:last-child{border-bottom:1px solid var(--line);}
+
+  footer{padding:32px 0; font-size:13px; color:var(--muted); border-top:1px solid var(--line);}
+
+  /* ---------- sticky mobile action bar ---------- */
+  .mobile-bar{
+    display:none;
+    position:fixed; left:0; right:0; bottom:0; z-index:30;
+    background:var(--bg); border-top:1px solid var(--line);
+    padding:6px 10px calc(6px + env(safe-area-inset-bottom));
+  }
+  .mobile-bar-inner{display:grid; grid-template-columns:1fr 1fr; gap:6px;}
+  .mobile-bar a{
+    display:flex; align-items:center; justify-content:center; gap:6px;
+    padding:7px 6px; font-size:12px; font-weight:600; text-decoration:none; border-radius:var(--radius);
+  }
+  .mobile-bar .call{border:1px solid var(--line); color:var(--ink);}
+  .mobile-bar .wa{border:1px solid var(--line); color:var(--ink);}
+
+  @media (max-width: 900px){
+    .services-layout, .master-grid, .contacts-grid{grid-template-columns:1fr;}
+    .hero-carousel, .hero-overlay-content{min-height:auto; height:max(560px, 66vh);}
+    .hero-arrow{top:18px; transform:none;}
+    .hero-overlay-content{
+      justify-content:flex-start;   /* текст сверху, а не снизу */
+      padding-top:76px;             /* стрелки: 18px сверху + 40px высота + запас */
+      padding-bottom:0;
+    }
+    .hero-dots{bottom:64px;}        /* точки примерно по центру свободной зоны под кнопкой */
+
+    /* ритм: услуги → оффер → адрес → кнопка */
+    .hero-overlay-content .eyebrow{margin:0 0 clamp(12px, 1.8vh, 16px);}
+    .hero-overlay-content h1{margin:0 0 clamp(16px, 2.4vh, 22px);}
+    .hero-overlay-content .lede{margin:0 0 clamp(26px, 3.4vh, 32px);}
+    .hero-actions{margin-bottom:0;}
+     body{padding-bottom:78px;}
+    .mobile-bar{display:block;}
+    .topbar-actions .btn-ghost{display:none;}
+    .master-carousel{min-height:0; height:auto;}
+    .master-slides{position:relative; inset:auto; display:grid;}
+    .master-slide{position:relative; inset:auto; grid-area:1 / 1; align-items:flex-start;}
+    .master-frame{padding-top:80px; padding-bottom:56px;}
+    .master-arrow{top:18px; transform:none;}
+  #portfolio{padding-top:32px; padding-bottom:38px;}
+  #reviews{padding-top:32px;}
+  #pricing{padding-top:48px;}
+ }
+
+  @media (max-width:900px) and (orientation:landscape) and (max-height:500px){
+    .hero-carousel, .hero-overlay-content{height:100dvh;}
+    .hero-overlay-content{padding-bottom:88px;}
+    .hero-overlay-content .eyebrow{display:none;}
+    .hero-overlay-content .lede{display:none;}
+    .hero-overlay-content h1{font-size:clamp(22px, 5vw, 30px);}
+    .hero-dots{bottom:64px;}
+    .hero-arrow{top:14px; width:36px; height:36px; font-size:18px;}
+  }
+  
+  @media (max-width:560px){
+    .service-row{grid-template-columns:1fr 1fr; row-gap:8px; padding:20px;}
+    .service-row .book-link{grid-column:1 / -1;}
+    .hero-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
+    .master-arrow{width:40px; height:40px; font-size:20px; top:18px; transform:none;}
+  }
+
+  @media (max-width:900px){
+    #pricing{background:#fff;}
+
+    table.pricing{table-layout:auto;}
+    table.pricing th,
+    table.pricing td{padding:14px 6px;}
+    table.pricing th:first-child,
+    table.pricing td:first-child{padding-left:0; width:auto;}   /* «Услуга» занимает всё свободное место */
+    table.pricing th:last-child,
+    table.pricing td:last-child{
+      padding-right:0;
+      width:1%;                 /* «Цена» сжимается до ширины содержимого */
+      white-space:nowrap;       /* «от 2 500 ₽» всегда в одну строку */
+      text-align:right;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div id="cookie-banner" class="cookie-toast" aria-live="polite">
+  <p class="cookie-toast-title">Manage cookies</p>
+  <p class="cookie-toast-text">Мы используем cookie и Яндекс.Метрику, чтобы улучшать работу сайта. Продолжая пользоваться сайтом, вы соглашаетесь с политикой обработки данных.</p>
+  <div class="cookie-toast-actions">
+    <button id="cookie-accept" class="btn btn-primary btn-small">Понятно</button>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">
+      <span class="brand-name">Эстетика</span>
+      <span class="brand-sub">Салон красоты</span>
+      </a>
+    <nav class="topbar-actions">
+      <a class="btn btn-ghost btn-small" href="tel:+79649644775">Позвонить</a>
+      <a class="btn btn-primary btn-small btn-wave" href="https://dikidi.net/2038825?p=0.pi">Записаться</a>
+    </nav>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+<section class="hero-carousel" aria-label="Фото студии">
+  <div class="hero-slides">
+    <div class="hero-slide is-active">
+      <img src="img1.avif" class="hero-slide-photo" alt="Крупный план — фото 1"  fetchpriority="high">
+      <div class="hero-overlay-content">
+        <p class="eyebrow">Ресницы · Брови · Маникюр · Перманент</p>
+        <h1>-15% на первое посещение</h1>
+        <p class="lede">Уфа, Ростовская, 18 лит К.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться в один клик</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide">
+      <img src="img2.avif" class="hero-slide-photo" alt="Крупный план — фото 2">
+      <div class="hero-overlay-content">
+        <p class="eyebrow">Индивидуальный подход · стерильные инструменты · комфортная студия</p>
+        <h1>Результат, который радует каждый день</h1>
+        <p class="lede">На каждого клиента — полное внимание.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="hero-arrow prev" type="button" aria-label="Предыдущее фото" onclick="heroSlide(-1)">‹</button>
+  <button class="hero-arrow next" type="button" aria-label="Следующее фото" onclick="heroSlide(1)">›</button>
+
+  <div class="hero-dots">
+    <button class="hero-dot is-active" type="button" onclick="heroGoTo(0)" aria-label="Слайд 1"></button>
+    <button class="hero-dot" type="button" onclick="heroGoTo(1)" aria-label="Слайд 2"></button>
+  </div>
+</section>
+
+  <!-- Всё ниже карусели обёрнуто в .page-content — оно наезжает на карусель при скролле -->
+<div class="page-content">
+
+  <!-- ================= SERVICES ================= -->
+  <section class="section section-alt" id="services">
+    <div class="wrap services-layout">
+      <div>
+        <p class="eyebrow">Услуги · Ресницы · Брови · Маникюр</p>
+      </div>
+      <div class="services-list">
+
+        <div class="service-row" id="lashes" style="--row-bg:url('service-lashes.avif')">
+          <div>
+            <h3>Ресницы</h3>
+            <p class="desc">Наращивание ресниц</p>
+          </div>
+          <div class="price">от 2 000 ₽</div>
+          <div class="duration">~1,5 часа</div>
+          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
+        </div>
+
+        <div class="service-row" id="brows" style="--row-bg:url('service-brows.avif')">
+          <div>
+            <h3>Брови</h3>
+            <p class="desc">Ламинирование бровей</p>
+          </div>
+          <div class="price">от 1 000 ₽</div>
+          <div class="duration">~30 минут</div>
+          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
+        </div>
+
+        <div class="service-row" id="manicure" style="--row-bg:url('service-manicure.avif')">
+          <div>
+            <h3>Маникюр с покрытием гель-лак</h3>
+            <p class="desc">Классический или аппаратный, гель-лак, укрепление</p>
+          </div>
+          <div class="price">от 2 500 ₽</div>
+          <div class="duration">~2 часа</div>
+          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
+        </div>
+
+         <div class="service-row" id="makeup" style="--row-bg:url('service-makeup.avif')">
+          <div>
+            <h3>Вечерний макияж</h3>
+            <p class="desc">Вечерний макияж</p>
+          </div>
+          <div class="price">от 2 000 ₽</div>
+          <div class="duration">~1 час</div>
+          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi">Записаться →</a>
+        </div>
+
+        </div>
+    </div>
+  </section>
+
+  <!-- ================= LASH EFFECTS ================= -->
+  <section class="section" id="lash-effects">
+    <div class="wrap">
+      <p class="eyebrow">Ресницы</p>
+      <p class="muted" style="max-width:56ch">Какой эффект наращивания выбрать.</p>
+      <div class="effects-grid">
+
+        <div class="effect-card">
+          <img src="natural.avif" class="effect-photo" alt="Натуральный эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">01 · Натурал</span>
+          <div class="effect-body">
+            <h3>Натуральный эффект</h3>
+            <p>Лёгкий и максимально естественный объём. Ресницы выглядят ухоженно, а не «накрашенно» — хороший выбор для первого наращивания.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="foxy.avif" class="effect-photo" alt="Лисий эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">02 · Фокс</span>
+          <div class="effect-body">
+            <h3>Лисий эффект</h3>
+            <p>Слегка приподнятые кончики к внешнему уголку — взгляд становится вытянутым и собранным, как при лёгкой стрелке.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="doll.avif" class="effect-photo" alt="Кукольный эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">03 · Долл</span>
+          <div class="effect-body">
+            <h3>Кукольный эффект</h3>
+            <p>Акцент на центр глаза, ресницы распределены равномерно по всей длине — взгляд открытый и выразительный.</p>
+          </div>
+        </div>
+
+        <div class="effect-card">
+          <img src="wet.avif" class="effect-photo" alt="Мокрый эффект наращивания ресниц" loading="lazy">
+          <span class="effect-badge">04 · Мокрый</span>
+          <div class="effect-body">
+            <h3>Мокрый эффект</h3>
+            <p>Пушистый, но плотный эффект с характерным блеском — будто ресницы только что подкрашены тушью.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PORTFOLIO ================= -->
+  <section class="section section-alt" id="portfolio">
+    <div class="wrap">
+      <p class="eyebrow">Наш стиль · Портфолио</p>
+      <div class="portfolio-strip" tabindex="0">
+        <img src="9.avif" class="portfolio-photo" alt="Работа мастера — фото 1" loading="lazy">
+        <img src="1.avif" class="portfolio-photo" alt="Работа мастера — фото 2" loading="lazy">
+        <img src="2.avif" class="portfolio-photo" alt="Работа мастера — фото 3" loading="lazy">
+        <img src="5.avif" class="portfolio-photo" alt="Работа мастера — фото 4" loading="lazy">
+        <img src="8.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="10.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="11.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="12.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="13.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="14.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="15.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="16.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+        <img src="18.avif" class="portfolio-photo" alt="Работа мастера — фото 5" loading="lazy">
+      </div>
+      <div class="scroll-indicator" aria-hidden="true">
+        <div class="scroll-indicator-thumb" data-track-for="portfolio-strip"></div>
+      </div>
+      <p style="margin-top:32px;"><a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Попробовать</a></p>
+    </div>
+  </section>
+  
+<!-- ================= REVIEWS ================= -->
+<section class="section section-white" id="reviews">
+  <div class="wrap">
+    <h2 class="eyebrow">Наши отзывы</h2>
+    <div class="review-strip" tabindex="0">
+      <img src="review8.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review9.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review4.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review6.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review2.avif" class="review-photo-full" alt="Отзыв клиента 2" loading="lazy">
+      <img src="review3.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review5.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review7.avif" class="review-photo-full" alt="Отзыв клиента 3" loading="lazy">
+      <img src="review1.avif" class="review-photo-full" alt="Отзыв клиента 1" loading="lazy">
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-indicator-thumb" data-track-for="review-strip"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MASTER CAROUSEL ================= -->
+<section class="master-carousel" id="master" aria-label="Мастера студии">
+  <div class="master-bg-slides">
+    <img src="studio1.avif" class="master-bg-slide is-active" alt="Фото студии 1">
+    <img src="studio2.avif" class="master-bg-slide" alt="Фото студии 2">
+  </div>
+  <div class="master-slides">
+    <div class="master-slide is-active">
+      <div class="master-frame">
+        <img src="master1.avif" class="master-photo" alt="Фото мастера — Айгуль">
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Айгуль</h2>
+          <ul class="master-credentials">
+            <li>Опыт работы — 7 лет</li>
+            <li>Время работы ~1-1,5 часа</li>
+            <li>Специализация — Ресницы, ПМ</li>
+            <li>Индивидуальный подход</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373807">Записаться к этому мастеру</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="master-slide">
+      <div class="master-frame">
+        <img src="master2.avif" class="master-photo" alt="Фото мастера — Анастасия">
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Анастасия</h2>
+          <ul class="master-credentials">
+            <li>Опыт работы — 4 года</li>
+            <li>Время работы ~2 часа</li>
+            <li>Специализация — Ресницы</li>
+            <li>Индивидуальный подбор эффекта</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373819">Записаться к этому мастеру</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="master-slide">
+      <div class="master-frame">
+        <img src="master3.avif" class="master-photo" alt="Фото мастера — Слава">
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Ярослава</h2>
+          <ul class="master-credentials">
+            <li>Опыт работы — 4 года</li>
+            <li>Время работы ~2-2,5 часа</li>
+            <li>Специализация — Маникюр и педикюр</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4396039">Записаться к этому мастеру</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="master-slide">
+      <div class="master-frame">
+        <img src="master4.avif" class="master-photo" alt="Фото мастера — Дияна">
+        <div class="master-overlay-content">
+          <p class="eyebrow">О мастере</p>
+          <h2>Дияна</h2>
+          <ul class="master-credentials">
+            <li>Опыт работы — 3 года</li>
+            <li>Время работы ~1,5 часа</li>
+            <li>Специализация — Ламинирование ресниц</li>
+          </ul>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4399020">Записаться к этому мастеру</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="master-arrow prev" type="button" aria-label="Предыдущий мастер" onclick="masterSlide(-1)">‹</button>
+  <button class="master-arrow next" type="button" aria-label="Следующий мастер" onclick="masterSlide(1)">›</button>
+
+  <div class="master-dots">
+    <button class="master-dot is-active" type="button" onclick="masterGoTo(0)" aria-label="Мастер 1"></button>
+    <button class="master-dot" type="button" onclick="masterGoTo(1)" aria-label="Мастер 2"></button>
+    <button class="master-dot" type="button" onclick="masterGoTo(2)" aria-label="Мастер 3"></button>
+    <button class="master-dot" type="button" onclick="masterGoTo(3)" aria-label="Мастер 4"></button>
+  </div>
+</section>
+  
+  <!-- ================= PRICING ================= -->
+  <section class="section" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Прайс коротко</p>
+      <table class="pricing">
+        <thead>
+          <tr><th>Услуга</th><th>Цена</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ресницы</td><td>от 2 000 ₽</td></tr>
+          <tr><td>Брови</td><td>от 2 000 ₽</td></tr>
+          <tr><td>Маникюр и покрытие</td><td>от 2 500 ₽</td></tr>
+          <tr><td>Вечерний макияж</td><td>от 2 000 ₽</td></tr>
+          <tr><td>Ламинирование бровей + оформление + окрашивание</td><td>от 2 200 ₽</td></tr>
+          <tr><td>Окрашивание бровей + оформление краской/хной</td><td>от 1 500 ₽</td></tr>
+          <tr><td>Ламинирование бровей</td><td>от 1 000 ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= CONTACTS ================= -->
+  <section class="section section-alt" id="contacts">
+    <div class="wrap contacts-grid">
+      <div>
+        <p class="eyebrow">Контакты · Как добраться и записаться</p>
+        <div class="contact-line"><strong>Адрес</strong><span>Уфа, Ростовская улица, дом 18 лит К, 3 этаж, 314 офис</span></div>
+        <div class="contact-line"><strong>График</strong><span>Ежедневно, 10:00–22:00, по предварительной записи</span></div>
+        <div class="contact-line"><strong>Телефон</strong><a href="tel:+79649644775">+7 964 964-47-75</a></div>
+        <div class="contact-line"><strong>WhatsApp</strong><a href="https://wa.me/79649644775" target="_blank" rel="noopener">wa.me/79649644775</a></div>
+        <p style="margin-top:28px;"><a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Записаться онлайн</a></p>
+      </div>
+<div class="map-embed">
+  <div style="position:relative;overflow:hidden;">
+    <a href="https://yandex.ru/maps/org/lash_studio/208313983820/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Lash studio</a>
+    <a href="https://yandex.ru/maps/172/ufa/category/eyebrow_and_eyelash_salon/7407769291/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Салон бровей и ресниц в Уфе</a>
+    <iframe src="https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06" width="560" height="400" frameborder="1" allowfullscreen="true" loading="lazy" style="position:relative;"></iframe>
+  </div>
+</div>
+      </div>
+  </section>
+
+</div><!-- /.page-content -->
+
+</main>
+
+<footer>
+  <div class="wrap">Имя мастера / салона · Город · ИП [если требуется указать]</div>
+</footer>
+
+<!-- ================= STICKY MOBILE ACTION BAR ================= -->
+<div class="mobile-bar" aria-label="Быстрые действия">
+  <div class="mobile-bar-inner">
+    <a class="call" href="tel:+79649644775">Позвонить</a>
+    <a class="wa" href="https://wa.me/79649644775" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</div>
+
+      <!-- ================= OVERLAY ================= -->  
+<div id="booking-overlay" class="booking-overlay" aria-hidden="true">
+  <div class="booking-overlay-inner">
+    <div class="booking-spinner" aria-hidden="true"></div>
+    <p>Переходим к онлайн-записи…</p>
+  </div>
+</div>     
+
+      <!-- ================= OVERLAY ================= -->
+      <div id="lightbox" class="lightbox" aria-hidden="true">
+  <button class="lightbox-close" type="button" aria-label="Закрыть" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+   <!-- ======================== JS Scripts ======================== --> 
+<script>
+(function(){
+  var topbar = document.querySelector('.topbar');
+  function setTopbarHeight(){
+    document.documentElement.style.setProperty('--topbar-h', topbar.offsetHeight + 'px');
+  }
+  setTopbarHeight();
+  window.addEventListener('resize', setTopbarHeight);
+})();
+</script>
+
+<script>
+(function(){
+  var track = document.querySelector('.hero-slides');
+  var dots = document.querySelectorAll('.hero-dot');
+  if(!track) return;
+
+  var realSlides = Array.prototype.slice.call(track.children);
+  var realCount = realSlides.length;
+  var firstClone = realSlides[0].cloneNode(true);
+  var lastClone = realSlides[realCount - 1].cloneNode(true);
+  firstClone.setAttribute('aria-hidden', 'true');
+  lastClone.setAttribute('aria-hidden', 'true');
+  track.appendChild(firstClone);
+  track.insertBefore(lastClone, realSlides[0]);
+
+  var trackIndex = 1; // 0 — клон последнего, 1..realCount — настоящие, realCount+1 — клон первого
+  var AUTOPLAY_DELAY = 5000;
+  var timer = null;
+  var settleTimer = null;
+  var dragFrame = null;
+  var pendingDelta = 0;
+
+  function realIndexOf(idx){
+    return ((idx - 1) % realCount + realCount) % realCount;
+  }
+
+  function render(withTransition){
+    track.style.transition = withTransition ? 'transform .5s ease' : 'none';
+    track.style.transform = 'translateX(-' + (trackIndex * 100) + '%)';
+    var real = realIndexOf(trackIndex);
+    dots.forEach(function(d, i){ d.classList.toggle('is-active', i === real); });
+    clearTimeout(settleTimer);
+    if(withTransition){ settleTimer = setTimeout(normalize, 600); } // страховка, если transitionend не придёт
+  }
+
+  // Если стоим на клоне или индекс вылез за границы — тихо перескакиваем на настоящий слайд
+  function normalize(){
+    if(trackIndex < 1 || trackIndex > realCount){
+      trackIndex = realIndexOf(trackIndex) + 1;
+      render(false);
+    }
+  }
+
+  track.addEventListener('transitionend', function(e){
+    if(e.target === track){ normalize(); }
+  });
+
+  function move(delta){
+    var next = trackIndex + delta;
+    if(next < 0 || next > realCount + 1){ render(true); return; } // упёрлись в край — вернуть трек на место
+    trackIndex = next;
+    render(true);
+  }
+  function goTo(realIdx){ trackIndex = realIdx + 1; render(true); }
+
+  function stopAutoplay(){
+    if(timer){ clearInterval(timer); timer = null; }
+  }
+  function startAutoplay(){
+    stopAutoplay();
+    timer = setInterval(function(){ move(1); }, AUTOPLAY_DELAY);
+  }
+
+  window.heroSlide = function(delta){ move(delta); startAutoplay(); };
+  window.heroGoTo = function(i){ goTo(i); startAutoplay(); };
+  window.__heroRerender = function(){ normalize(); render(false); };
+
+  // ----- свайп -----
+  function applyDrag(){
+    track.style.transition = 'none';
+    track.style.transform = 'translateX(calc(-' + (trackIndex * 100) + '% + ' + pendingDelta + 'px))';
+    dragFrame = null;
+  }
+  function cancelDrag(){
+    if(dragFrame !== null){ cancelAnimationFrame(dragFrame); dragFrame = null; }
+    pendingDelta = 0;
+  }
+  window.heroTrackDrag = function(deltaPx){
+    stopAutoplay(); // пока тянут пальцем, автопрокрутка не должна менять слайд
+    pendingDelta = deltaPx;
+    if(dragFrame === null){ dragFrame = requestAnimationFrame(applyDrag); }
+  };
+  window.heroTrackRelease = function(deltaPx, threshold){
+    cancelDrag();
+    if(Math.abs(deltaPx) > threshold){ move(deltaPx < 0 ? 1 : -1); }
+    else { render(true); }
+    startAutoplay();
+  };
+  window.heroTrackCancel = function(){ // касание прервано системой (звонок, сворачивание и т. п.)
+    cancelDrag();
+    render(true);
+    startAutoplay();
+  };
+
+  // ----- возврат на вкладку / из фона -----
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){
+      stopAutoplay();
+    } else {
+      cancelDrag();
+      normalize();
+      render(false);
+      startAutoplay();
+    }
+  });
+  window.addEventListener('pageshow', function(){
+    cancelDrag();
+    normalize();
+    render(false);
+    startAutoplay();
+  });
+
+  render(false);
+  startAutoplay();
+})();
+</script>
+
+<script>
+(function(){
+  var BOOKING_PREFIX = 'https://dikidi.net/2038825';
+  var NAV_DELAY = 550;   // пауза перед переходом, чтобы оверлей успел показаться
+  var HIDE_AFTER = 4000; // страховка: если переход не случился, убрать оверлей через это время
+  var overlay = document.getElementById('booking-overlay');
+  if(!overlay) return;
+ 
+  var navTimer = null;
+  var hideTimer = null;
+ 
+  function hideOverlay(){
+    clearTimeout(navTimer);
+    clearTimeout(hideTimer);
+    overlay.classList.remove('is-active');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+ 
+  // Делегирование: работает и для клонов в hero-карусели
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href^="' + BOOKING_PREFIX + '"]');
+    if(!link) return;
+ 
+    // Ctrl/⌘/Shift/Alt-клик и «в новой вкладке» — не вмешиваемся, пусть работает браузер
+    if(e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if(link.target && link.target !== '_self') return;
+ 
+    e.preventDefault();
+    var url = link.href;
+ 
+    clearTimeout(navTimer);
+    clearTimeout(hideTimer);
+    overlay.classList.add('is-active');
+    overlay.setAttribute('aria-hidden', 'false');
+ 
+    navTimer = setTimeout(function(){ window.location.href = url; }, NAV_DELAY);
+    hideTimer = setTimeout(hideOverlay, NAV_DELAY + HIDE_AFTER);
+  });
+ 
+  // Ручное закрытие: клик по оверлею или Esc
+  overlay.addEventListener('click', hideOverlay);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ hideOverlay(); }
+  });
+ 
+  // Возврат на страницу (кнопка «назад», bfcache, возврат из другого приложения)
+  window.addEventListener('pageshow', hideOverlay);
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden){ hideOverlay(); }
+  });
+})();
+</script>      
+
+<script>
+(function(){
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightbox-img');
+  if(!lightbox || !lightboxImg) return;
+
+  var closeBtn = lightbox.querySelector('.lightbox-close');
+  var SELECTOR = '.portfolio-photo, .review-photo-full';
+  var MAX_SCALE = 4;
+  var lastTrigger = null;
+
+  var scale = 1, tx = 0, ty = 0;
+  var pointers = new Map();
+  var pinch = null, pan = null;
+  var lastTap = 0, suppressClick = false;
+
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.setAttribute('aria-label', 'Просмотр фото');
+
+  document.querySelectorAll(SELECTOR).forEach(function(img){
+    img.setAttribute('tabindex', '0');
+    img.setAttribute('role', 'button');
+  });
+
+  // ---------- зум и перемещение ----------
+  function apply(){
+    lightboxImg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+  }
+  function center(){
+    var r = lightbox.getBoundingClientRect();
+    return { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+  }
+  function clamp(v, min, max){ return Math.min(max, Math.max(min, v)); }
+  function clampPan(){
+    var maxX = Math.max(0, (lightboxImg.offsetWidth * scale - lightbox.clientWidth) / 2);
+    var maxY = Math.max(0, (lightboxImg.offsetHeight * scale - lightbox.clientHeight) / 2);
+    tx = clamp(tx, -maxX, maxX);
+    ty = clamp(ty, -maxY, maxY);
+  }
+  function resetZoom(){
+    scale = 1; tx = 0; ty = 0;
+    pointers.clear(); pinch = null; pan = null;
+    lightboxImg.style.transition = '';
+    apply();
+  }
+  function dist(a, b){ return Math.hypot(a.x - b.x, a.y - b.y); }
+
+  // Приближение так, чтобы точка под пальцами/курсором оставалась на месте
+  function zoomAt(newScale, clientX, clientY){
+    var c = center();
+    var mx = clientX - c.x, my = clientY - c.y;
+    var px = (mx - tx) / scale, py = (my - ty) / scale;
+    scale = clamp(newScale, 1, MAX_SCALE);
+    tx = mx - scale * px;
+    ty = my - scale * py;
+    if(scale <= 1.01){ scale = 1; tx = 0; ty = 0; }
+    clampPan();
+    apply();
+  }
+
+  function startPinch(){
+    var pts = Array.from(pointers.values());
+    var c = center();
+    var mx = (pts[0].x + pts[1].x) / 2 - c.x;
+    var my = (pts[0].y + pts[1].y) / 2 - c.y;
+    pinch = { dist: dist(pts[0], pts[1]), scale: scale, px: (mx - tx) / scale, py: (my - ty) / scale };
+    pan = null;
+  }
+
+  lightbox.addEventListener('pointerdown', function(e){
+    if(!lightbox.classList.contains('is-active')) return;
+    if(closeBtn && closeBtn.contains(e.target)) return;
+    if(pointers.size === 0) suppressClick = false;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if(pointers.size === 2){ suppressClick = true; startPinch(); }
+    else if(pointers.size === 1){ pan = { x: e.clientX, y: e.clientY, tx: tx, ty: ty }; }
+  });
+
+  lightbox.addEventListener('pointermove', function(e){
+    if(!pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if(pinch && pointers.size >= 2){
+      var pts = Array.from(pointers.values());
+      var c = center();
+      var mx = (pts[0].x + pts[1].x) / 2 - c.x;
+      var my = (pts[0].y + pts[1].y) / 2 - c.y;
+      scale = clamp(pinch.scale * dist(pts[0], pts[1]) / pinch.dist, 1, MAX_SCALE);
+      tx = mx - scale * pinch.px;
+      ty = my - scale * pinch.py;
+      clampPan();
+      apply();
+    } else if(pan && pointers.size === 1){
+      var dx = e.clientX - pan.x, dy = e.clientY - pan.y;
+      if(Math.hypot(dx, dy) > 6) suppressClick = true;
+      if(scale > 1){
+        tx = pan.tx + dx;
+        ty = pan.ty + dy;
+        clampPan();
+        apply();
+      }
+    }
+  });
+
+  function endPointer(e){
+    if(!pointers.has(e.pointerId)) return;
+    var wasSingle = pointers.size === 1;
+    pointers.delete(e.pointerId);
+
+    if(pinch && pointers.size < 2){
+      pinch = null;
+      if(scale < 1.02){ scale = 1; tx = 0; ty = 0; apply(); }
+      if(pointers.size === 1){
+        var p = pointers.values().next().value;
+        pan = { x: p.x, y: p.y, tx: tx, ty: ty };
+      }
+    }
+
+    // двойной тап по фото: приблизить / вернуть
+    if(wasSingle && e.type === 'pointerup' && !suppressClick && e.target === lightboxImg){
+      var now = Date.now();
+      if(now - lastTap < 300){
+        lightboxImg.style.transition = 'transform .2s ease';
+        setTimeout(function(){ lightboxImg.style.transition = ''; }, 220);
+        if(scale > 1){ scale = 1; tx = 0; ty = 0; apply(); }
+        else { zoomAt(2.5, e.clientX, e.clientY); }
+        lastTap = 0;
+      } else {
+        lastTap = now;
+      }
+    }
+
+    if(pointers.size === 0) pan = null;
+  }
+  lightbox.addEventListener('pointerup', endPointer);
+  lightbox.addEventListener('pointercancel', endPointer);
+
+  // Десктоп: колесо / pinch на трекпаде приближает фото, а не страницу
+  lightbox.addEventListener('wheel', function(e){
+    e.preventDefault();
+    zoomAt(scale * Math.exp(-e.deltaY * 0.002), e.clientX, e.clientY);
+  }, { passive: false });
+
+  // Safari/iOS: запрет системного pinch-zoom страницы, пока открыт лайтбокс
+  ['gesturestart', 'gesturechange', 'gestureend'].forEach(function(type){
+    document.addEventListener(type, function(e){
+      if(lightbox.classList.contains('is-active')) e.preventDefault();
+    }, { passive: false });
+  });
+
+  // ---------- открытие / закрытие ----------
+  function openLightbox(img){
+    lastTrigger = img;
+    resetZoom();
+    lightboxImg.src = img.currentSrc || img.src;
+    lightboxImg.alt = img.alt || '';
+    lightbox.classList.add('is-active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    if(closeBtn){ closeBtn.focus(); }
+  }
+
+  window.closeLightbox = function(){
+    if(!lightbox.classList.contains('is-active')) return;
+    lightbox.classList.remove('is-active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    resetZoom();
+    if(lastTrigger){
+      lastTrigger.focus({preventScroll:true});
+      lastTrigger = null;
+    }
+  };
+
+  document.addEventListener('click', function(e){
+    var img = e.target.closest(SELECTOR);
+    if(img){ openLightbox(img); }
+  });
+
+  lightbox.addEventListener('click', function(e){
+    if(e.target === lightbox && !suppressClick){ closeLightbox(); }
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeLightbox(); return; }
+    if((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches(SELECTOR)){
+      e.preventDefault();
+      openLightbox(e.target);
+    }
+  });
+})();
+</script>
+
+<script>
+(function(){
+  function bindScrollIndicator(stripClass){
+    var strip = document.querySelector('.' + stripClass);
+    var thumb = document.querySelector('[data-track-for="' + stripClass + '"]');
+    if(!strip || !thumb) return;
+    var track = thumb.parentElement;
+
+    function update(){
+      var maxScroll = strip.scrollWidth - strip.clientWidth;
+      if(maxScroll <= 0){ thumb.style.width = '100%'; thumb.style.transform = 'translateX(0)'; return; }
+      var ratio = strip.clientWidth / strip.scrollWidth;
+      var thumbWidthPx = Math.max(ratio * track.clientWidth, 24);
+      thumb.style.width = thumbWidthPx + 'px';
+      var progress = strip.scrollLeft / maxScroll;
+      thumb.style.transform = 'translateX(' + (progress * (track.clientWidth - thumbWidthPx)) + 'px)';
+    }
+
+    strip.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  bindScrollIndicator('portfolio-strip');
+  bindScrollIndicator('review-strip');
+})();
+</script>
+
+<script>
+(function(){
+  function enableHorizontalScroll(selector){
+    var el = document.querySelector(selector);
+    if(!el) return;
+ 
+    el.addEventListener('wheel', function(e){
+      // Горизонтальный жест трекпада, Shift+колесо, pinch-zoom (ctrlKey) — браузер справится сам
+      if(e.ctrlKey || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+ 
+      var maxScroll = el.scrollWidth - el.clientWidth;
+      if(maxScroll <= 0) return; // лента целиком помещается — нечего прокручивать
+ 
+      var atStart = el.scrollLeft <= 0;
+      var atEnd = el.scrollLeft >= maxScroll - 1;
+ 
+      // Дошли до края в эту сторону — отдаём прокрутку странице
+      if((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+ 
+      // Firefox может отдавать дельту в строках/страницах, а не в пикселях
+      var delta = e.deltaY;
+      if(e.deltaMode === 1){ delta *= 40; }
+      else if(e.deltaMode === 2){ delta *= el.clientWidth; }
+ 
+      el.scrollLeft += delta;
+      e.preventDefault();
+    }, {passive:false});
+ 
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowRight'){ el.scrollLeft += 120; e.preventDefault(); }
+      if(e.key === 'ArrowLeft'){ el.scrollLeft -= 120; e.preventDefault(); }
+    });
+  }
+  enableHorizontalScroll('.portfolio-strip');
+  enableHorizontalScroll('.review-strip');
+})();
+</script>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.master-slide');
+  var dots = document.querySelectorAll('.master-dot');
+  var current = 0;
+  function show(i){
+    current = (i + slides.length) % slides.length;
+    slides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === current); });
+    dots.forEach(function(d, idx){ d.classList.toggle('is-active', idx === current); });
+  }
+  window.masterSlide = function(delta){ show(current + delta); };
+  window.masterGoTo = function(i){ show(i); };
+})();
+</script>
+
+<script>
+(function(){
+  var bgSlides = document.querySelectorAll('.master-bg-slide');
+  if(!bgSlides.length) return;
+  var bgCurrent = 0;
+  var BG_DELAY = 4000; // промежуток смены фото студии, мс — поменяй по вкусу
+
+  function showBg(i){
+    bgCurrent = (i + bgSlides.length) % bgSlides.length;
+    bgSlides.forEach(function(s, idx){ s.classList.toggle('is-active', idx === bgCurrent); });
+  }
+  setInterval(function(){ showBg(bgCurrent + 1); }, BG_DELAY);
+})();
+</script>
+
+<script>
+(function(){
+  function enableSwipe(selector, slideSelector, onSwipeLeft, onSwipeRight){
+    var el = document.querySelector(selector);
+    if(!el) return;
+
+    var startX = 0, startY = 0, tracking = false, lockDirection = null, activeSlide = null;
+    var THRESHOLD = 40; // минимальное расстояние свайпа в пикселях
+
+    el.addEventListener('touchstart', function(e){
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+      lockDirection = null;
+      activeSlide = el.querySelector(slideSelector + '.is-active');
+      if(activeSlide){ activeSlide.style.transition = 'none'; }
+    }, {passive:true});
+
+    el.addEventListener('touchmove', function(e){
+      if(!tracking) return;
+      var deltaX = e.touches[0].clientX - startX;
+      var deltaY = e.touches[0].clientY - startY;
+
+      if(lockDirection === null && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)){
+        lockDirection = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical';
+      }
+      if(lockDirection === 'horizontal'){
+        e.preventDefault();
+        if(activeSlide){
+          activeSlide.style.transform = 'translateX(' + deltaX + 'px)';
+        }
+      }
+    }, {passive:false});
+
+    el.addEventListener('touchend', function(e){
+      if(!tracking) return;
+      tracking = false;
+      var endX = e.changedTouches[0].clientX;
+      var endY = e.changedTouches[0].clientY;
+      var deltaX = endX - startX;
+      var deltaY = endY - startY;
+      var swiped = Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > THRESHOLD;
+
+      if(activeSlide){
+        var slideToReset = activeSlide;
+        slideToReset.style.transition = 'transform .25s ease';
+        slideToReset.style.transform = 'translateX(0px)';
+        setTimeout(function(){
+          slideToReset.style.transition = '';
+          slideToReset.style.transform = '';
+        }, 260);
+      }
+
+      if(swiped){
+        if(deltaX < 0){ onSwipeLeft(); } else { onSwipeRight(); }
+      }
+    }, {passive:true});
+  }
+  
+  enableSwipe('.master-carousel', '.master-slide', function(){ masterSlide(1); }, function(){ masterSlide(-1); });
+})();
+</script>
+
+<script>
+(function(){
+  var el = document.querySelector('.hero-carousel');
+  if(!el) return;
+  var startX = 0, startY = 0, tracking = false, lockDirection = null;
+  var THRESHOLD = 40;
+
+  el.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+    lockDirection = null;
+  }, {passive:true});
+
+  el.addEventListener('touchmove', function(e){
+    if(!tracking) return;
+    var deltaX = e.touches[0].clientX - startX;
+    var deltaY = e.touches[0].clientY - startY;
+    if(lockDirection === null && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)){
+      lockDirection = Math.abs(deltaX) > Math.abs(deltaY) ? 'horizontal' : 'vertical';
+    }
+    if(lockDirection === 'horizontal'){
+      e.preventDefault();
+      window.heroTrackDrag(deltaX);
+    }
+  }, {passive:false});
+
+  el.addEventListener('touchend', function(e){
+    if(!tracking) return;
+    tracking = false;
+    var deltaX = e.changedTouches[0].clientX - startX;
+    var deltaY = e.changedTouches[0].clientY - startY;
+    var horizontal = Math.abs(deltaX) > Math.abs(deltaY);
+    window.heroTrackRelease(horizontal ? deltaX : 0, THRESHOLD);
+  }, {passive:true});
+})();
+</script>
+
+<script>
+(function(){
+  var KEY = 'cookieConsentAccepted';
+  var banner = document.getElementById('cookie-banner');
+  if(!banner) return;
+
+  var accepted = false;
+  try{ accepted = localStorage.getItem(KEY) === '1'; }catch(e){}
+  if(accepted){ banner.remove(); return; } // уже приняли раньше — вообще не показываем
+
+  var showTimer = setTimeout(function(){ banner.classList.add('is-visible'); }, 800);
+
+  var btn = document.getElementById('cookie-accept');
+  if(btn){
+    btn.addEventListener('click', function(){
+      try{ localStorage.setItem(KEY, '1'); }catch(e){}
+      banner.classList.remove('is-visible');
+      setTimeout(function(){ banner.remove(); }, 300);
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
