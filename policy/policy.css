@@ -1,0 +1,18 @@
+.policy-page{padding-bottom:0}
+.policy-wrap{max-width:844px;margin:auto;padding:64px 32px 72px}
+.policy-intro h1{font-size:clamp(30px,4.4vw,48px);line-height:1.16;overflow-wrap:break-word}
+.policy-lede{color:var(--muted);font-size:18px;margin-top:24px}
+.policy-date{color:var(--muted);font-size:13px;margin-bottom:0}
+.policy-back{font-size:14px;white-space:nowrap}
+.policy-nav{background:var(--bg-alt);border:1px solid var(--line);border-radius:16px;margin:32px 0 44px;padding:24px 28px}
+.policy-nav p{font-weight:600;margin-bottom:12px}
+.policy-nav ol{margin:0;padding-left:22px;display:grid;gap:8px}
+.policy-section{padding:0 0 28px;margin:0 0 32px;border-bottom:1px solid var(--line)}
+.policy-section h2{font-size:clamp(24px,3vw,30px);margin-bottom:20px}
+.policy-section p:last-child{margin-bottom:0}
+.policy-section ul{padding-left:24px;margin:0 0 20px}
+.policy-section li{margin-bottom:16px}
+.policy-wrap a:not(.btn){text-decoration-color:var(--accent)}
+.policy-end{margin-top:40px}
+@media(max-width:560px){.policy-wrap{padding:40px 20px 48px}.policy-lede{font-size:16px}.policy-nav{padding:20px;margin:28px 0 36px}.policy-back{font-size:13px}.policy-section{font-size:16px}.policy-end .btn{width:100%}}
+@media print{.policy-page .topbar,.policy-page footer,.policy-nav,.policy-end,.skip-link{display:none}.policy-wrap{max-width:none;padding:0}.policy-section{break-inside:avoid}.policy-wrap a{color:inherit}}
