@@ -303,20 +303,9 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
 (() => {
   ['portfolio-strip', 'review-strip'].forEach(className => {
     const strip = document.querySelector(`.${className}`);
-    const thumb = document.querySelector(`[data-track-for="${className}"]`);
-    function update() {
-      const track = thumb.parentElement;
-      const maximum = strip.scrollWidth - strip.clientWidth;
-      const width = Math.min(track.clientWidth, Math.max(24, strip.clientWidth / strip.scrollWidth * track.clientWidth));
-      thumb.style.width = `${width}px`;
-      thumb.style.transform = `translateX(${maximum > 0 ? strip.scrollLeft / maximum * (track.clientWidth - width) : 0}px)`;
-    }
-    strip.addEventListener('scroll', update, {passive: true});
     strip.addEventListener('keydown', event => {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {event.preventDefault(); strip.scrollLeft += event.key === 'ArrowRight' ? 200 : -200;}
     });
-    new ResizeObserver(update).observe(strip);
-    update();
   });
 })();
 
