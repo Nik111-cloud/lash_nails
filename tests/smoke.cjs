@@ -81,7 +81,7 @@ const output = process.env.REVIEW_OUTPUT;
         const inputs = [...form.querySelectorAll('input')];
         const select = document.getElementById('brows-treatment');
         let count = 0;
-        for(let mask=0;mask<16;mask++) for(const browPrice of [1000,1500,2200]) {
+        for(let mask=0;mask<(1 << inputs.length);mask++) for(const browPrice of [1000,1500,2200]) {
           select.value=String(browPrice);
           inputs.forEach((input,i)=>{input.checked=Boolean(mask & (1<<i));});
           form.dispatchEvent(new Event('change',{bubbles:true}));
@@ -94,7 +94,7 @@ const output = process.env.REVIEW_OUTPUT;
         select.value='1000';form.dispatchEvent(new Event('change',{bubbles:true}));
         return count;
       });
-      assert.equal(calculations,48);
+      assert.equal(calculations,96);
       // Stub analytics: validation never sends conversion events to the production counter.
       await page.evaluate(() => {window.reviewGoals=[];window.ym=(...args)=>window.reviewGoals.push(args);});
       await page.locator('#pricing .btn').click();
@@ -132,7 +132,7 @@ const output = process.env.REVIEW_OUTPUT;
         await page.addStyleTag({content:'.topbar,.mobile-bar,.skip-link{visibility:hidden!important}'});
         await page.locator('#pricing').screenshot({path:path.join(output,`calculator-${width}.png`)});
       }
-      console.log(`PASS ${width}×${height}: layout, images, carousels, modal, 48 calculations, booking/back, 3 goals`);
+      console.log(`PASS ${width}×${height}: layout, images, carousels, modal, 96 calculations, booking/back, 3 goals`);
       await context.close();
     }
     assert.deepEqual(errors,[],'Browser runtime errors');
