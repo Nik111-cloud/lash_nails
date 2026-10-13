@@ -335,3 +335,42 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
   form.addEventListener('submit', event => event.preventDefault());
   update();
 })();
+
+// The shared lower-page background follows scroll position in both directions.
+(() => {
+  const pricing = document.getElementById('pricing');
+  if (!pricing) return;
+  const body = document.body;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const styles = getComputedStyle(document.documentElement);
+  const color = name => styles.getPropertyValue(name).trim().split(/\s+/).map(Number);
+  const start = color('--visit-bg-start');
+  const finish = color('--visit-bg-end');
+  let frame = 0;
+  let previousColor = '';
+
+  function update() {
+    frame = 0;
+    const height = document.documentElement.clientHeight;
+    const top = pricing.getBoundingClientRect().top;
+    // Begin as the calculator enters the screen; finish before its controls reach the top.
+    const progress = Math.max(0, Math.min(1, (height * .88 - top) / (height * .6)));
+    const eased = motion.matches ? Number(progress >= .5) : progress * progress * (3 - 2 * progress);
+    const background = `rgb(${start.map((channel, index) => Math.round(channel + (finish[index] - channel) * eased)).join(', ')})`;
+    if (background === previousColor) return;
+    previousColor = background;
+    body.style.setProperty('--visit-background', background);
+  }
+  function schedule() {
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+
+  update();
+  body.classList.add('visit-theme-ready');
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  window.addEventListener('pageshow', schedule);
+  motion.addEventListener('change', schedule);
+  // Images above the calculator can change its offset after a restored scroll position.
+  if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(document.querySelector('main') || body);
+})();
