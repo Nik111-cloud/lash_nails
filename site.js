@@ -52,6 +52,11 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
   const slides = [...root.querySelectorAll(slideSelector)];
   const dots = [...root.querySelectorAll(dotSelector)];
   const track = trackSelector && root.querySelector(trackSelector);
+  const animateCards = !track && root.classList.contains('master-carousel');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let cardAnimations = [];
+  let cardAnimationId = 0;
+  let pendingNext = null;
   let index = 0;
   let moving = false;
   let settleTimer;
@@ -66,14 +71,34 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
     });
     moving = false;
   }
+  function settleCards() {
+    clearTimeout(settleTimer);
+    cardAnimationId += 1;
+    cardAnimations.forEach(animation => animation.cancel());
+    cardAnimations = [];
+    slides.forEach(slide => slide.classList.remove('is-leaving'));
+    root.classList.remove('is-sliding');
+    moving = false;
+    const queued = pendingNext;
+    pendingNext = null;
+    if (queued !== null) show(queued, true);
+  }
+  if (animateCards) motion.addEventListener('change', () => {
+    if (motion.matches && moving) settleCards();
+  });
   if (track) track.addEventListener('transitionend', event => {
     if (event.target === track && event.propertyName === 'transform') settleTrack();
   });
   function show(next, fromUser = false) {
-    if (track && moving) return;
+    if ((track || animateCards) && moving) {
+      if (animateCards && fromUser) pendingNext = next;
+      return;
+    }
     const previous = index;
     index = ((next % slides.length) + slides.length) % slides.length;
+    const slideTransition = animateCards && fromUser && index !== previous && !motion.matches && typeof slides[index].animate === 'function';
     slides.forEach((slide, i) => {
+      slide.classList.toggle('is-leaving', slideTransition && i === previous);
       const active = i === index;
       slide.classList.toggle('is-active', active);
       slide.inert = !active;
@@ -85,7 +110,7 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
       dot.setAttribute('aria-current', String(i === index));
     });
     if (track) {
-      if (!fromUser || index === previous || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (!fromUser || index === previous || motion.matches) {
         settleTrack();
       } else {
         // Place the real next slide beside the current one in the gesture's
@@ -103,6 +128,27 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
         track.style.transform = `translateX(${-direction * 100}%)`;
         settleTimer = setTimeout(settleTrack, 600);
       }
+    }
+    if (slideTransition) {
+      const direction = Math.sign(next - previous);
+      const options = {duration: 480, easing: 'cubic-bezier(.22,.61,.36,1)'};
+      moving = true;
+      root.classList.add('is-sliding');
+      const animationId = ++cardAnimationId;
+      cardAnimations = [
+        slides[previous].animate([
+          {transform: 'translateX(0)', opacity: 1, filter: 'blur(0px)'},
+          {transform: `translateX(${-direction * 100}%)`, opacity: 0, filter: 'blur(3px)'}
+        ], options),
+        slides[index].animate([
+          {transform: `translateX(${direction * 100}%)`, opacity: 0, filter: 'blur(3px)'},
+          {transform: 'translateX(0)', opacity: 1, filter: 'blur(0px)'}
+        ], options)
+      ];
+      Promise.allSettled(cardAnimations.map(animation => animation.finished)).then(() => {
+        if (animationId === cardAnimationId) settleCards();
+      });
+      settleTimer = setTimeout(settleCards, 800);
     }
     root.querySelectorAll('.master-bg-slide').forEach((bg, i, backgrounds) => {
       bg.classList.toggle('is-active', i === index % backgrounds.length);
