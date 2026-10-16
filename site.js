@@ -437,8 +437,8 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     if (dirty) {target = progress(); dirty = false;}
     const elapsed = lastTime ? Math.min(now - lastTime, 64) : 16;
     lastTime = now;
-    // Animate the displayed RGB and derive text from that same frame, without CSS lag.
-    current = motion.matches ? target : current + (target - current) * (1 - Math.exp(-elapsed / 55));
+    // Smooth the background in RAF; derive text targets from that same displayed RGB.
+    current = motion.matches ? target : current + (target - current) * (1 - Math.exp(-elapsed / 165));
     if (Math.abs(target - current) < .0005) {
       current = target;
       lastTime = 0;

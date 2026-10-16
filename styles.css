@@ -117,8 +117,8 @@ button,a{touch-action:manipulation}
 .calculator-summary .btn{width:100%}
 /* One continuous surface for the calculator, contacts and footer. */
 body.visit-theme-ready,body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready #reviews,body.visit-theme-ready footer{background-color:var(--visit-background,var(--bg))}
-body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready #reviews,body.visit-theme-ready footer{color:var(--visit-ink,var(--ink));--muted:var(--visit-muted,#6b5c4e);--line:var(--visit-line,#c9b9a0);transition:color .24s ease}
-body.visit-theme-ready :is(#pricing,#contacts,#reviews) :is(.eyebrow,.muted){transition:color .24s ease}
+body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready #reviews,body.visit-theme-ready footer{color:var(--visit-ink,var(--ink));--muted:var(--visit-muted,#6b5c4e);--line:var(--visit-line,#c9b9a0);transition:color .72s ease}
+body.visit-theme-ready :is(#pricing,#contacts,#reviews) :is(.eyebrow,.muted){transition:color .72s ease}
 body.visit-theme-ready :is(#pricing,#contacts,#reviews,footer) :focus-visible{outline-color:var(--visit-ink,var(--ink))}
 body.visit-theme-ready #reviews .review-strip{scrollbar-color:var(--visit-ink,var(--ink)) transparent}
 .booking-overlay{position:fixed;inset:0;z-index:50;background:rgba(42,32,25,.96);color:var(--bg);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .2s}
