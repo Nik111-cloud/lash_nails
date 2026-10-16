@@ -2,7 +2,7 @@
 @font-face{font-family:Playfair Display;font-style:normal;font-weight:600;font-display:swap;src:url(fonts/playfair.woff2) format('woff2')}
 /* Locally hosted Google Fonts; licenses are in fonts/. */
 :root{--ink:#2a2019;--muted:#6b5c4e;--bg:#fbf7f2;--bg-alt:#efe3d3;--line:#c9b9a0;--accent:#a23b4e;--maxw:1120px;--topbar-h:72px}
-:root{--visit-bg-start:251 247 242;--visit-bg-end:228 200 211}
+:root{--visit-bg-start:251 247 242;--visit-bg-end:49 91 104}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--topbar-h) + 20px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Golos Text',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -107,15 +107,18 @@ button,a{touch-action:manipulation}
 .calculator-option strong{font-size:14px;white-space:nowrap}
 .calculator-brows{padding:16px 0;border-top:1px solid var(--line)}
 .calculator-brows label{display:block;font-size:14px;margin-bottom:8px}
-.calculator-brows select{width:100%;min-width:0;min-height:48px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14px;text-overflow:ellipsis}
+.calculator-brows select{--line:#c9b9a0;width:100%;min-width:0;min-height:48px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14px;text-overflow:ellipsis}
 .calculator-brows select:disabled{opacity:.6;background:var(--bg-alt)}
-.calculator-summary{padding:28px;border:1px solid var(--line);border-radius:16px;background:var(--bg-alt)}
+.calculator-summary{--visit-ink:var(--ink);--muted:#6b5c4e;--line:#c9b9a0;padding:28px;border:1px solid var(--line);border-radius:16px;background:var(--bg-alt);color:var(--ink)}
 .calculator-total{font-family:'Playfair Display',Georgia,serif;font-size:clamp(28px,3vw,40px);line-height:1.2;margin:0 0 12px}
 .calculator-summary #calculator-count{font-size:14px;margin-bottom:20px}
 .calculator-note{font-size:13px;line-height:1.6;color:var(--muted)}
 .calculator-summary .btn{width:100%}
 /* One continuous surface for the calculator, contacts and footer. */
-body.visit-theme-ready,body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready footer{background-color:var(--visit-background,var(--bg));transition:background-color .18s linear}
+body.visit-theme-ready,body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready footer{background-color:var(--visit-background,var(--bg))}
+body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready footer{color:var(--visit-ink,var(--ink));--muted:var(--visit-muted,#6b5c4e);--line:var(--visit-line,#c9b9a0);transition:color .24s ease}
+body.visit-theme-ready :is(#pricing,#contacts) :is(.eyebrow,.muted){transition:color .24s ease}
+body.visit-theme-ready #pricing :focus-visible,body.visit-theme-ready #contacts :focus-visible,body.visit-theme-ready footer :focus-visible{outline-color:var(--visit-ink,var(--ink))}
 .booking-overlay{position:fixed;inset:0;z-index:50;background:rgba(42,32,25,.96);color:var(--bg);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .2s}
 .booking-overlay.is-active{opacity:1;visibility:visible}
 .booking-overlay-inner{display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;text-align:center}

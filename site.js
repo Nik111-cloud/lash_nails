@@ -392,26 +392,66 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
   const color = name => styles.getPropertyValue(name).trim().split(/\s+/).map(Number);
   const start = color('--visit-bg-start');
   const finish = color('--visit-bg-end');
+  const luminance = channels => channels.map(value => value / 255)
+    .map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4)
+    .reduce((sum, value, index) => sum + value * [.2126, .7152, .0722][index], 0);
+  const rgb = channels => `rgb(${channels.join(', ')})`;
   let frame = 0;
+  let dirty = false;
+  let lastTime = 0;
   let previousColor = '';
 
-  function update() {
-    frame = 0;
+  function progress() {
     const height = document.documentElement.clientHeight;
+    if (!height) return 0;
     const top = pricing.getBoundingClientRect().top;
-    // Begin as the calculator enters the screen; finish before its controls reach the top.
-    const progress = Math.max(0, Math.min(1, (height * .88 - top) / (height * .6)));
-    const eased = motion.matches ? Number(progress >= .5) : progress * progress * (3 - 2 * progress);
-    const background = `rgb(${start.map((channel, index) => Math.round(channel + (finish[index] - channel) * eased)).join(', ')})`;
+    // Wait until the calculator reaches the lower half; finish near the top.
+    const value = Math.max(0, Math.min(1, (height * .55 - top) / (height * .5)));
+    return motion.matches ? Number(value >= .5) : value * value * (3 - 2 * value);
+  }
+  let target = progress();
+  let current = target;
+
+  function paint(value) {
+    const channels = start.map((channel, index) => Math.round(channel + (finish[index] - channel) * value));
+    const background = rgb(channels);
     if (background === previousColor) return;
     previousColor = background;
+    const lightness = luminance(channels);
+    const contrast = ink => {
+      const level = luminance(ink);
+      return (Math.max(lightness, level) + .05) / (Math.min(lightness, level) + .05);
+    };
+    const lightText = lightness < .179;
+    let ink = lightText ? [255, 255, 255] : [42, 32, 25];
+    if (contrast(ink) < 4.5) ink = [0, 0, 0];
+    let muted = lightText ? [223, 238, 241] : [107, 92, 78];
+    if (contrast(muted) < 4.5) muted = ink;
     body.style.setProperty('--visit-background', background);
+    body.style.setProperty('--visit-ink', rgb(ink));
+    body.style.setProperty('--visit-muted', rgb(muted));
+    body.style.setProperty('--visit-line', lightText ? 'rgba(255,255,255,.3)' : 'rgba(42,32,25,.3)');
+  }
+  function update(now) {
+    frame = 0;
+    if (dirty) {target = progress(); dirty = false;}
+    const elapsed = lastTime ? Math.min(now - lastTime, 64) : 16;
+    lastTime = now;
+    // Animate the displayed RGB and derive text from that same frame, without CSS lag.
+    current = motion.matches ? target : current + (target - current) * (1 - Math.exp(-elapsed / 55));
+    if (Math.abs(target - current) < .0005) {
+      current = target;
+      lastTime = 0;
+    }
+    paint(current);
+    if (current !== target) frame = requestAnimationFrame(update);
   }
   function schedule() {
+    dirty = true;
     if (!frame) frame = requestAnimationFrame(update);
   }
 
-  update();
+  paint(current);
   body.classList.add('visit-theme-ready');
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule);
