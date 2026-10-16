@@ -74,6 +74,7 @@ button,a{touch-action:manipulation}
 .service-row .duration{font-size:14px;color:#fff3e9}
 .service-row .book-link{grid-column:1/-1;justify-self:start;margin-top:8px;color:var(--bg);border-color:rgba(251,247,242,.7);background:rgba(251,247,242,.1)}
 .effects-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:32px}
+.effects-actions{margin:32px 0 0}
 .effect-card{position:relative;min-height:420px;border-radius:16px;overflow:hidden;color:var(--bg);background:var(--ink)}
 .effect-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .effect-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,14,10,.06) 25%,rgba(20,14,10,.85) 100%);pointer-events:none}
@@ -115,10 +116,11 @@ button,a{touch-action:manipulation}
 .calculator-note{font-size:13px;line-height:1.6;color:var(--muted)}
 .calculator-summary .btn{width:100%}
 /* One continuous surface for the calculator, contacts and footer. */
-body.visit-theme-ready,body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready footer{background-color:var(--visit-background,var(--bg))}
-body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready footer{color:var(--visit-ink,var(--ink));--muted:var(--visit-muted,#6b5c4e);--line:var(--visit-line,#c9b9a0);transition:color .24s ease}
-body.visit-theme-ready :is(#pricing,#contacts) :is(.eyebrow,.muted){transition:color .24s ease}
-body.visit-theme-ready #pricing :focus-visible,body.visit-theme-ready #contacts :focus-visible,body.visit-theme-ready footer :focus-visible{outline-color:var(--visit-ink,var(--ink))}
+body.visit-theme-ready,body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready #reviews,body.visit-theme-ready footer{background-color:var(--visit-background,var(--bg))}
+body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-theme-ready #reviews,body.visit-theme-ready footer{color:var(--visit-ink,var(--ink));--muted:var(--visit-muted,#6b5c4e);--line:var(--visit-line,#c9b9a0);transition:color .24s ease}
+body.visit-theme-ready :is(#pricing,#contacts,#reviews) :is(.eyebrow,.muted){transition:color .24s ease}
+body.visit-theme-ready :is(#pricing,#contacts,#reviews,footer) :focus-visible{outline-color:var(--visit-ink,var(--ink))}
+body.visit-theme-ready #reviews .review-strip{scrollbar-color:var(--visit-ink,var(--ink)) transparent}
 .booking-overlay{position:fixed;inset:0;z-index:50;background:rgba(42,32,25,.96);color:var(--bg);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .2s}
 .booking-overlay.is-active{opacity:1;visibility:visible}
 .booking-overlay-inner{display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;text-align:center}
@@ -171,6 +173,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .service-row h3{font-size:24px}.service-row .duration{text-align:right}
   .service-row .book-link{justify-self:stretch;margin-top:12px}
   .effects-grid{grid-template-columns:1fr;gap:16px}
+  .effects-actions .btn{width:100%}
   .effect-card{min-height:420px}.effect-body{padding:22px}
   .portfolio-photo,.review-photo-full{flex-basis:calc(100vw - 64px);width:calc(100vw - 64px);height:auto;aspect-ratio:4/5}
   .review-photo-full{aspect-ratio:1/1}
