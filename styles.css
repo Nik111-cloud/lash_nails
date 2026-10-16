@@ -50,6 +50,8 @@ button,a{touch-action:manipulation}
 .hero-overlay-content{position:relative;z-index:2;max-width:var(--maxw);margin:auto;min-height:620px;padding:100px 80px 96px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
 .hero-overlay-content .eyebrow,.master-overlay-content .eyebrow{display:inline-block;color:var(--bg);padding:8px 14px;border:1px solid rgba(251,247,242,.35);border-radius:24px;background:rgba(20,14,10,.3);font-size:13px;letter-spacing:0}
 .hero-overlay-content h1,.hero-overlay-content h2{font-size:clamp(36px,4.4vw,58px);max-width:17ch;color:var(--bg)}
+.hero-overlay-content h1{max-width:20ch}
+.hero-offer{font-size:clamp(20px,2vw,24px);font-weight:600;line-height:1.35;color:var(--bg);margin:0 0 8px}
 .hero-overlay-content .lede{font-size:18px;max-width:42ch;color:var(--bg);margin:8px 0 28px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
 .hero-arrow,.master-arrow,.lightbox-close{position:absolute;z-index:3;width:44px;height:44px;border-radius:50%;background:rgba(20,14,10,.38);border:1px solid rgba(251,247,242,.6);color:var(--bg);font-size:28px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
