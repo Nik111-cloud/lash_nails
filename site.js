@@ -237,6 +237,94 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
   document.addEventListener('visibilitychange', () => {if (!document.hidden) hide();});
 })();
 
+// Keep one full photograph visible; load other work only when it is selected.
+(() => {
+  const gallery = document.querySelector('.portfolio-gallery');
+  if (!gallery) return;
+  const main = gallery.querySelector('.portfolio-photo');
+  const image = main?.querySelector('img');
+  const buttons = [...gallery.querySelectorAll('.portfolio-thumb')];
+  const photos = buttons.map(button => {
+    const img = button.querySelector('img');
+    return {button, image: img, src: img?.dataset.src || img?.getAttribute('src'), alt: img?.alt || '', caption: button.dataset.caption || 'Ресницы'};
+  }).filter(photo => photo.src);
+  if (!main || !image || !photos.length) return;
+  const caption = gallery.querySelector('.portfolio-caption');
+  const counter = gallery.querySelector('.portfolio-counter');
+  const controls = gallery.querySelector('.portfolio-controls');
+  const status = gallery.querySelector('.portfolio-status');
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  let index = 0, displayed = 0, generation = 0, animation;
+  const wrap = value => ((value % photos.length) + photos.length) % photos.length;
+  function select() {
+    const first = Math.min(Math.floor(index / 4) * 4, Math.max(0, photos.length - 4));
+    photos.forEach((photo, i) => {
+      const visible = i >= first && i < first + 4;
+      photo.button.hidden = !visible;
+      photo.button.setAttribute('aria-pressed', String(i === index));
+      if (visible && gallery.dataset.interacted === 'true') loadMedia(photo.image);
+    });
+    // Keyboard focus must not remain on a thumbnail that left the current page.
+    if (photos.some(photo => photo.button.hidden && photo.button === document.activeElement)) photos[index].button.focus({preventScroll: true});
+  }
+  function describe() {
+    caption.textContent = photos[displayed].caption;
+    counter.textContent = `${String(displayed + 1).padStart(2, '0')} / ${photos.length}`;
+    main.setAttribute('aria-label', `Рассмотреть работу ${displayed + 1}: ${photos[displayed].caption}`);
+  }
+  function show(next) {
+    index = wrap(next);
+    const id = ++generation;
+    const photo = photos[index];
+    gallery.dataset.interacted = 'true';
+    select();
+    main.setAttribute('aria-busy', 'true');
+    status.textContent = 'Загружаем фото…';
+    status.hidden = false;
+    const incoming = new Image();
+    incoming.src = photo.src;
+    incoming.decode().then(() => {
+      if (id !== generation) return;
+      delete image.dataset.src;
+      image.src = photo.src;
+      image.alt = photo.alt;
+      displayed = index;
+      describe();
+      main.removeAttribute('aria-busy');
+      status.hidden = true;
+      animation?.cancel();
+      if (!motion.matches && typeof image.animate === 'function') animation = image.animate([{opacity: .45}, {opacity: 1}], {duration: 220, easing: 'ease-out'});
+    }).catch(() => {
+      if (id !== generation) return;
+      index = displayed;
+      select();
+      main.removeAttribute('aria-busy');
+      status.textContent = 'Не удалось загрузить фото. Попробуйте ещё раз.';
+    });
+  }
+  photos.forEach((photo, i) => photo.button.addEventListener('click', () => show(i)));
+  gallery.querySelectorAll('[data-direction]').forEach(button => button.addEventListener('click', () => show(index + Number(button.dataset.direction))));
+  gallery.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    show(index + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  let touch = null, suppressClickUntil = 0;
+  main.addEventListener('pointerdown', event => {touch = event.pointerType === 'touch' ? {x: event.clientX, y: event.clientY} : null;}, {passive: true});
+  main.addEventListener('pointerup', event => {
+    if (!touch) return;
+    const dx = event.clientX - touch.x, dy = event.clientY - touch.y;
+    touch = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {suppressClickUntil = Date.now() + 400; show(index + (dx < 0 ? 1 : -1));}
+  }, {passive: true});
+  main.addEventListener('pointercancel', () => {touch = null;}, {passive: true});
+  main.addEventListener('click', event => {if (Date.now() < suppressClickUntil) {event.preventDefault(); event.stopPropagation();}}, true);
+  controls.hidden = photos.length < 2;
+  gallery.querySelector('.portfolio-thumbs').hidden = photos.length < 2;
+  select();
+  describe();
+})();
+
 (() => {
   const box = document.getElementById('lightbox');
   const image = document.getElementById('lightbox-img');
@@ -269,9 +357,11 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     if (scale === 1) x = y = 0;
     apply();
   }
-  function open(img) {
+  function open(target) {
+    const img = target.matches('img') ? target : target.querySelector('img');
+    if (!img) return;
     loadMedia(img);
-    trigger = img;
+    trigger = target;
     reset();
     image.src = img.currentSrc || img.src;
     image.alt = img.alt;
@@ -347,8 +437,9 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
 })();
 
 (() => {
-  ['portfolio-strip', 'review-strip'].forEach(className => {
+  ['review-strip'].forEach(className => {
     const strip = document.querySelector(`.${className}`);
+    if (!strip) return;
     strip.addEventListener('keydown', event => {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {event.preventDefault(); strip.scrollLeft += event.key === 'ArrowRight' ? 200 : -200;}
     });

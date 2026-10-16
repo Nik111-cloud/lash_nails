@@ -82,9 +82,28 @@ button,a{touch-action:manipulation}
 .effect-body{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px}
 .effect-body h3{font-size:26px}
 .effect-body p{font-size:15px;line-height:1.5;margin:0;color:#fff9f6;max-width:48ch}
-.portfolio-strip,.review-strip{display:flex;gap:16px;overflow-x:auto;padding:4px 4px 12px;margin:28px -4px 0;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
-.portfolio-photo,.review-photo-full{flex:0 0 300px;width:300px;height:375px;object-fit:cover;border:1px solid var(--line);border-radius:14px;cursor:zoom-in;scroll-snap-align:start;background:#fff}
-.review-photo-full{height:300px;object-fit:contain}
+.portfolio-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;margin-top:32px}
+.portfolio-photo{position:relative;display:block;width:100%;height:clamp(360px,42vw,540px);padding:0;border:1px solid var(--line);border-radius:16px;background:var(--bg-alt);overflow:hidden;cursor:zoom-in;touch-action:pan-y}
+.portfolio-photo img{width:100%;height:100%;object-fit:contain}
+.portfolio-enlarge{position:absolute;right:16px;bottom:16px;display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:var(--bg);color:var(--accent);font-size:22px;line-height:1;transition:background .2s,color .2s,border-color .2s}
+.portfolio-photo:hover .portfolio-enlarge,.portfolio-photo:focus-visible .portfolio-enlarge,.portfolio-photo:active .portfolio-enlarge{background:var(--accent);border-color:var(--accent);color:#fff9f6}
+.portfolio-details{min-width:0}
+.portfolio-caption{font-size:clamp(26px,2.7vw,34px);margin:0 0 16px}
+.portfolio-description{font-size:16px;max-width:34ch;margin:0}
+.portfolio-thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:28px}
+.portfolio-thumb{display:block;width:100%;aspect-ratio:1/1;min-width:0;padding:4px;border:1px solid var(--line);border-radius:10px;background:var(--bg);cursor:pointer;transition:background .2s,border-color .2s,box-shadow .2s}
+.portfolio-thumb img{width:100%;height:100%;object-fit:cover;border-radius:5px}
+.portfolio-thumb:hover,.portfolio-thumb:active{border-color:var(--accent);background:var(--bg-alt)}
+.portfolio-thumb[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.portfolio-controls{display:flex;align-items:center;gap:12px;margin-top:24px}
+.portfolio-counter{margin-right:auto;color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.portfolio-arrow{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--accent);font-size:22px;line-height:1;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.portfolio-arrow:hover,.portfolio-arrow:focus-visible,.portfolio-arrow:active{background:var(--accent);border-color:var(--accent);color:#fff9f6}
+.portfolio-arrow:active{transform:scale(.94)}
+.portfolio-status{font-size:13px;margin:12px 0 0}
+.portfolio-hint{font-size:14px;margin:28px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.review-strip{display:flex;gap:16px;overflow-x:auto;padding:4px 4px 12px;margin:28px -4px 0;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--accent) transparent}
+.review-photo-full{flex:0 0 300px;width:300px;height:300px;object-fit:contain;border:1px solid var(--line);border-radius:14px;cursor:zoom-in;scroll-snap-align:start;background:#fff}
 .master-carousel{position:relative;overflow:hidden;color:var(--bg);background:var(--ink)}
 .master-bg-slides,.master-bg-slide{position:absolute;inset:0;width:100%;height:100%}
 .master-bg-slide{object-fit:cover;opacity:0;transform:scale(1.035);transition:opacity .65s ease,transform .8s ease}
@@ -161,6 +180,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .master-frame{padding:80px 32px 88px}
   .mobile-bar{display:block}.cookie-toast{bottom:calc(76px + env(safe-area-inset-bottom))}
 }
+@media(max-width:620px){.portfolio-layout{grid-template-columns:1fr;gap:24px}}
 @media(max-width:560px){
   .wrap{padding:0 20px}.topbar-inner{padding:10px 20px;gap:12px}
   .brand-name{font-size:22px}.btn-small{padding:10px 14px}
@@ -175,7 +195,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .effects-grid{grid-template-columns:1fr;gap:16px}
   .effects-actions .btn{width:100%}
   .effect-card{min-height:420px}.effect-body{padding:22px}
-  .portfolio-photo,.review-photo-full{flex-basis:calc(100vw - 64px);width:calc(100vw - 64px);height:auto;aspect-ratio:4/5}
+  .portfolio-layout{margin-top:24px}
+  .portfolio-photo{height:clamp(300px,95vw,440px)}
+  .portfolio-description{font-size:15px}
+  .portfolio-thumbs{margin-top:20px}
+  .portfolio-controls{margin-top:20px}
+  .portfolio-hint{font-size:13px;margin-top:24px}
+  .review-photo-full{flex-basis:calc(100vw - 64px);width:calc(100vw - 64px);height:auto;aspect-ratio:4/5}
   .review-photo-full{aspect-ratio:1/1}
   .master-frame{padding-left:20px;padding-right:20px}.master-overlay-content h2{font-size:34px}
   .master-frame .btn{width:100%}

@@ -32,7 +32,7 @@ const output = process.env.REVIEW_OUTPUT;
       await page.locator('#lash-effects').scrollIntoViewIfNeeded();
       await page.waitForFunction(()=>document.querySelector('.effect-photo').naturalWidth > 0);
       await page.locator('#portfolio').scrollIntoViewIfNeeded();
-      await page.waitForFunction(()=>document.querySelector('.portfolio-photo').naturalWidth > 0);
+      await page.waitForFunction(()=>document.querySelector('.portfolio-photo img').naturalWidth > 0);
       // All images, including those intentionally lazy loaded, must actually decode.
       const images = await page.evaluate(async () => {
         document.querySelectorAll('img[data-src]').forEach(img=>loadMedia(img));
@@ -154,7 +154,7 @@ const output = process.env.REVIEW_OUTPUT;
       await fastPage.goto(base,{waitUntil:'domcontentloaded'});
       assert.equal(await fastPage.locator('.hero-slide-photo').first().evaluate(img=>img.complete),false);
       await fastPage.locator('#portfolio').scrollIntoViewIfNeeded();
-      await fastPage.waitForFunction(()=>document.querySelector('.portfolio-photo').naturalWidth>0);
+      await fastPage.waitForFunction(()=>document.querySelector('.portfolio-photo img').naturalWidth>0);
       console.log('PASS immediate scroll loads photos even while the hero image is still downloading');
     } finally {releaseHero();await fast.close();}
     if (process.env.CHECK_LIVE) {
