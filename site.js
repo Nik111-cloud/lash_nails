@@ -245,6 +245,10 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
     }
     const previous = index;
     index = ((next % slides.length) + slides.length) % slides.length;
+    const focused = document.activeElement;
+    const restoreFocus = fromUser && index !== previous && slides[previous].contains(focused);
+    const focusable = 'a[href], button:not([disabled]), [tabindex="0"]';
+    const focusIndex = restoreFocus ? [...slides[previous].querySelectorAll(focusable)].indexOf(focused) : -1;
     const slideTransition = animateCards && fromUser && index !== previous && !motion.matches && typeof slides[index].animate === 'function';
     slides.forEach((slide, i) => {
       slide.classList.toggle('is-leaving', slideTransition && i === previous);
@@ -254,6 +258,10 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
       slide.setAttribute('aria-hidden', String(!active));
       if (active && fromUser) loadMedia(slide);
     });
+    if (restoreFocus) {
+      const destination = [...slides[index].querySelectorAll(focusable)][Math.max(0, focusIndex)] || root.querySelector('.next');
+      destination?.focus({preventScroll: true});
+    }
     dots.forEach((dot, i) => {
       dot.classList.toggle('is-active', i === index);
       dot.setAttribute('aria-current', String(i === index));
@@ -477,7 +485,10 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
 (() => {
   const box = document.getElementById('lightbox');
   const image = document.getElementById('lightbox-img');
-  const closeButton = box.querySelector('button');
+  const closeButton = box.querySelector('.lightbox-close');
+  const zoomOut = box.querySelector('.lightbox-zoom-out');
+  const zoomReset = box.querySelector('.lightbox-zoom-reset');
+  const zoomIn = box.querySelector('.lightbox-zoom-in');
   const selector = '.portfolio-photo, .review-photo-full';
   let trigger = null;
   let previousOverflow = '';
@@ -488,11 +499,17 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
   const previousInert = new Map();
   const active = () => box.classList.contains('is-active');
   function apply() {
-    const maxX = Math.max(0, (image.offsetWidth * scale - box.clientWidth + 48) / 2);
-    const maxY = Math.max(0, (image.offsetHeight * scale - box.clientHeight + 128) / 2);
+    const layout = getComputedStyle(box);
+    const paddingX = parseFloat(layout.paddingLeft) + parseFloat(layout.paddingRight);
+    const paddingY = parseFloat(layout.paddingTop) + parseFloat(layout.paddingBottom);
+    const maxX = Math.max(0, (image.offsetWidth * scale - box.clientWidth + paddingX) / 2);
+    const maxY = Math.max(0, (image.offsetHeight * scale - box.clientHeight + paddingY) / 2);
     x = Math.max(-maxX, Math.min(maxX, x));
     y = Math.max(-maxY, Math.min(maxY, y));
     image.style.transform = `translate(${x}px,${y}px) scale(${scale})`;
+    zoomOut?.setAttribute('aria-disabled', String(scale <= 1));
+    zoomIn?.setAttribute('aria-disabled', String(scale >= 4));
+    if (zoomReset) zoomReset.textContent = `${Math.round(scale * 100)}%`;
   }
   function reset() {scale = 1; x = y = lastTap = 0; pointers.clear(); pan = pinch = null; moved = false; apply();}
   function zoom(next, clientX, clientY) {
@@ -532,11 +549,35 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     reset();
   }
   closeButton.addEventListener('click', close);
+  function zoomAtCenter(next) {
+    const rect = image.getBoundingClientRect();
+    zoom(next, rect.left + rect.width / 2, rect.top + rect.height / 2);
+  }
+  zoomOut?.addEventListener('click', () => zoomAtCenter(scale - .5));
+  zoomIn?.addEventListener('click', () => zoomAtCenter(scale + .5));
+  zoomReset?.addEventListener('click', reset);
   document.addEventListener('click', event => {const img = event.target.closest(selector); if (img) open(img);});
   document.addEventListener('keydown', event => {
     if (active()) {
-      if (event.key === 'Escape') close();
-      if (event.key === 'Tab') {event.preventDefault(); closeButton.focus();}
+      if (event.key === 'Escape') {event.preventDefault(); close();}
+      else if (event.key === 'Tab') {
+        const controls = [...box.querySelectorAll('button:not([disabled])')];
+        const current = controls.indexOf(document.activeElement);
+        event.preventDefault();
+        const next = current < 0 ? (event.shiftKey ? controls.length - 1 : 0) : (current + (event.shiftKey ? -1 : 1) + controls.length) % controls.length;
+        controls[next]?.focus();
+      } else if (['+', '=', 'Add', '-', 'Subtract', '0', 'Home'].includes(event.key)) {
+        event.preventDefault();
+        if (event.key === '0' || event.key === 'Home') reset();
+        else zoomAtCenter(scale + (['-', 'Subtract'].includes(event.key) ? -.5 : .5));
+      } else if (scale > 1 && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+        event.preventDefault();
+        if (event.key === 'ArrowLeft') x += 48;
+        if (event.key === 'ArrowRight') x -= 48;
+        if (event.key === 'ArrowUp') y += 48;
+        if (event.key === 'ArrowDown') y -= 48;
+        apply();
+      }
       return;
     }
     if ((event.key === 'Enter' || event.key === ' ') && event.target.matches(selector)) {event.preventDefault(); open(event.target);}
