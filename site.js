@@ -1,5 +1,22 @@
 'use strict';
 
+function onMediaChange(query, listener) {
+  if (typeof query.addEventListener === 'function') query.addEventListener('change', listener);
+  else if (typeof query.addListener === 'function') query.addListener(listener);
+}
+
+function decodeImage(image) {
+  if (typeof image.decode === 'function') return image.decode();
+  if (image.complete) return image.naturalWidth ? Promise.resolve() : Promise.reject(new Error('Image unavailable'));
+  return new Promise((resolve, reject) => {
+    const clean = () => {image.removeEventListener('load', loaded); image.removeEventListener('error', failed);};
+    const loaded = () => {clean(); resolve();};
+    const failed = () => {clean(); reject(new Error('Image unavailable'));};
+    image.addEventListener('load', loaded);
+    image.addEventListener('error', failed);
+  });
+}
+
 function loadMedia(element) {
   const items = element.matches('[data-src], [data-background]') ? [element] : [...element.querySelectorAll('[data-src], [data-background]')];
   items.forEach(item => {
@@ -14,6 +31,127 @@ function loadMedia(element) {
     }
   });
 }
+
+// Initialize pricing before optional media and animation features.
+(() => {
+  const form = document.getElementById('price-calculator');
+  const total = document.getElementById('calculator-total');
+  const count = document.getElementById('calculator-count');
+  const brows = document.getElementById('brows-treatment');
+  if (!form || !total || !count) return;
+  const browInput = form.querySelector('input[name="brows"]');
+  const numberFormat = new Intl.NumberFormat('ru-RU');
+  function update() {
+    const selected = [...form.querySelectorAll('input:checked')];
+    if (brows) brows.disabled = !browInput?.checked;
+    const sum = selected.reduce((value, input) => value + Number(input.name === 'brows' && brows ? brows.value : input.value), 0);
+    const nextTotal = sum ? `от ${numberFormat.format(sum)} ₽` : 'Выберите услугу';
+    const nextCount = selected.length ? `Выбрано услуг: ${selected.length}` : 'Можно выбрать несколько услуг';
+    if (total.textContent !== nextTotal) total.textContent = nextTotal;
+    if (count.textContent !== nextCount) count.textContent = nextCount;
+  }
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  form.addEventListener('submit', event => event.preventDefault());
+  window.addEventListener('pageshow', update);
+  document.addEventListener('visibilitychange', () => {if (!document.hidden) update();});
+  update();
+})();
+
+// The shared lower-page background follows scroll position in both directions.
+(() => {
+  const pricing = document.getElementById('pricing');
+  if (!pricing) return;
+  const body = document.body;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const styles = getComputedStyle(document.documentElement);
+  const color = name => styles.getPropertyValue(name).trim().split(/\s+/).map(Number);
+  const start = color('--visit-bg-start');
+  const finish = color('--visit-bg-end');
+  const luminance = channels => channels.map(value => value / 255)
+    .map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4)
+    .reduce((sum, value, index) => sum + value * [.2126, .7152, .0722][index], 0);
+  const rgb = channels => `rgb(${channels.join(', ')})`;
+  let frame = 0;
+  let dirty = false;
+  let lastTime = 0;
+  let previousColor = '';
+  const properties = new Map();
+  function setProperty(name, value) {
+    if (properties.get(name) === value) return;
+    properties.set(name, value);
+    body.style.setProperty(name, value);
+  }
+
+  function progress() {
+    const height = document.documentElement.clientHeight;
+    if (!height) return 0;
+    const top = pricing.getBoundingClientRect().top;
+    // Wait until the calculator reaches the lower half; finish near the top.
+    const value = Math.max(0, Math.min(1, (height * .55 - top) / (height * .5)));
+    return motion.matches ? Number(value >= .5) : value * value * (3 - 2 * value);
+  }
+  let target = progress();
+  let current = target;
+
+  function paint(value) {
+    const channels = start.map((channel, index) => Math.round(channel + (finish[index] - channel) * value));
+    const background = rgb(channels);
+    if (background === previousColor) return;
+    previousColor = background;
+    const lightness = luminance(channels);
+    const contrast = ink => {
+      const level = luminance(ink);
+      return (Math.max(lightness, level) + .05) / (Math.min(lightness, level) + .05);
+    };
+    const lightText = lightness < .179;
+    let ink = lightText ? [255, 255, 255] : [42, 32, 25];
+    if (contrast(ink) < 4.5) ink = [0, 0, 0];
+    let muted = lightText ? [223, 238, 241] : [107, 92, 78];
+    if (contrast(muted) < 4.5) muted = ink;
+    setProperty('--visit-background', background);
+    setProperty('--visit-ink', rgb(ink));
+    setProperty('--visit-muted', rgb(muted));
+    setProperty('--visit-line', lightText ? 'rgba(255,255,255,.3)' : 'rgba(42,32,25,.3)');
+  }
+  function update(now) {
+    frame = 0;
+    if (dirty) {target = progress(); dirty = false;}
+    const elapsed = lastTime ? Math.min(now - lastTime, 64) : 16;
+    lastTime = now;
+    // Smooth the background in RAF; derive text targets from that same displayed RGB.
+    current = motion.matches ? target : current + (target - current) * (1 - Math.exp(-elapsed / 165));
+    if (Math.abs(target - current) < .0005) {
+      current = target;
+      lastTime = 0;
+    }
+    paint(current);
+    if (current !== target) frame = requestAnimationFrame(update);
+  }
+  function schedule() {
+    dirty = true;
+    if (document.hidden) return;
+    if (!frame) frame = requestAnimationFrame(update);
+  }
+  function pause() {
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    lastTime = 0;
+  }
+  function resume() {pause(); schedule();}
+
+  paint(current);
+  body.classList.add('visit-theme-ready');
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  window.addEventListener('pageshow', resume);
+  window.addEventListener('pagehide', pause);
+  window.addEventListener('load', schedule);
+  document.addEventListener('visibilitychange', () => {if (document.hidden) pause(); else resume();});
+  onMediaChange(motion, schedule);
+  // Images above the calculator can change its offset after a restored scroll position.
+  if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(document.querySelector('main') || body);
+})();
 
 // Start below-the-fold media after the first image has been painted. Native lazy
 // loading may otherwise download several screens of photos on a slow connection.
@@ -36,20 +174,31 @@ function loadMedia(element) {
   }
   // A visitor who scrolls immediately should not wait for the hero image.
   window.addEventListener('scroll', observe, {once:true,passive:true});
-  hero.decode().catch(() => {}).then(() => requestAnimationFrame(() => requestAnimationFrame(observe)));
+  if (!hero) {observe(); return;}
+  decodeImage(hero).catch(() => {}).then(() => requestAnimationFrame(() => requestAnimationFrame(observe)));
 })();
 
 (() => {
   const topbar = document.querySelector('.topbar');
-  const update = () => document.documentElement.style.setProperty('--topbar-h', `${topbar.offsetHeight}px`);
+  if (!topbar) return;
+  let previousHeight;
+  const update = () => {
+    const height = topbar.offsetHeight;
+    if (height === previousHeight) return;
+    previousHeight = height;
+    document.documentElement.style.setProperty('--topbar-h', `${height}px`);
+  };
   update();
-  new ResizeObserver(update).observe(topbar);
+  if (typeof ResizeObserver === 'function') new ResizeObserver(update).observe(topbar);
+  else {window.addEventListener('resize', update); window.addEventListener('load', update);}
 })();
 
 // Manual carousels keep the offer readable and keep hidden links out of keyboard navigation.
 function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) {
   const root = document.querySelector(rootSelector);
+  if (!root) return;
   const slides = [...root.querySelectorAll(slideSelector)];
+  if (!slides.length) return;
   const dots = [...root.querySelectorAll(dotSelector)];
   const track = trackSelector && root.querySelector(trackSelector);
   const animateCards = !track && root.classList.contains('master-carousel');
@@ -83,7 +232,7 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
     pendingNext = null;
     if (queued !== null) show(queued, true);
   }
-  if (animateCards) motion.addEventListener('change', () => {
+  if (animateCards) onMediaChange(motion, () => {
     if (motion.matches && moving) settleCards();
   });
   if (track) track.addEventListener('transitionend', event => {
@@ -283,7 +432,7 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     status.hidden = false;
     const incoming = new Image();
     incoming.src = photo.src;
-    incoming.decode().then(() => {
+    decodeImage(incoming).then(() => {
       if (id !== generation) return;
       delete image.dataset.src;
       image.src = photo.src;
@@ -454,100 +603,4 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     try {localStorage.setItem('cookieConsentAccepted', '1');} catch (_) {}
     banner.hidden = true;
   });
-})();
-
-(() => {
-  const form = document.getElementById('price-calculator');
-  const total = document.getElementById('calculator-total');
-  const count = document.getElementById('calculator-count');
-  const brows = document.getElementById('brows-treatment');
-  function update() {
-    const selected = [...form.querySelectorAll('input:checked')];
-    brows.disabled = !form.elements.brows.checked;
-    const sum = selected.reduce((value, input) => value + Number(input.name === 'brows' ? brows.value : input.value), 0);
-    total.textContent = sum ? `от ${new Intl.NumberFormat('ru-RU').format(sum)} ₽` : 'Выберите услугу';
-    count.textContent = selected.length ? `Выбрано услуг: ${selected.length}` : 'Можно выбрать несколько услуг';
-  }
-  form.addEventListener('change', update);
-  form.addEventListener('submit', event => event.preventDefault());
-  update();
-})();
-
-// The shared lower-page background follows scroll position in both directions.
-(() => {
-  const pricing = document.getElementById('pricing');
-  if (!pricing) return;
-  const body = document.body;
-  const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const styles = getComputedStyle(document.documentElement);
-  const color = name => styles.getPropertyValue(name).trim().split(/\s+/).map(Number);
-  const start = color('--visit-bg-start');
-  const finish = color('--visit-bg-end');
-  const luminance = channels => channels.map(value => value / 255)
-    .map(value => value <= .04045 ? value / 12.92 : ((value + .055) / 1.055) ** 2.4)
-    .reduce((sum, value, index) => sum + value * [.2126, .7152, .0722][index], 0);
-  const rgb = channels => `rgb(${channels.join(', ')})`;
-  let frame = 0;
-  let dirty = false;
-  let lastTime = 0;
-  let previousColor = '';
-
-  function progress() {
-    const height = document.documentElement.clientHeight;
-    if (!height) return 0;
-    const top = pricing.getBoundingClientRect().top;
-    // Wait until the calculator reaches the lower half; finish near the top.
-    const value = Math.max(0, Math.min(1, (height * .55 - top) / (height * .5)));
-    return motion.matches ? Number(value >= .5) : value * value * (3 - 2 * value);
-  }
-  let target = progress();
-  let current = target;
-
-  function paint(value) {
-    const channels = start.map((channel, index) => Math.round(channel + (finish[index] - channel) * value));
-    const background = rgb(channels);
-    if (background === previousColor) return;
-    previousColor = background;
-    const lightness = luminance(channels);
-    const contrast = ink => {
-      const level = luminance(ink);
-      return (Math.max(lightness, level) + .05) / (Math.min(lightness, level) + .05);
-    };
-    const lightText = lightness < .179;
-    let ink = lightText ? [255, 255, 255] : [42, 32, 25];
-    if (contrast(ink) < 4.5) ink = [0, 0, 0];
-    let muted = lightText ? [223, 238, 241] : [107, 92, 78];
-    if (contrast(muted) < 4.5) muted = ink;
-    body.style.setProperty('--visit-background', background);
-    body.style.setProperty('--visit-ink', rgb(ink));
-    body.style.setProperty('--visit-muted', rgb(muted));
-    body.style.setProperty('--visit-line', lightText ? 'rgba(255,255,255,.3)' : 'rgba(42,32,25,.3)');
-  }
-  function update(now) {
-    frame = 0;
-    if (dirty) {target = progress(); dirty = false;}
-    const elapsed = lastTime ? Math.min(now - lastTime, 64) : 16;
-    lastTime = now;
-    // Smooth the background in RAF; derive text targets from that same displayed RGB.
-    current = motion.matches ? target : current + (target - current) * (1 - Math.exp(-elapsed / 165));
-    if (Math.abs(target - current) < .0005) {
-      current = target;
-      lastTime = 0;
-    }
-    paint(current);
-    if (current !== target) frame = requestAnimationFrame(update);
-  }
-  function schedule() {
-    dirty = true;
-    if (!frame) frame = requestAnimationFrame(update);
-  }
-
-  paint(current);
-  body.classList.add('visit-theme-ready');
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule);
-  window.addEventListener('pageshow', schedule);
-  motion.addEventListener('change', schedule);
-  // Images above the calculator can change its offset after a restored scroll position.
-  if ('ResizeObserver' in window) new ResizeObserver(schedule).observe(document.querySelector('main') || body);
 })();
