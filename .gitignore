@@ -1,2 +1,9 @@
 .performance/
 .pnpm-store/
+node_modules/
+app/.astro/
+app/dist/
+app/public/
+.env
+.env.*
+!.env.example

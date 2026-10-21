@@ -1,0 +1,18 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, href, phoneHref } from '../lib/render';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const settings = content.site_settings;
+const mapUrl = href(settings.map_embed_url, '');
+---
+<section class="section section-alt" id="contacts"><div class="wrap contacts-grid"><div>
+  <p class="eyebrow">{text(content, 'contacts_eyebrow', 'Контакты')}</p><h2>{text(content, 'contacts_title', 'Ждём вас в «Эстетике»')}</h2>
+  <div class="contact-line"><strong>{text(content, 'contacts_address_label', 'Адрес')}</strong><span>{settings.address}</span></div>
+  <div class="contact-line"><strong>{text(content, 'contacts_hours_label', 'График')}</strong><span>{settings.hours}</span></div>
+  <div class="contact-line"><strong>{text(content, 'contacts_phone_label', 'Телефон')}</strong><a href={phoneHref(settings.phone)}>{settings.phone_display}</a></div>
+  <div class="contact-line"><strong>{text(content, 'contacts_whatsapp_label', 'WhatsApp')}</strong><a href={href(settings.whatsapp_url)} target="_blank" rel="noopener">{text(content, 'contacts_whatsapp_cta', 'Написать в WhatsApp')}</a></div>
+</div><div class="contacts-map"><div class="map-embed"><div style="position:relative;overflow:hidden;">
+  {/^https?:\/\//i.test(mapUrl) && <><iframe title={text(content, 'map_title', 'Студия на карте Уфы')} data-src={mapUrl} width="560" height="400" allowfullscreen loading="lazy" style="position:relative;"></iframe><noscript><iframe title={text(content, 'map_title', 'Студия на карте Уфы')} src={mapUrl} width="560" height="400" allowfullscreen loading="lazy" style="position:relative;"></iframe></noscript></>}
+</div></div><a class="map-link" href={href(settings.map_org_url)} target="_blank" rel="noopener">{text(content, 'map_open', 'Открыть на Яндекс Картах ↗')}</a></div></div></section>
+

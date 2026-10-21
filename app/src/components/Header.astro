@@ -1,0 +1,19 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, href, phoneHref } from '../lib/render';
+interface Props { content: SiteContent; detail?: boolean; hasWorks?: boolean }
+const { content, detail = false, hasWorks = true } = Astro.props;
+const settings = content.site_settings;
+---
+<a class="skip-link" href={detail ? '#service-content' : '#services'}>{detail ? 'Перейти к услуге' : text(content, 'header.skip', 'Перейти к услугам')}</a>
+<div id="cookie-banner" class="cookie-toast" hidden aria-label={text(content, 'cookie.aria_label', 'Информация о cookie')}>
+  <p class="cookie-toast-title">{text(content, 'cookie.title', 'Статистика сайта')}</p>
+  <p class="cookie-toast-text">{text(content, 'cookie.description', 'Сайт использует cookie и Яндекс.Метрику для статистики посещений. Подробнее — в')} <a href="/policy/">{text(content, 'cookie.policy_link', 'политике конфиденциальности')}</a>{text(content, 'cookie.suffix', '.')}</p>
+  <div class="cookie-toast-actions"><button id="cookie-accept" class="btn btn-primary btn-small">{text(content, 'cookie.accept', 'Понятно')}</button></div>
+</div>
+<header class="topbar"><div class="topbar-inner">
+  <a class="brand" href={detail ? '/' : '#top'}><span class="brand-name">{settings.brand_name}</span><span class="brand-sub">{settings.brand_subtitle}</span></a>
+  <nav class="section-nav" aria-label={text(content, 'header.nav_aria', 'Разделы сайта')}><a href={detail ? '/#services' : '#services'}>{text(content, 'nav.services', 'Услуги')}</a><a href={hasWorks ? '#portfolio' : '#procedure'}>{hasWorks ? text(content, 'nav.portfolio', 'Работы') : 'О процедуре'}</a><a href="#pricing">{text(content, 'nav.pricing', 'Цены')}</a><a href="#contacts">{text(content, 'nav.contacts', 'Контакты')}</a></nav>
+  <div class="topbar-actions"><a class="btn btn-ghost btn-small" href={phoneHref(settings.phone)}>{text(content, 'header.call', 'Позвонить')}</a><a class="btn btn-primary btn-small btn-wave" href={href(settings.booking_url)}>{text(content, 'header.book', 'Записаться')}</a></div>
+</div></header>
+

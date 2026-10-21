@@ -1,0 +1,15 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, href } from '../lib/render';
+import LazyImage from './LazyImage.astro';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const consultationUrl = new URL(href(content.site_settings.whatsapp_url, 'https://wa.me/79649644775'), 'https://www.estetika-ufa.online');
+if (consultationUrl.hostname === 'wa.me') consultationUrl.searchParams.set('text', text(content, 'effects_consultation_message', 'Здравствуйте! Помогите подобрать эффект наращивания ресниц.'));
+---
+<section class="section" id="lash-effects"><div class="wrap">
+  <p class="eyebrow">{text(content, 'effects.eyebrow', 'Ресницы')}</p><h2>{text(content, 'effects.title', 'Какой эффект вам ближе?')}</h2><p class="muted">{text(content, 'effects.description', 'Мастер поможет подобрать эффект под форму глаз и ваши пожелания.')}</p>
+  <div class="effects-grid">{content.lash_effects.map((effect) => <div class="effect-card"><LazyImage item={effect} class="effect-photo" /><span class="effect-badge">{effect.badge}</span><div class="effect-body"><h3>{effect.title}</h3><p>{effect.description}</p></div></div>)}</div>
+  <p class="effects-actions"><a class="btn btn-primary" href={consultationUrl.href} target="_blank" rel="noopener">{text(content, 'effects_cta', 'Подобрать эффект')}</a></p>
+</div></section>
+

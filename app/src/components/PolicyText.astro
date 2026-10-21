@@ -1,0 +1,7 @@
+---
+import type { TextSegment } from '../types/site-content';
+import { href } from '../lib/render';
+interface Props { segments: TextSegment[] }
+const { segments } = Astro.props;
+---
+{segments.map((segment) => segment.href ? <a href={href(segment.href)}>{segment.strong ? <strong>{segment.text}</strong> : segment.text}</a> : segment.strong ? <strong>{segment.text}</strong> : segment.text)}

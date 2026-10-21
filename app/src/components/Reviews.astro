@@ -1,0 +1,13 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, media } from '../lib/render';
+import LazyImage from './LazyImage.astro';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const reviews = content.review_items.filter((item) => media(item));
+---
+<section class="section section-white" id="reviews"><div class="wrap">
+  <p class="eyebrow">{text(content, 'reviews.eyebrow', 'Отзывы')}</p><h2>{text(content, 'reviews.title', 'Что говорят наши клиенты')}</h2><p class="muted">{text(content, 'reviews.description', 'Нажмите на отзыв, чтобы прочитать его целиком.')}</p>
+  <div class="review-strip" tabindex="0" role="region" aria-label={text(content, 'reviews.aria_label', 'Отзывы клиентов')}>{reviews.map((item) => <LazyImage item={item} class="review-photo-full" interactive />)}</div>
+</div></section>
+

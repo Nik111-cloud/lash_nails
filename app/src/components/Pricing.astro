@@ -1,0 +1,29 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, href, price } from '../lib/render';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const services = content.services.filter((service) => service.calculator_enabled).sort((a, b) => a.calculator_sort - b.calculator_sort);
+const browService = services.find((service) => service.key === 'brows');
+const browOptions = content.calculator_options.filter((option) => option.service_slug === browService?.slug);
+const checked = services.filter((service) => service.calculator_checked);
+const initialSum = checked.reduce((sum, service) => sum + (service.key === 'brows' && browOptions[0] ? browOptions[0].price_from : service.price_from), 0);
+const formatSum = (sum: number) => text(content, 'calculator_total_template', 'от {sum} ₽').replaceAll('{sum}', new Intl.NumberFormat('ru-RU').format(sum));
+---
+<section class="section" id="pricing"><div class="wrap">
+  <p class="eyebrow">{text(content, 'pricing_eyebrow', 'Стоимость')}</p><h2>{text(content, 'pricing_title', 'Рассчитайте стоимость визита')}</h2><p class="muted">{text(content, 'pricing_intro', 'Выберите одну или несколько услуг — покажем предварительную сумму.')}</p>
+  <form id="price-calculator" class="calculator" aria-describedby="calculator-note">
+    <fieldset class="calculator-services"><legend>{text(content, 'calculator_legend', 'Какие услуги вас интересуют?')}</legend>
+      {services.map((service) => <label class="calculator-option"><input type="checkbox" name={service.key} value={service.price_from} checked={service.calculator_checked} aria-controls={service.key === 'brows' && browOptions.length ? 'brows-treatment' : undefined} /><span>{service.calculator_label || service.title}</span><strong>{price(content, service.price_from)}</strong></label>)}
+      {browService && browOptions.length > 0 && <div class="calculator-brows"><label for="brows-treatment">{text(content, 'calculator_brows_label', 'Процедура для бровей')}</label><select id="brows-treatment" name="browsTreatment" disabled={!browService.calculator_checked}>
+        {browOptions.map((option) => <option value={option.price_from}>{text(content, 'calculator_option_price_template', '{title} — от {sum} ₽').replaceAll('{title}', option.title).replaceAll('{sum}', new Intl.NumberFormat('ru-RU').format(option.price_from))}</option>)}
+      </select></div>}
+    </fieldset>
+    <div class="calculator-summary"><p class="eyebrow">{text(content, 'calculator_summary_label', 'Предварительная стоимость')}</p><div role="status" aria-live="polite" aria-atomic="true"><p id="calculator-total" class="calculator-total">{checked.length ? formatSum(initialSum) : text(content, 'calculator_empty', 'Выберите услугу')}</p><p id="calculator-count" class="muted">{checked.length ? text(content, 'calculator_count_template', 'Выбрано услуг: {count}').replaceAll('{count}', String(checked.length)) : text(content, 'calculator_count_empty', 'Можно выбрать несколько услуг')}</p></div>
+      <p id="calculator-note" class="calculator-note">{text(content, 'calculator_note', 'Расчёт по начальным ценам, без учёта акций. Итоговая стоимость зависит от выбранной процедуры — уточните её при записи.')}</p><a class="btn btn-primary" href={href(content.site_settings.booking_url)}>{text(content, 'calculator_cta', 'Выбрать время онлайн')}</a>
+      <p class="calculator-booking-hint muted">{text(content, 'calculator_booking_hint', 'Услуги и время выберете в DIKIDI.')}</p>
+    </div>
+  </form>
+  <noscript><p>{text(content, 'calculator_noscript_intro', 'Для расчёта включите JavaScript или')} <a href={href(content.site_settings.booking_url)}>{text(content, 'calculator_noscript_link', 'посмотрите цены в онлайн-записи')}</a>{text(content, 'calculator_noscript_suffix', '.')}</p></noscript>
+</div></section>
+

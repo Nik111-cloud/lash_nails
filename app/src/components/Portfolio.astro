@@ -1,0 +1,40 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, media } from '../lib/render';
+import LazyImage from './LazyImage.astro';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const photos = content.portfolio_items.filter((item) => media(item));
+// Older CMS rows predate the caption field; keep their current media and order.
+const caption = (item: typeof photos[number]) => {
+  const name = item.image_path.split('/').pop() || '';
+  return item.caption?.trim() || (/^(10|11|15|16|18)\.avif$/.test(name) ? 'Маникюр' : /^(12|13|14)\.avif$/.test(name) ? 'Макияж' : 'Ресницы');
+};
+const first = photos[0];
+---
+<section class="section portfolio-section" id="portfolio"><div class="wrap">
+  <p class="eyebrow">{text(content, 'portfolio.eyebrow', 'Портфолио')}</p>
+  <h2>{text(content, 'portfolio.title', 'Работы наших мастеров')}</h2>
+  {first ? <div class="portfolio-gallery" role="region" aria-label={text(content, 'portfolio.aria_label', 'Фотографии работ')}>
+    <div class="portfolio-layout">
+      <button class="portfolio-photo" type="button" aria-label={`Рассмотреть работу: ${caption(first)}`} aria-haspopup="dialog">
+        <LazyImage item={first} /><span class="portfolio-enlarge" aria-hidden="true">↗</span>
+      </button>
+      <div class="portfolio-details">
+        <h3 class="portfolio-caption">{caption(first)}</h3>
+        <p class="muted portfolio-description">{text(content, 'portfolio.description', 'Ресницы, маникюр и макияж — в работах нашей студии.')}</p>
+        <div class="portfolio-thumbs" aria-label="Выбор фотографии">
+          {photos.map((item, index) => <button class="portfolio-thumb" type="button" data-caption={caption(item)} aria-label={`Показать фото ${index + 1}: ${caption(item)}`} aria-pressed={index === 0 ? 'true' : 'false'}><LazyImage item={item} /></button>)}
+        </div>
+        <div class="portfolio-controls" hidden>
+          <span class="portfolio-counter" aria-live="polite" aria-atomic="true">01 / {photos.length}</span>
+          <button class="portfolio-arrow" type="button" data-direction="-1" aria-label="Предыдущее фото">←</button>
+          <button class="portfolio-arrow" type="button" data-direction="1" aria-label="Следующее фото">→</button>
+        </div>
+        <p class="portfolio-status muted" role="status" hidden></p>
+      </div>
+    </div>
+    <p class="portfolio-hint muted">Нажмите на большую фотографию, чтобы рассмотреть детали.</p>
+  </div> : <p class="muted">Фотографии скоро появятся.</p>}
+</div></section>
+

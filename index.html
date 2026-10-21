@@ -35,8 +35,9 @@
 <link rel="preload" as="image" href="img1.avif" fetchpriority="high">
 <link rel="preload" as="font" href="fonts/playfair.woff2" type="font/woff2" crossorigin>
 <link rel="preload" as="font" href="fonts/golos.woff2" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css?v=20261019-ux">
+<link rel="stylesheet" href="styles.css?v=20261021-services">
 <noscript><style>[data-src]{display:none}.hero-arrow,.hero-dots,.master-arrow,.master-dots{display:none}#lashes{--row-bg:url(service-lashes.avif)}#brows{--row-bg:url(service-brows.avif)}#manicure{--row-bg:url(service-manicure.avif)}#makeup{--row-bg:url(service-makeup.avif)}</style></noscript>
+<script id="salon-structured-data" type="application/ld+json">{"@context":"https://schema.org","@type":"BeautySalon","@id":"https://www.estetika-ufa.online/#salon","name":"Эстетика","url":"https://www.estetika-ufa.online/","telephone":"+79649644775","image":"https://www.estetika-ufa.online/studio1.avif","address":{"@type":"PostalAddress","streetAddress":"Ростовская улица, дом 18 лит. К, 3 этаж, офис 314","addressLocality":"Уфа","addressCountry":"RU"},"openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"10:00","closes":"21:00"}}</script>
 </head>
 <body>
 <noscript><div><img src="https://mc.yandex.ru/watch/113129252" style="position:absolute;left:-9999px" alt=""></div></noscript>
@@ -74,7 +75,7 @@
       <div class="hero-overlay-content">
         <p class="eyebrow">Ресницы · Брови · Маникюр · Перманент</p>
         <h1>Салон красоты «Эстетика» в Уфе</h1>
-        <p class="hero-offer">Скидка 15% на первое посещение</p>
+        <p class="hero-offer">Скидка 10% на первое посещение</p>
         <p class="lede">Салон красоты в Уфе<br>Ростовская, 18 лит. К · 3 этаж, офис 314</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Выбрать время онлайн</a>
@@ -121,9 +122,9 @@
             <h3>Ресницы</h3>
             <p class="desc">Наращивание ресниц</p>
           </div>
-          <div class="price">от 2 000 ₽</div>
+          <div class="price">от 2 200 ₽</div>
           <div class="duration">~1,5 часа</div>
-          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi" aria-label="Записаться: наращивание ресниц">Записаться →</a>
+          <div class="service-row-actions"><a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi" aria-label="Записаться: наращивание ресниц">Записаться →</a><a class="service-details-link" href="/narashchivanie-resnits/" aria-label="Подробнее об услуге: наращивание ресниц">Подробнее об услуге →</a></div>
         </div>
 
         <div class="service-row" id="lash-lamination" data-background="service-lamination.avif">
@@ -133,7 +134,7 @@
           </div>
           <div class="price">от 1 900 ₽</div>
           <div class="duration">~1,5 часа</div>
-          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi" aria-label="Записаться: ламинирование ресниц">Записаться →</a>
+          <div class="service-row-actions"><a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi" aria-label="Записаться: ламинирование ресниц">Записаться →</a><a class="service-details-link" href="/laminirovanie-resnits/" aria-label="Подробнее об услуге: ламинирование ресниц">Подробнее об услуге →</a></div>
         </div>
 
         <div class="service-row" id="brows" data-background="service-brows.avif">
@@ -153,7 +154,7 @@
           </div>
           <div class="price">от 2 500 ₽</div>
           <div class="duration">~2 часа</div>
-          <a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi" aria-label="Записаться: маникюр с покрытием гель-лак">Записаться →</a>
+          <div class="service-row-actions"><a class="btn btn-ghost btn-small book-link" href="https://dikidi.net/2038825?p=0.pi" aria-label="Записаться: маникюр с покрытием гель-лак">Записаться →</a><a class="service-details-link" href="/manikyur/" aria-label="Подробнее об услуге: маникюр с покрытием гель-лак">Подробнее об услуге →</a></div>
         </div>
 
          <div class="service-row" id="makeup" data-background="service-makeup.avif">
@@ -352,7 +353,7 @@
       <form id="price-calculator" class="calculator" aria-describedby="calculator-note">
         <fieldset class="calculator-services">
           <legend>Какие услуги вас интересуют?</legend>
-          <label class="calculator-option"><input type="checkbox" name="lashes" value="2000" checked><span>Наращивание ресниц</span><strong>от 2 000 ₽</strong></label>
+          <label class="calculator-option"><input type="checkbox" name="lashes" value="2200" checked><span>Наращивание ресниц</span><strong>от 2 200 ₽</strong></label>
           <label class="calculator-option"><input type="checkbox" name="lashLamination" value="1900"><span>Ламинирование ресниц</span><strong>от 1 900 ₽</strong></label>
           <label class="calculator-option"><input type="checkbox" name="manicure" value="2500"><span>Маникюр с покрытием</span><strong>от 2 500 ₽</strong></label>
           <label class="calculator-option"><input type="checkbox" name="makeup" value="2000"><span>Вечерний макияж</span><strong>от 2 000 ₽</strong></label>
@@ -369,7 +370,7 @@
         <div class="calculator-summary">
           <p class="eyebrow">Предварительная стоимость</p>
           <div role="status" aria-live="polite" aria-atomic="true">
-            <p id="calculator-total" class="calculator-total">от 2 000 ₽</p>
+            <p id="calculator-total" class="calculator-total">от 2 200 ₽</p>
             <p id="calculator-count" class="muted">Выбрано услуг: 1</p>
           </div>
           <p id="calculator-note" class="calculator-note">Расчёт по начальным ценам, без учёта акций. Итоговая стоимость зависит от выбранной процедуры — уточните её при записи.</p>
@@ -388,7 +389,7 @@
         <p class="eyebrow">Контакты</p>
         <h2>Ждём вас в «Эстетике»</h2>
         <div class="contact-line"><strong>Адрес</strong><span>Уфа, Ростовская улица, дом 18 лит. К, 3 этаж, офис 314</span></div>
-        <div class="contact-line"><strong>График</strong><span>Ежедневно, 10:00–22:00, по предварительной записи</span></div>
+        <div class="contact-line"><strong>График</strong><span>Ежедневно, 10:00–21:00, по предварительной записи</span></div>
         <div class="contact-line"><strong>Телефон</strong><a href="tel:+79649644775">+7 964 964-47-75</a></div>
         <div class="contact-line"><strong>WhatsApp</strong><a href="https://wa.me/79649644775" target="_blank" rel="noopener">Написать в WhatsApp</a></div>
       </div>

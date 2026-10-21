@@ -1,0 +1,1466 @@
+{
+  "site_settings": {
+    "brand_name": "Эстетика",
+    "brand_subtitle": "Салон красоты",
+    "booking_url": "https://dikidi.net/2038825?p=0.pi",
+    "phone": "+79649644775",
+    "phone_display": "+7 964 964-47-75",
+    "whatsapp_url": "https://wa.me/79649644775",
+    "address": "Уфа, Ростовская улица, дом 18 лит. К, 3 этаж, офис 314",
+    "hours": "Ежедневно, 10:00–21:00, по предварительной записи",
+    "map_embed_url": "https://yandex.ru/map-widget/v1/?ll=56.016129%2C54.751903&mode=search&oid=208313983820&ol=biz&z=17.06",
+    "map_org_url": "https://yandex.ru/maps/org/lash_studio/208313983820/?utm_medium=mapframe&utm_source=maps",
+    "map_org_label": "Lash studio",
+    "map_category_url": "https://yandex.ru/maps/172/ufa/category/eyebrow_and_eyelash_salon/7407769291/?utm_medium=mapframe&utm_source=maps",
+    "map_category_label": "Салон бровей и ресниц в Уфе",
+    "seo_title": "Эстетика — салон красоты в Уфе: ресницы, брови, маникюр",
+    "seo_description": "Наращивание и ламинирование ресниц, брови, маникюр и макияж в Уфе. Ростовская, 18 лит. К. Цены, работы мастеров и онлайн-запись в студию «Эстетика».",
+    "og_title": "Эстетика — салон красоты в Уфе",
+    "og_description": "Ресницы, брови, маникюр и перманент. Уфа, Ростовская, 18 лит. К. Выберите мастера и время онлайн.",
+    "canonical_url": "https://www.estetika-ufa.online/",
+    "policy_seo_title": "Политика конфиденциальности — Эстетика",
+    "policy_seo_description": "Как сайт студии «Эстетика» использует cookie и Яндекс.Метрику, какие данные обрабатываются и как связаться с владельцем студии.",
+    "policy_date": "2026-10-08",
+    "policy_date_label": "8 октября 2026 года"
+  },
+  "site_texts": [
+    {
+      "key": "hero_main_title",
+      "group": "Первый экран",
+      "title": "Главный заголовок",
+      "value": "Салон красоты «Эстетика» в Уфе"
+    },
+    {
+      "key": "service_price_template",
+      "group": "Услуги",
+      "title": "Формат начальной цены услуги",
+      "value": "от {sum} ₽"
+    },
+    {
+      "key": "cookie_suffix",
+      "group": "Cookie",
+      "title": "Текст после ссылки на политику",
+      "value": "."
+    },
+    {
+      "key": "calculator_noscript_suffix",
+      "group": "Калькулятор",
+      "title": "Текст после ссылки без JavaScript",
+      "value": "."
+    },
+    {
+      "key": "skip_services",
+      "group": "Навигация",
+      "title": "Переход к услугам",
+      "value": "Перейти к услугам"
+    },
+    {
+      "key": "header_nav_label",
+      "group": "Навигация",
+      "title": "Название навигации",
+      "value": "Разделы сайта"
+    },
+    {
+      "key": "nav_services",
+      "group": "Навигация",
+      "title": "Ссылка «Услуги»",
+      "value": "Услуги"
+    },
+    {
+      "key": "nav_portfolio",
+      "group": "Навигация",
+      "title": "Ссылка «Работы»",
+      "value": "Работы"
+    },
+    {
+      "key": "nav_pricing",
+      "group": "Навигация",
+      "title": "Ссылка «Цены»",
+      "value": "Цены"
+    },
+    {
+      "key": "nav_contacts",
+      "group": "Навигация",
+      "title": "Ссылка «Контакты»",
+      "value": "Контакты"
+    },
+    {
+      "key": "header_call",
+      "group": "Навигация",
+      "title": "Кнопка звонка",
+      "value": "Позвонить"
+    },
+    {
+      "key": "header_booking",
+      "group": "Навигация",
+      "title": "Кнопка записи",
+      "value": "Записаться"
+    },
+    {
+      "key": "hero_label",
+      "group": "Первый экран",
+      "title": "Название галереи предложений",
+      "value": "Предложения студии"
+    },
+    {
+      "key": "hero_previous",
+      "group": "Первый экран",
+      "title": "Предыдущий слайд",
+      "value": "Предыдущее фото"
+    },
+    {
+      "key": "hero_next",
+      "group": "Первый экран",
+      "title": "Следующий слайд",
+      "value": "Следующее фото"
+    },
+    {
+      "key": "hero_slide_template",
+      "group": "Первый экран",
+      "title": "Название номера слайда",
+      "value": "Слайд {number}"
+    },
+    {
+      "key": "services_eyebrow",
+      "group": "Услуги",
+      "title": "Надзаголовок",
+      "value": "Услуги студии"
+    },
+    {
+      "key": "services_title",
+      "group": "Услуги",
+      "title": "Заголовок раздела",
+      "value": "Время для себя"
+    },
+    {
+      "key": "services_intro",
+      "group": "Услуги",
+      "title": "Описание раздела",
+      "value": "Выберите процедуру и удобное время для записи."
+    },
+    {
+      "key": "service_cta",
+      "group": "Услуги",
+      "title": "Кнопка записи у услуги",
+      "value": "Записаться →"
+    },
+    {
+      "key": "effects_eyebrow",
+      "group": "Эффекты ресниц",
+      "title": "Надзаголовок",
+      "value": "Ресницы"
+    },
+    {
+      "key": "effects_title",
+      "group": "Эффекты ресниц",
+      "title": "Заголовок раздела",
+      "value": "Какой эффект вам ближе?"
+    },
+    {
+      "key": "effects_intro",
+      "group": "Эффекты ресниц",
+      "title": "Описание раздела",
+      "value": "Мастер поможет подобрать эффект под форму глаз и ваши пожелания."
+    },
+    {
+      "key": "effects_cta",
+      "group": "Эффекты ресниц",
+      "title": "Кнопка консультации",
+      "value": "Подобрать эффект"
+    },
+    {
+      "key": "effects_consultation_message",
+      "group": "Эффекты ресниц",
+      "title": "Сообщение для консультации в WhatsApp",
+      "value": "Здравствуйте! Помогите подобрать эффект наращивания ресниц."
+    },
+    {
+      "key": "portfolio_eyebrow",
+      "group": "Работы",
+      "title": "Надзаголовок",
+      "value": "Портфолио"
+    },
+    {
+      "key": "portfolio_title",
+      "group": "Работы",
+      "title": "Заголовок раздела",
+      "value": "Работы наших мастеров"
+    },
+    {
+      "key": "portfolio_intro",
+      "group": "Работы",
+      "title": "Описание раздела",
+      "value": "Листайте фотографии. Нажмите на фото, чтобы рассмотреть детали."
+    },
+    {
+      "key": "portfolio_label",
+      "group": "Работы",
+      "title": "Название галереи",
+      "value": "Фотографии работ"
+    },
+    {
+      "key": "reviews_eyebrow",
+      "group": "Отзывы",
+      "title": "Надзаголовок",
+      "value": "Отзывы"
+    },
+    {
+      "key": "reviews_title",
+      "group": "Отзывы",
+      "title": "Заголовок раздела",
+      "value": "Что говорят наши клиенты"
+    },
+    {
+      "key": "reviews_intro",
+      "group": "Отзывы",
+      "title": "Описание раздела",
+      "value": "Нажмите на отзыв, чтобы прочитать его целиком."
+    },
+    {
+      "key": "reviews_label",
+      "group": "Отзывы",
+      "title": "Название галереи",
+      "value": "Отзывы клиентов"
+    },
+    {
+      "key": "masters_label",
+      "group": "Мастера",
+      "title": "Название галереи",
+      "value": "Мастера студии"
+    },
+    {
+      "key": "master_eyebrow",
+      "group": "Мастера",
+      "title": "Надзаголовок карточки",
+      "value": "О мастере"
+    },
+    {
+      "key": "master_cta",
+      "group": "Мастера",
+      "title": "Кнопка записи к мастеру",
+      "value": "Записаться к этому мастеру"
+    },
+    {
+      "key": "master_previous",
+      "group": "Мастера",
+      "title": "Предыдущий мастер",
+      "value": "Предыдущий мастер"
+    },
+    {
+      "key": "master_next",
+      "group": "Мастера",
+      "title": "Следующий мастер",
+      "value": "Следующий мастер"
+    },
+    {
+      "key": "master_dot_template",
+      "group": "Мастера",
+      "title": "Название номера мастера",
+      "value": "Мастер {number}"
+    },
+    {
+      "key": "pricing_eyebrow",
+      "group": "Калькулятор",
+      "title": "Надзаголовок",
+      "value": "Стоимость"
+    },
+    {
+      "key": "pricing_title",
+      "group": "Калькулятор",
+      "title": "Заголовок раздела",
+      "value": "Рассчитайте стоимость визита"
+    },
+    {
+      "key": "pricing_intro",
+      "group": "Калькулятор",
+      "title": "Описание раздела",
+      "value": "Выберите одну или несколько услуг — покажем предварительную сумму."
+    },
+    {
+      "key": "calculator_legend",
+      "group": "Калькулятор",
+      "title": "Вопрос выбора услуг",
+      "value": "Какие услуги вас интересуют?"
+    },
+    {
+      "key": "calculator_brows_label",
+      "group": "Калькулятор",
+      "title": "Подпись процедуры бровей",
+      "value": "Процедура для бровей"
+    },
+    {
+      "key": "calculator_summary_label",
+      "group": "Калькулятор",
+      "title": "Подпись результата",
+      "value": "Предварительная стоимость"
+    },
+    {
+      "key": "calculator_note",
+      "group": "Калькулятор",
+      "title": "Примечание к стоимости",
+      "value": "Расчёт по начальным ценам, без учёта акций. Итоговая стоимость зависит от выбранной процедуры — уточните её при записи."
+    },
+    {
+      "key": "calculator_cta",
+      "group": "Калькулятор",
+      "title": "Кнопка записи",
+      "value": "Выбрать время онлайн"
+    },
+    {
+      "key": "calculator_booking_hint",
+      "group": "Калькулятор",
+      "title": "Подсказка перехода к онлайн-записи",
+      "value": "Услуги и время выберете в DIKIDI."
+    },
+    {
+      "key": "calculator_total_template",
+      "group": "Калькулятор",
+      "title": "Формат суммы",
+      "value": "от {sum} ₽"
+    },
+    {
+      "key": "calculator_count_template",
+      "group": "Калькулятор",
+      "title": "Количество выбранных услуг",
+      "value": "Выбрано услуг: {count}"
+    },
+    {
+      "key": "calculator_empty",
+      "group": "Калькулятор",
+      "title": "Сумма без выбранной услуги",
+      "value": "Выберите услугу"
+    },
+    {
+      "key": "calculator_count_empty",
+      "group": "Калькулятор",
+      "title": "Подсказка без выбранной услуги",
+      "value": "Можно выбрать несколько услуг"
+    },
+    {
+      "key": "calculator_noscript_intro",
+      "group": "Калькулятор",
+      "title": "Подсказка без JavaScript",
+      "value": "Для расчёта включите JavaScript или"
+    },
+    {
+      "key": "calculator_noscript_link",
+      "group": "Калькулятор",
+      "title": "Ссылка на цены без JavaScript",
+      "value": "посмотрите цены в онлайн-записи"
+    },
+    {
+      "key": "calculator_option_price_template",
+      "group": "Калькулятор",
+      "title": "Формат варианта процедуры",
+      "value": "{title} — от {sum} ₽"
+    },
+    {
+      "key": "contacts_eyebrow",
+      "group": "Контакты",
+      "title": "Надзаголовок",
+      "value": "Контакты"
+    },
+    {
+      "key": "contacts_title",
+      "group": "Контакты",
+      "title": "Заголовок раздела",
+      "value": "Ждём вас в «Эстетике»"
+    },
+    {
+      "key": "contacts_address_label",
+      "group": "Контакты",
+      "title": "Подпись адреса",
+      "value": "Адрес"
+    },
+    {
+      "key": "contacts_hours_label",
+      "group": "Контакты",
+      "title": "Подпись графика",
+      "value": "График"
+    },
+    {
+      "key": "contacts_phone_label",
+      "group": "Контакты",
+      "title": "Подпись телефона",
+      "value": "Телефон"
+    },
+    {
+      "key": "contacts_whatsapp_label",
+      "group": "Контакты",
+      "title": "Подпись мессенджера",
+      "value": "WhatsApp"
+    },
+    {
+      "key": "contacts_whatsapp_cta",
+      "group": "Контакты",
+      "title": "Ссылка на WhatsApp",
+      "value": "Написать в WhatsApp"
+    },
+    {
+      "key": "map_title",
+      "group": "Контакты",
+      "title": "Название карты",
+      "value": "Студия на карте Уфы"
+    },
+    {
+      "key": "map_open",
+      "group": "Контакты",
+      "title": "Ссылка на Яндекс Карты",
+      "value": "Открыть на Яндекс Картах ↗"
+    },
+    {
+      "key": "footer_text",
+      "group": "Подвал",
+      "title": "Текст подвала",
+      "value": "© Эстетика · Салон красоты в Уфе"
+    },
+    {
+      "key": "footer_policy",
+      "group": "Подвал",
+      "title": "Ссылка на политику",
+      "value": "Конфиденциальность"
+    },
+    {
+      "key": "footer_contacts",
+      "group": "Подвал",
+      "title": "Ссылка на контакты",
+      "value": "Контакты и адрес"
+    },
+    {
+      "key": "mobile_bar_label",
+      "group": "Навигация",
+      "title": "Название панели телефона",
+      "value": "Быстрые действия"
+    },
+    {
+      "key": "mobile_call",
+      "group": "Навигация",
+      "title": "Кнопка звонка на телефоне",
+      "value": "Позвонить"
+    },
+    {
+      "key": "mobile_whatsapp",
+      "group": "Навигация",
+      "title": "Кнопка WhatsApp на телефоне",
+      "value": "WhatsApp"
+    },
+    {
+      "key": "cookie_label",
+      "group": "Cookie",
+      "title": "Название уведомления",
+      "value": "Информация о cookie"
+    },
+    {
+      "key": "cookie_title",
+      "group": "Cookie",
+      "title": "Заголовок уведомления",
+      "value": "Статистика сайта"
+    },
+    {
+      "key": "cookie_intro",
+      "group": "Cookie",
+      "title": "Текст до ссылки",
+      "value": "Сайт использует cookie и Яндекс.Метрику для статистики посещений. Подробнее — в"
+    },
+    {
+      "key": "cookie_link",
+      "group": "Cookie",
+      "title": "Текст ссылки на политику",
+      "value": "политике конфиденциальности"
+    },
+    {
+      "key": "cookie_accept",
+      "group": "Cookie",
+      "title": "Кнопка закрытия уведомления",
+      "value": "Понятно"
+    },
+    {
+      "key": "booking_loading_title",
+      "group": "Запись",
+      "title": "Заголовок перехода",
+      "value": "Переходим к онлайн-записи…"
+    },
+    {
+      "key": "booking_loading_hint",
+      "group": "Запись",
+      "title": "Подсказка загрузки",
+      "value": "Загружается сервис DIKIDI"
+    },
+    {
+      "key": "lightbox_label",
+      "group": "Галерея",
+      "title": "Название просмотра фото",
+      "value": "Просмотр фото"
+    },
+    {
+      "key": "lightbox_close",
+      "group": "Галерея",
+      "title": "Закрытие фото",
+      "value": "Закрыть"
+    },
+    {
+      "key": "lightbox_zoom_label",
+      "group": "Галерея",
+      "title": "Название управления масштабом",
+      "value": "Масштаб фотографии"
+    },
+    {
+      "key": "lightbox_zoom_out",
+      "group": "Галерея",
+      "title": "Уменьшение фото",
+      "value": "Уменьшить фото"
+    },
+    {
+      "key": "lightbox_zoom_reset",
+      "group": "Галерея",
+      "title": "Сброс масштаба фото",
+      "value": "Сбросить масштаб"
+    },
+    {
+      "key": "lightbox_zoom_in",
+      "group": "Галерея",
+      "title": "Увеличение фото",
+      "value": "Увеличить фото"
+    },
+    {
+      "key": "lightbox_help",
+      "group": "Галерея",
+      "title": "Подсказка управления фото с клавиатуры",
+      "value": "Масштаб: + и −; сброс: 0; перемещение: стрелки; закрыть: Esc."
+    },
+    {
+      "key": "whatsapp_default_message",
+      "group": "Контакты",
+      "title": "Начальное сообщение WhatsApp",
+      "value": "Здравствуйте! Хочу записаться."
+    },
+    {
+      "key": "whatsapp_reference_template",
+      "group": "Контакты",
+      "title": "Код обращения в сообщении",
+      "value": "Код обращения: {clientId}"
+    },
+    {
+      "key": "policy_skip",
+      "group": "Политика",
+      "title": "Ссылка быстрого перехода",
+      "value": "Перейти к политике"
+    },
+    {
+      "key": "policy_back",
+      "group": "Политика",
+      "title": "Ссылка возврата в шапке",
+      "value": "← На главную"
+    },
+    {
+      "key": "policy_eyebrow",
+      "group": "Политика",
+      "title": "Надзаголовок",
+      "value": "Конфиденциальность"
+    },
+    {
+      "key": "policy_title",
+      "group": "Политика",
+      "title": "Заголовок страницы",
+      "value": "Политика обработки персональных данных и использования cookie"
+    },
+    {
+      "key": "policy_intro",
+      "group": "Политика",
+      "title": "Описание страницы",
+      "value": "Здесь объясняем, какие сведения используются при посещении сайта и обращении в студию, для чего они нужны и как управлять своей конфиденциальностью."
+    },
+    {
+      "key": "policy_date_prefix",
+      "group": "Политика",
+      "title": "Подпись даты редакции",
+      "value": "Редакция от"
+    },
+    {
+      "key": "policy_nav_label",
+      "group": "Политика",
+      "title": "Название навигации",
+      "value": "Содержание политики"
+    },
+    {
+      "key": "policy_toc_title",
+      "group": "Политика",
+      "title": "Заголовок содержания",
+      "value": "Содержание"
+    },
+    {
+      "key": "policy_return",
+      "group": "Политика",
+      "title": "Кнопка возврата",
+      "value": "Вернуться на сайт"
+    }
+  ],
+  "hero_slides": [
+    {
+      "id": "65fd3146-7fac-50d0-b09e-15c3ef26ba34",
+      "sort": 1,
+      "archived": false,
+      "image_path": "/img1.avif",
+      "image_file": null,
+      "image_alt": "Образ с наращиванием ресниц",
+      "image_width": 1806,
+      "image_height": 871,
+      "eyebrow": "Ресницы · Брови · Маникюр · Перманент",
+      "title": "Скидка 10%",
+      "title_secondary": "на первое посещение",
+      "description": "Салон красоты в Уфе",
+      "description_secondary": "Ростовская, 18 лит. К · 3 этаж, офис 314",
+      "cta_label": "Выбрать время онлайн",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi"
+    },
+    {
+      "id": "d6ae7833-47d9-59a0-9287-21ce8b2678d0",
+      "sort": 2,
+      "archived": false,
+      "image_path": "/img2.avif",
+      "image_file": null,
+      "image_alt": "Работа мастера студии «Эстетика»",
+      "image_width": 1680,
+      "image_height": 936,
+      "eyebrow": "Индивидуальный подход · стерильные инструменты · комфортная студия",
+      "title": "Результат, который радует каждый день",
+      "title_secondary": "",
+      "description": "На каждого клиента — полное внимание.",
+      "description_secondary": "",
+      "cta_label": "Записаться онлайн",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi"
+    }
+  ],
+  "services": [
+    {
+      "id": "295578f0-bce5-52a2-8cd9-1abbf3fca2f0",
+      "sort": 1,
+      "archived": false,
+      "key": "lashes",
+      "slug": "lashes",
+      "title": "Ресницы",
+      "description": "Наращивание ресниц",
+      "price_from": 2200,
+      "duration_label": "~1,5 часа",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "background_path": "/service-lashes.avif",
+      "background_file": null,
+      "calculator_enabled": true,
+      "calculator_label": "Наращивание ресниц",
+      "calculator_checked": true,
+      "calculator_sort": 1
+    },
+    {
+      "id": "8ac091dc-0be6-5315-95d4-7dae8610a202",
+      "sort": 2,
+      "archived": false,
+      "key": "lashLamination",
+      "slug": "lash-lamination",
+      "title": "Ламинирование ресниц",
+      "description": "Ламинирование натуральных ресниц",
+      "price_from": 1900,
+      "duration_label": "~1,5 часа",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "background_path": "/service-lamination.avif",
+      "background_file": null,
+      "calculator_enabled": true,
+      "calculator_label": "Ламинирование ресниц",
+      "calculator_checked": false,
+      "calculator_sort": 2
+    },
+    {
+      "id": "225968ce-728b-5817-bc4e-f067649495ae",
+      "sort": 3,
+      "archived": false,
+      "key": "brows",
+      "slug": "brows",
+      "title": "Брови",
+      "description": "Ламинирование бровей",
+      "price_from": 1000,
+      "duration_label": "~30 минут",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "background_path": "/service-brows.avif",
+      "background_file": null,
+      "calculator_enabled": true,
+      "calculator_label": "Брови",
+      "calculator_checked": false,
+      "calculator_sort": 5
+    },
+    {
+      "id": "8f950145-3b8a-5e1f-88d7-3c5bd7bb13e5",
+      "sort": 4,
+      "archived": false,
+      "key": "manicure",
+      "slug": "manicure",
+      "title": "Маникюр с покрытием гель-лак",
+      "description": "Классический или аппаратный, гель-лак, укрепление",
+      "price_from": 2500,
+      "duration_label": "~2 часа",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "background_path": "/service-manicure.avif",
+      "background_file": null,
+      "calculator_enabled": true,
+      "calculator_label": "Маникюр с покрытием",
+      "calculator_checked": false,
+      "calculator_sort": 3
+    },
+    {
+      "id": "92d85e9c-17b1-5831-b78d-31bba548e70b",
+      "sort": 5,
+      "archived": false,
+      "key": "makeup",
+      "slug": "makeup",
+      "title": "Вечерний макияж",
+      "description": "Образ для особого случая",
+      "price_from": 2000,
+      "duration_label": "~1 час",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "background_path": "/service-makeup.avif",
+      "background_file": null,
+      "calculator_enabled": true,
+      "calculator_label": "Вечерний макияж",
+      "calculator_checked": false,
+      "calculator_sort": 4
+    }
+  ],
+  "lash_effects": [
+    {
+      "id": "a2b04c32-bdb7-5b53-bc75-d696f7482cbb",
+      "sort": 1,
+      "archived": false,
+      "image_path": "/natural.avif",
+      "image_file": null,
+      "image_alt": "Натуральный эффект наращивания ресниц",
+      "image_width": 1024,
+      "image_height": 1536,
+      "title": "Натуральный эффект",
+      "badge": "01 · Натуральный",
+      "description": "Лёгкий и максимально естественный объём. Ресницы выглядят ухоженно, а не «накрашенно» — хороший выбор для первого наращивания."
+    },
+    {
+      "id": "cbb8c4e5-54b1-5414-8c11-2224a06d3c11",
+      "sort": 2,
+      "archived": false,
+      "image_path": "/foxy.avif",
+      "image_file": null,
+      "image_alt": "Лисий эффект наращивания ресниц",
+      "image_width": 1280,
+      "image_height": 960,
+      "title": "Лисий эффект",
+      "badge": "02 · Лисий",
+      "description": "Слегка приподнятые кончики к внешнему уголку — взгляд становится вытянутым и собранным, как при лёгкой стрелке."
+    },
+    {
+      "id": "2f459eef-f247-575f-b2ee-8ef249438e80",
+      "sort": 3,
+      "archived": false,
+      "image_path": "/doll.avif",
+      "image_file": null,
+      "image_alt": "Кукольный эффект наращивания ресниц",
+      "image_width": 1086,
+      "image_height": 1448,
+      "title": "Кукольный эффект",
+      "badge": "03 · Кукольный",
+      "description": "Акцент на центр глаза, ресницы распределены равномерно по всей длине — взгляд открытый и выразительный."
+    },
+    {
+      "id": "a3c4a78c-cfb4-5578-bb3a-c1cdb42e52f4",
+      "sort": 4,
+      "archived": false,
+      "image_path": "/wet.avif",
+      "image_file": null,
+      "image_alt": "Мокрый эффект наращивания ресниц",
+      "image_width": 640,
+      "image_height": 640,
+      "title": "Мокрый эффект",
+      "badge": "04 · Мокрый",
+      "description": "Пушистый, но плотный эффект с характерным блеском — будто ресницы только что подкрашены тушью."
+    }
+  ],
+  "portfolio_items": [
+    {
+      "id": "fa9d4ac3-1621-579e-a851-e84e16376000",
+      "sort": 1,
+      "archived": false,
+      "image_path": "/9.avif",
+      "image_file": null,
+      "caption": "Ресницы",
+      "image_alt": "Работа мастера — фото 1",
+      "image_width": 853,
+      "image_height": 1280
+    },
+    {
+      "id": "a3dc243f-73d6-5c3a-a46a-f34b6edd608f",
+      "sort": 2,
+      "archived": false,
+      "image_path": "/1.avif",
+      "image_file": null,
+      "caption": "Ресницы",
+      "image_alt": "Работа мастера — фото 2",
+      "image_width": 853,
+      "image_height": 1280
+    },
+    {
+      "id": "99cbede3-b4f3-50be-ba94-f4f159c68d0e",
+      "sort": 3,
+      "archived": false,
+      "image_path": "/2.avif",
+      "image_file": null,
+      "caption": "Ресницы",
+      "image_alt": "Работа мастера — фото 3",
+      "image_width": 1024,
+      "image_height": 1024
+    },
+    {
+      "id": "1f58a3a9-7bdf-58d6-ab1c-0a137b789e21",
+      "sort": 4,
+      "archived": false,
+      "image_path": "/5.avif",
+      "image_file": null,
+      "caption": "Ресницы",
+      "image_alt": "Работа мастера — фото 4",
+      "image_width": 1010,
+      "image_height": 1558
+    },
+    {
+      "id": "58651fea-4551-527e-a5e1-41a2426ebbba",
+      "sort": 5,
+      "archived": false,
+      "image_path": "/8.avif",
+      "image_file": null,
+      "caption": "Ресницы",
+      "image_alt": "Работа мастера — фото 5",
+      "image_width": 853,
+      "image_height": 1280
+    },
+    {
+      "id": "563c9453-54b9-5dda-a2a9-a05e09babf01",
+      "sort": 6,
+      "archived": false,
+      "image_path": "/10.avif",
+      "image_file": null,
+      "caption": "Маникюр",
+      "image_alt": "Работа мастера — фото 6",
+      "image_width": 1024,
+      "image_height": 1024
+    },
+    {
+      "id": "60d765be-692e-5580-a001-533d537c0111",
+      "sort": 7,
+      "archived": false,
+      "image_path": "/11.avif",
+      "image_file": null,
+      "caption": "Маникюр",
+      "image_alt": "Работа мастера — фото 7",
+      "image_width": 941,
+      "image_height": 1672
+    },
+    {
+      "id": "e58bdf01-2872-54e0-b98f-4ce8ffd52a9a",
+      "sort": 8,
+      "archived": false,
+      "image_path": "/12.avif",
+      "image_file": null,
+      "caption": "Макияж",
+      "image_alt": "Работа мастера — фото 8",
+      "image_width": 1031,
+      "image_height": 1280
+    },
+    {
+      "id": "52b6a8fc-f16e-5062-84d2-9d1bca924fa4",
+      "sort": 9,
+      "archived": false,
+      "image_path": "/13.avif",
+      "image_file": null,
+      "caption": "Макияж",
+      "image_alt": "Работа мастера — фото 9",
+      "image_width": 1091,
+      "image_height": 1280
+    },
+    {
+      "id": "43a4bc4b-4ac5-55ee-84d8-f82475289f8c",
+      "sort": 10,
+      "archived": false,
+      "image_path": "/14.avif",
+      "image_file": null,
+      "caption": "Макияж",
+      "image_alt": "Работа мастера — фото 10",
+      "image_width": 1440,
+      "image_height": 2560
+    },
+    {
+      "id": "aa5ec6b2-2e62-5896-838a-c36267afa023",
+      "sort": 11,
+      "archived": false,
+      "image_path": "/15.avif",
+      "image_file": null,
+      "caption": "Маникюр",
+      "image_alt": "Работа мастера — фото 11",
+      "image_width": 1920,
+      "image_height": 2560
+    },
+    {
+      "id": "accad31b-c610-52d2-8f96-1bef61e28851",
+      "sort": 12,
+      "archived": false,
+      "image_path": "/16.avif",
+      "image_file": null,
+      "caption": "Маникюр",
+      "image_alt": "Работа мастера — фото 12",
+      "image_width": 1920,
+      "image_height": 2560
+    },
+    {
+      "id": "76bddc77-831a-524f-a194-4e7820c24f57",
+      "sort": 13,
+      "archived": false,
+      "image_path": "/18.avif",
+      "image_file": null,
+      "caption": "Маникюр",
+      "image_alt": "Работа мастера — фото 13",
+      "image_width": 720,
+      "image_height": 1280
+    }
+  ],
+  "review_items": [
+    {
+      "id": "d4f93314-2a66-569c-80a1-e17aaa7975c6",
+      "sort": 1,
+      "archived": false,
+      "image_path": "/review8.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 24 июля 2026: Красивая и уютная студия с приятными мастерами. Редко делаю наращивание ресниц, только для особых случаев. Делала ресницы мне мастер Анастасия, подобрали естественный эффект, как я просила, результат очень понравился, весь отпуск кайфовала с ресницами, при этом не красилась совсем. По приезду получила комплименты от коллег Второй раз я была в июле тоже по особому случаю, где мне делали макияж и укладку, все очень понравилось На самом деле я в срочном порядке записывалась, девочки меня приняли рано утром, за что я очень благодарна Рекомендую данную студию, девушки все очень отзывчивые, доброжелательные",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "305a5692-2078-5a68-bcb7-ce92335dd3b1",
+      "sort": 2,
+      "archived": false,
+      "image_path": "/review9.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 4 августа 2026: Долго искала хорошего мастера по наращиванию,чтобы качественно и быстро. Айгуль идеальна во всех отношениях: и реснички сделает супер быстро и красиво, и поговорит по душам, и коктейлем угостит. Так что мы \"подсели\" всей семьёй, я и две дочери. Спасибо!",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "588ade0a-cedd-5fc7-97d1-c776b246ee73",
+      "sort": 3,
+      "archived": false,
+      "image_path": "/review4.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 11 августа 2026: Самая лучшая студия! Хожу сюда уже около двух лет, всегда идеальные красивые реснички Всех подружек тоже сюда отправляю, всем всё нравится Девочки лучшие",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "30f1e13f-df9d-54c9-a8d6-b0dd4d5e9b80",
+      "sort": 4,
+      "archived": false,
+      "image_path": "/review6.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 27 июня 2026: хотела выразить огромную благодарность за такую невероятную красоту. Это просто шикарно, я даже не знаю какое слово подобрать, чтобы описать столько комплиментов собрал образ! вы просто волшебницы! Айгуль, спасибо вам за причёску, все простояло до конца и даже сегодня кудри ещё выглядят хорошо. Даже если не мастер по прическам, вы пытались сделать все возможное и у вас это отлично получилось! Диана, спасибо вам за этот прекрасный макияж. Я правда не ожидала, что будет так круто! Макияж простоял весь день и вечер, выдержал море слез. Учла все мои пожелания и подчеркнула всю красоту",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "e1913322-e836-5057-aa46-047f8b02b144",
+      "sort": 5,
+      "archived": false,
+      "image_path": "/review2.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента: Не могу насмотреться на себя Мне так нравится капец Очень натурально , как будто родилась с этими ресницами Короче вау Спасибо большое",
+      "image_width": 1179,
+      "image_height": 981
+    },
+    {
+      "id": "da7e0fc9-37cd-5083-8eca-cb2bb1c645eb",
+      "sort": 6,
+      "archived": false,
+      "image_path": "/review3.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 5 июня 2026: К Айгуль хожу очень очень давно Делает всегда шикарные реснички, быстро и качественно Студия уютная, девочки очень доброжелательные, приятные в общении уходить оттуда даже не хочется",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "26d71f03-2238-58db-8bf7-59c27d18164b",
+      "sort": 7,
+      "archived": false,
+      "image_path": "/review5.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 1 сентября 2026: Была у Славы на маникюре, сделала все чисто и аккуратно, я довольна, как слон Спасибо большое",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "a15ae319-d7b2-5aa7-83a1-fe35abd07856",
+      "sort": 8,
+      "archived": false,
+      "image_path": "/review7.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента от 23 июня 2026: хожу на ресницы уже 6 лет к мастеру Айгуль и туда же сходила на брови мне все понравилось",
+      "image_width": 640,
+      "image_height": 640
+    },
+    {
+      "id": "30f7b8f9-e0f6-52c6-806d-da5432e8091a",
+      "sort": 9,
+      "archived": false,
+      "image_path": "/review1.avif",
+      "image_file": null,
+      "image_alt": "Отзыв клиента: блин, обычно очень редко оставляю отзывы, но тут прям не сдержалась!! спасибо, Айгуль, всё было очень бережно и комфортно реально с вами, обычно выходишь и даже глаза открыть не можешь, а тут сразу комфорт, будто ничего и не наращивали, ещё и учли все пожелания спасибки теперь к вам ходить буду а ещё у вас очень положительная позитивная энергетика, я такое сразу отмечаю и радуюсь",
+      "image_width": 1178,
+      "image_height": 841
+    }
+  ],
+  "masters": [
+    {
+      "id": "ae310dbb-87a0-5959-b299-3605c6f65161",
+      "sort": 1,
+      "archived": false,
+      "image_path": "/master1.avif",
+      "image_file": null,
+      "image_alt": "Фото мастера — Айгуль",
+      "image_width": 200,
+      "image_height": 200,
+      "title": "Айгуль",
+      "features": [
+        "Опыт работы — 7 лет",
+        "Время работы ~1-1,5 часа",
+        "Ресницы и перманентный макияж",
+        "Индивидуальный подход"
+      ],
+      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373807"
+    },
+    {
+      "id": "9a35b179-3767-5670-8c61-11545e236a39",
+      "sort": 2,
+      "archived": false,
+      "image_path": "/master2.avif",
+      "image_file": null,
+      "image_alt": "Фото мастера — Анастасия",
+      "image_width": 200,
+      "image_height": 200,
+      "title": "Анастасия",
+      "features": [
+        "Опыт работы — 4 года",
+        "Время работы ~2 часа",
+        "Наращивание ресниц",
+        "Индивидуальный подбор эффекта"
+      ],
+      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373819"
+    },
+    {
+      "id": "a26aff70-ceb1-51a7-8a6e-488aca48dc66",
+      "sort": 3,
+      "archived": false,
+      "image_path": "/master3.avif",
+      "image_file": null,
+      "image_alt": "Фото мастера — Ярослава",
+      "image_width": 200,
+      "image_height": 200,
+      "title": "Ярослава",
+      "features": [
+        "Опыт работы — 4 года",
+        "Время работы ~2-2,5 часа",
+        "Маникюр и педикюр"
+      ],
+      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4396039"
+    },
+    {
+      "id": "bb1baf0d-63c9-565f-83fb-e760f828707d",
+      "sort": 4,
+      "archived": false,
+      "image_path": "/master4.avif",
+      "image_file": null,
+      "image_alt": "Фото мастера — Дияна",
+      "image_width": 200,
+      "image_height": 200,
+      "title": "Дияна",
+      "features": [
+        "Опыт работы — 3 года",
+        "Время работы ~1,5 часа",
+        "Ламинирование ресниц"
+      ],
+      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4399020"
+    }
+  ],
+  "studio_photos": [
+    {
+      "id": "f9db5cea-83ad-5cc7-a351-f48f620556d8",
+      "sort": 1,
+      "archived": false,
+      "image_path": "/studio1.avif",
+      "image_file": null,
+      "image_alt": "Фото студии 1",
+      "image_width": 1086,
+      "image_height": 1448
+    },
+    {
+      "id": "846e70b0-757e-50cc-8160-e81bfbe3329e",
+      "sort": 2,
+      "archived": false,
+      "image_path": "/studio2.avif",
+      "image_file": null,
+      "image_alt": "Фото студии 2",
+      "image_width": 1086,
+      "image_height": 1448
+    }
+  ],
+  "calculator_options": [
+    {
+      "id": "c0bc98c2-e3ad-5f52-8abc-7805f663e667",
+      "sort": 1,
+      "archived": false,
+      "key": "brows-lamination",
+      "title": "Ламинирование",
+      "price_from": 1000,
+      "service_slug": "brows"
+    },
+    {
+      "id": "02115294-e81d-51dc-ac7e-a72fee3713b9",
+      "sort": 2,
+      "archived": false,
+      "key": "brows-shape-color",
+      "title": "Оформление и окрашивание",
+      "price_from": 1500,
+      "service_slug": "brows"
+    },
+    {
+      "id": "1b28a471-f323-5203-be0c-2bef9f90882d",
+      "sort": 3,
+      "archived": false,
+      "key": "brows-full",
+      "title": "Ламинирование, оформление и окрашивание",
+      "price_from": 2200,
+      "service_slug": "brows"
+    }
+  ],
+  "policy_sections": [
+    {
+      "id": "d4138c1c-9089-55f7-b378-8d800f3a7bf8",
+      "sort": 1,
+      "archived": false,
+      "slug": "general",
+      "title": "1. Сайт и владелец студии",
+      "toc_title": "Сайт и владелец студии",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Эта политика относится к сайту студии «Эстетика» по адресу "
+            },
+            {
+              "text": "www.estetika-ufa.online",
+              "href": "/"
+            },
+            {
+              "text": ". Оператор персональных данных — Айгуль Искужина, владелец студии."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Контактный телефон: "
+            },
+            {
+              "text": "+7 964 964-47-75",
+              "href": "tel:+79649644775"
+            },
+            {
+              "text": ". Адрес студии: Уфа, Ростовская улица, дом 18 лит. К, 3 этаж, офис 314."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Персональные данные — сведения, по которым можно прямо или косвенно определить человека. Их обработка может включать получение, использование, хранение, уточнение и удаление. При обработке применяются требования Федерального закона № 152-ФЗ «О персональных данных»."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c3f42af2-bd5a-5ce7-9647-158f2f8005d1",
+      "sort": 2,
+      "archived": false,
+      "slug": "data",
+      "title": "2. Какие данные используются",
+      "toc_title": "Какие данные используются",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Просмотр услуг и использование калькулятора стоимости не требуют ввода имени, телефона или регистрации. Калькулятор рассчитывает стоимость в вашем браузере."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "При посещении главной страницы сервис аналитики может получать технические сведения: IP-адрес, характеристики браузера и устройства, идентификаторы cookie, источник перехода, адреса просмотренных страниц и данные о действиях на сайте."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "При обращении по телефону, через мессенджер или сервис онлайн-записи студия может получать ваше имя, номер телефона, выбранную услугу, время записи и сведения, которые вы сообщаете в обращении. Эти данные используются для ответа на вопросы, согласования записи и оказания выбранной услуги."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "d1622a48-c9bb-501a-b7cb-479ca19fff1c",
+      "sort": 3,
+      "archived": false,
+      "slug": "cookies",
+      "title": "3. Cookie и статистика",
+      "toc_title": "Cookie и статистика",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Cookie — небольшие файлы, которые сайт или подключённый сервис сохраняет в браузере. На главной странице используется Яндекс.Метрика для оценки посещаемости, удобства сайта и эффективности рекламы. Включены карта кликов, отслеживание переходов и Вебвизор, который фиксирует действия посетителя на странице."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Подробности о собираемых сведениях приведены в "
+            },
+            {
+              "text": "справке Яндекс.Метрики",
+              "href": "https://yandex.ru/support/metrica/ru/code/data-collected"
+            },
+            {
+              "text": ", а перечень cookie и сроки их действия — на странице "
+            },
+            {
+              "text": "о временных файлах Метрики",
+              "href": "https://yandex.ru/support/metrica/ru/general/cookie-usage"
+            },
+            {
+              "text": "."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "После нажатия кнопки «Понятно» браузер запоминает, что уведомление было закрыто. Эта отметка хранится на вашем устройстве до очистки данных сайта. Кнопка закрывает уведомление; настройки аналитики можно изменить средствами, описанными ниже."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Вы можете удалить cookie и данные сайта или ограничить их сохранение в настройках браузера. Для ограничения сбора статистики Яндексом доступен "
+            },
+            {
+              "text": "блокировщик Яндекс.Метрики",
+              "href": "https://yandex.ru/support/metrica/ru/general/opt-out"
+            },
+            {
+              "text": ". Ограничение cookie может повлиять на работу подключённых сервисов."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "На этой странице политики счётчик Метрики не подключён."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bb0b5a8a-f37b-55eb-92dd-e7c10e028034",
+      "sort": 4,
+      "archived": false,
+      "slug": "services",
+      "title": "4. Внешние сервисы",
+      "toc_title": "Внешние сервисы",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            [
+              {
+                "text": "Яндекс.Метрика и Яндекс.Карты.",
+                "strong": true
+              },
+              {
+                "text": " На главной странице подключены аналитика и карта расположения студии. При их загрузке браузер обращается к серверам Яндекса. Обработка данных сервисами описана в "
+              },
+              {
+                "text": "политике конфиденциальности Яндекса",
+                "href": "https://yandex.ru/legal/confidential/ru/"
+              },
+              {
+                "text": "."
+              }
+            ],
+            [
+              {
+                "text": "DIKIDI.",
+                "strong": true
+              },
+              {
+                "text": " Кнопки записи ведут во внешний сервис "
+              },
+              {
+                "text": "онлайн-записи",
+                "href": "https://dikidi.net/2038825?p=0.pi"
+              },
+              {
+                "text": ". Данные, вводимые при записи, обрабатываются в рамках работы этого сервиса и студии. Перед отправкой данных ознакомьтесь с условиями, представленными в DIKIDI."
+              }
+            ],
+            [
+              {
+                "text": "WhatsApp.",
+                "strong": true
+              },
+              {
+                "text": " При переходе по ссылке для связи открывается внешний мессенджер. Сведения, которые вы отправляете в переписке, используются для ответа на обращение; работа мессенджера регулируется его собственными условиями."
+              }
+            ],
+            [
+              {
+                "text": "GitHub Pages.",
+                "strong": true
+              },
+              {
+                "text": " Сайт размещён на этом хостинге. При загрузке страниц хостинг получает технические сведения о запросе. Подробнее — в "
+              },
+              {
+                "text": "политике конфиденциальности GitHub",
+                "href": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+              },
+              {
+                "text": "."
+              }
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Переход на внешний сайт или использование встроенного сервиса предполагает взаимодействие с его поставщиком. Ознакомьтесь с его правилами обработки данных перед использованием."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "433faf39-5006-5afc-bd39-8c74604caa76",
+      "sort": 5,
+      "archived": false,
+      "slug": "processing",
+      "title": "5. Обработка и хранение",
+      "toc_title": "Обработка и хранение",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Данные используются для работы сайта, анализа посещаемости, ответа на обращения, организации записи и оказания услуг. Обработка ограничивается сведениями, необходимыми для соответствующей цели."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Обработка осуществляется при наличии основания, предусмотренного законодательством: согласия, когда оно требуется, необходимости заключения или исполнения договора по вашей инициативе либо исполнения установленных законом обязанностей. Публикация этой политики сама по себе не заменяет отдельное согласие, если оно необходимо."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Данные обращений и записи хранятся в течение времени, необходимого для ответа, организации и исполнения услуги, а также сроков, предусмотренных законом. По завершении целей обработки данные подлежат удалению или обезличиванию, если нет основания для дальнейшего хранения. Сроки хранения сведений в подключённых сервисах зависят от их настроек и правил."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Для защиты данных используются защищённое соединение HTTPS и ограничение доступа к сведениям клиентов. Передача данных допускается для работы указанных сервисов и в случаях, предусмотренных законодательством."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "02a79fd2-a44d-5523-8cd4-090d48d7dc6e",
+      "sort": 6,
+      "archived": false,
+      "slug": "rights",
+      "title": "6. Ваши права и обращения",
+      "toc_title": "Ваши права и обращения",
+      "blocks": [
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Вы можете запросить сведения об обработке своих данных, потребовать их уточнения, ограничения обработки или удаления при наличии предусмотренных законом оснований, а также отозвать согласие, если обработка основана на нём."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Для обращения свяжитесь с Айгуль Искужиной по телефону "
+            },
+            {
+              "text": "+7 964 964-47-75",
+              "href": "tel:+79649644775"
+            },
+            {
+              "text": ". По этому номеру можно уточнить порядок направления письменного запроса. В обращении укажите, каких данных касается ваш вопрос, и способ связи для ответа."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "Обращения рассматриваются в порядке и сроки, предусмотренные законодательством. Вы также вправе обратиться в Роскомнадзор или суд для защиты своих прав."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "segments": [
+            {
+              "text": "При изменении работы сайта эта политика обновляется. Актуальная редакция всегда доступна на данной странице."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+---
+import analyticsMarkup from '../content/analytics.html?raw';
+import type { SiteContent } from '../types/site-content';
+import { media } from '../lib/render';
+
+interface Props {
+  content: SiteContent;
+  bodyClass?: string;
+  interactive?: boolean;
+  policy?: boolean;
+  pagePath?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  pageImage?: string;
+  servicePage?: boolean;
+}
+
+const { content, bodyClass, interactive = false, policy = false, pagePath, seoTitle, seoDescription, pageImage, servicePage = false } = Astro.props;
+const settings = content.site_settings;
+const analyticsEnabled = interactive && import.meta.env.PUBLIC_ENABLE_ANALYTICS === 'true';
+let baseUrl: URL;
+try { baseUrl = new URL(settings.canonical_url); } catch { baseUrl = new URL('https://www.estetika-ufa.online/'); }
+if (!['https:', 'http:'].includes(baseUrl.protocol)) baseUrl = new URL('https://www.estetika-ufa.online/');
+const canonical = new URL(policy ? 'policy/' : pagePath || '', baseUrl).href;
+const firstHero = content.hero_slides[0];
+const heroImage = pageImage || (firstHero ? media(firstHero) : undefined);
+const ogImage = heroImage ? new URL(heroImage, baseUrl).href : undefined;
+const uiCopy = JSON.stringify(Object.fromEntries(content.site_texts.map((item) => [item.key, item.value]))).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+---
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#fbf7f2" />
+    <title>{seoTitle || (policy ? settings.policy_seo_title : settings.seo_title)}</title>
+    <meta name="description" content={seoDescription || (policy ? settings.policy_seo_description : settings.seo_description)} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48 64x64 128x128 256x256" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="120x120" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preload" as="font" href="/fonts/playfair.woff2" type="font/woff2" crossorigin />
+    <link rel="preload" as="font" href="/fonts/golos.woff2" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css?v=20261021-services" />
+    {servicePage && <link rel="stylesheet" href="/service-pages.css?v=20261021" />}
+    {policy ? <link rel="stylesheet" href="/policy/policy.css" /> : <>
+      <meta property="og:type" content="website" /><meta property="og:locale" content="ru_RU" />
+      <meta property="og:title" content={seoTitle || settings.og_title} /><meta property="og:description" content={seoDescription || settings.og_description} /><meta property="og:url" content={canonical} />
+      {ogImage && <meta property="og:image" content={ogImage} />}
+      {heroImage && <link rel="preload" as="image" href={heroImage} fetchpriority="high" />}
+      <noscript><style is:inline>[data-src]{display:none}.hero-arrow,.hero-dots,.master-arrow,.master-dots{display:none}</style></noscript>
+    </>}
+    {analyticsEnabled && <Fragment set:html={analyticsMarkup} />}
+  </head>
+  <body class={bodyClass}>
+    {analyticsEnabled && (
+      <noscript>
+        <div><img src="https://mc.yandex.ru/watch/113129252" style="position:absolute;left:-9999px" alt="" /></div>
+      </noscript>
+    )}
+    <slot />
+    {interactive && <script id="site-ui-copy" type="application/json" is:inline set:html={uiCopy}></script>}
+    {interactive && <script is:inline src="/site.js?v=20261019-ux" defer></script>}
+    {interactive && analyticsEnabled && <script is:inline src="/metrika-client.js" defer></script>}
+  </body>
+</html>

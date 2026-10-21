@@ -1,0 +1,34 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { getSiteContent } from '../lib/content';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import LashEffects from '../components/LashEffects.astro';
+import Portfolio from '../components/Portfolio.astro';
+import Reviews from '../components/Reviews.astro';
+import Masters from '../components/Masters.astro';
+import Pricing from '../components/Pricing.astro';
+import Contacts from '../components/Contacts.astro';
+import Footer from '../components/Footer.astro';
+import Overlays from '../components/Overlays.astro';
+const content = await getSiteContent();
+---
+<SiteLayout content={content} interactive>
+  <Header content={content} />
+  <main id="top">
+    <Hero content={content} />
+    <div class="page-content">
+      <Services content={content} />
+      <LashEffects content={content} />
+      <Portfolio content={content} />
+      <Masters content={content} />
+      <Pricing content={content} />
+      <Contacts content={content} />
+      <Reviews content={content} />
+    </div>
+  </main>
+  <Footer content={content} />
+  <Overlays content={content} />
+</SiteLayout>
+

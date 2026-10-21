@@ -1,0 +1,22 @@
+---
+import type { ImageFields } from '../types/site-content';
+import { media } from '../lib/render';
+interface Props { item: ImageFields; class?: string; eager?: boolean; interactive?: boolean }
+const { item, class: className, eager = false, interactive = false } = Astro.props;
+const src = media(item);
+const file = typeof item.image_file === 'object' ? item.image_file : undefined;
+const width = Number(file?.width || item.image_width);
+const height = Number(file?.height || item.image_height);
+const attributes = {
+  class: className,
+  alt: item.image_alt,
+  width: Number.isFinite(width) && width > 0 ? width : undefined,
+  height: Number.isFinite(height) && height > 0 ? height : undefined,
+  decoding: 'async' as const,
+  loading: eager ? undefined : 'lazy' as const,
+  tabindex: interactive ? 0 : undefined,
+  role: interactive ? 'button' as const : undefined,
+  'aria-haspopup': interactive ? 'dialog' as const : undefined,
+};
+---
+{src && (eager ? <img src={src} {...attributes} fetchpriority="high" /> : <><img data-src={src} {...attributes} /><noscript><img src={src} {...attributes} /></noscript></>)}

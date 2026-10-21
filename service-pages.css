@@ -1,0 +1,79 @@
+/* Service pages share the landing's palette, typography and UI controls. */
+.service-page main{outline:none}
+.service-hero,.service-procedure,.service-works,.service-masters,.service-questions,.service-related{background:var(--bg);color:var(--ink)}
+.service-hero{padding:32px 0 0}
+.breadcrumbs{font-size:13px;color:var(--muted);margin-bottom:40px}
+.breadcrumbs ol{display:flex;gap:10px;flex-wrap:wrap;list-style:none;padding:0;margin:0}
+.breadcrumbs li+li::before{content:'/';margin-right:10px;color:var(--muted)}
+.service-intro{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;align-items:start}
+.service-heading h1{font-size:clamp(38px,4.8vw,64px);max-width:17ch;line-height:1.08;margin-bottom:24px}
+.service-lead{max-width:46ch;font-size:18px;line-height:1.65;margin-bottom:24px}
+.service-location{display:inline-flex;min-height:44px;align-items:center;font-size:14px;max-width:38ch;color:var(--muted)}
+.service-price-card{padding:28px;background:var(--bg-alt);border:1px solid var(--line);border-radius:16px}
+.service-start-price{font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,3vw,44px);line-height:1.2;margin:0 0 12px}
+.service-price-card .btn{width:100%}
+.service-duration{font-size:14px}
+.service-booking-hint{font-size:12px;color:var(--muted);margin:10px 0 24px}
+.service-offer{font-size:15px;font-weight:600;color:var(--accent);padding-top:18px;border-top:1px solid var(--line);margin-bottom:6px}
+.service-offer-note{font-size:12px;color:var(--muted);margin:0}
+.service-hero-media{margin:40px 0 0}
+.service-hero-media img{width:100%;height:auto;aspect-ratio:1847/851;object-fit:cover;border-radius:16px}
+.service-hero-media figcaption{margin-top:10px;font-size:12px;color:var(--muted)}
+.service-section-heading{max-width:680px;margin-bottom:32px}
+.service-section-heading>p:last-child{margin-bottom:0}
+.service-detail-grid,.service-work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.service-detail{padding-top:20px;border-top:1px solid var(--line)}
+.service-detail-number{display:block;font-size:13px;color:var(--accent);margin-bottom:24px}
+.service-detail h3{font-size:24px}
+.service-detail p{font-size:15px;line-height:1.65;color:var(--muted);margin:0}
+.service-inline-link{display:inline-flex;align-items:center;min-height:44px;margin-top:24px;font-size:15px}
+.service-works{background:var(--bg-alt)}
+.service-work-card{margin:0;min-width:0}
+.service-work-card .portfolio-photo{height:360px;background:var(--bg)}
+.service-work-card figcaption{font-size:13px;color:var(--muted);margin-top:12px}
+.service-work-placeholder{display:grid;place-items:center;min-height:360px;background:var(--bg);border:1px dashed var(--line);border-radius:16px}
+.service-work-placeholder span{font-family:'Playfair Display',Georgia,serif;font-size:24px;color:var(--muted)}
+.service-master-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.service-master-card{display:grid;grid-template-columns:80px minmax(0,1fr);align-items:start;gap:24px;padding:28px;background:var(--bg-alt);border:1px solid var(--line);border-radius:16px}
+.service-master-photo{width:80px;height:80px;border-radius:50%;object-fit:cover}
+.service-master-card h3{font-size:28px}
+.service-master-card ul{list-style:none;padding:0;margin:16px 0 24px;font-size:14px;color:var(--muted)}
+.service-master-card li{padding:8px 0;border-bottom:1px solid var(--line)}
+.service-master-card .btn{font-size:14px;padding:12px 16px}
+.service-faq-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px}
+.service-faq details{border-top:1px solid var(--line);padding:20px 0}
+.service-faq details:last-child{border-bottom:1px solid var(--line)}
+.service-faq summary{font-size:17px;font-weight:600;cursor:pointer;padding:4px 0;min-height:44px}
+.service-faq p{font-size:15px;color:var(--muted);margin:16px 0 0;line-height:1.7}
+.service-related{padding-top:0}
+.service-related-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:28px}
+.service-related-grid a{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px;border:1px solid var(--line);border-radius:12px;text-decoration:none;font-family:'Playfair Display',Georgia,serif;font-size:24px;min-height:100px;transition:background .2s,border-color .2s}
+.service-related-grid a:hover{background:var(--bg-alt);border-color:var(--accent)}
+.service-pricing-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:64px;align-items:start}
+.service-pricing-grid>div:first-child>p:not(.eyebrow){max-width:50ch}
+@media(max-width:900px){
+  .service-intro{grid-template-columns:1.1fr .9fr;gap:24px}
+  .service-price-card{padding:24px}
+  .service-detail-grid,.service-work-grid{gap:16px}
+  .service-work-card .portfolio-photo,.service-work-placeholder{height:300px;min-height:300px}
+  .service-master-grid{grid-template-columns:1fr}
+  .service-faq-layout,.service-pricing-grid{grid-template-columns:1fr;gap:28px}
+}
+@media(max-width:620px){
+  .service-hero{padding-top:20px}
+  .breadcrumbs{margin-bottom:28px}
+  .service-intro{grid-template-columns:1fr;gap:24px}
+  .service-heading h1{font-size:clamp(36px,9vw,46px)}
+  .service-lead{font-size:17px}
+  .service-price-card{padding:24px}
+  .service-hero-media{margin-top:28px}
+  .service-detail-grid{grid-template-columns:1fr;gap:28px}
+  .service-detail-number{margin-bottom:12px}
+  .service-work-grid{grid-template-columns:1fr}
+  .service-work-card .portfolio-photo{height:clamp(300px,95vw,440px)}
+  .service-work-placeholder{min-height:240px}
+  .service-master-card{padding:24px;gap:16px;grid-template-columns:64px minmax(0,1fr)}
+  .service-master-photo{width:64px;height:64px}
+  .service-master-card .btn{width:100%}
+  .service-related-grid{grid-template-columns:1fr;gap:12px}
+}

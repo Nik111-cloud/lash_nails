@@ -1,0 +1,36 @@
+<section class="section" id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Стоимость</p>
+      <h2>Рассчитайте стоимость визита</h2>
+      <p class="muted">Выберите одну или несколько услуг — покажем предварительную сумму.</p>
+      <form id="price-calculator" class="calculator" aria-describedby="calculator-note">
+        <fieldset class="calculator-services">
+          <legend>Какие услуги вас интересуют?</legend>
+          <label class="calculator-option"><input type="checkbox" name="lashes" value="2000" checked><span>Наращивание ресниц</span><strong>от 2 000 ₽</strong></label>
+          <label class="calculator-option"><input type="checkbox" name="lashLamination" value="1900"><span>Ламинирование ресниц</span><strong>от 1 900 ₽</strong></label>
+          <label class="calculator-option"><input type="checkbox" name="manicure" value="2500"><span>Маникюр с покрытием</span><strong>от 2 500 ₽</strong></label>
+          <label class="calculator-option"><input type="checkbox" name="makeup" value="2000"><span>Вечерний макияж</span><strong>от 2 000 ₽</strong></label>
+          <label class="calculator-option"><input type="checkbox" name="brows" value="1000" aria-controls="brows-treatment"><span>Брови</span><strong>от 1 000 ₽</strong></label>
+          <div class="calculator-brows">
+            <label for="brows-treatment">Процедура для бровей</label>
+            <select id="brows-treatment" name="browsTreatment" disabled>
+              <option value="1000">Ламинирование — от 1 000 ₽</option>
+              <option value="1500">Оформление и окрашивание — от 1 500 ₽</option>
+              <option value="2200">Ламинирование, оформление и окрашивание — от 2 200 ₽</option>
+            </select>
+          </div>
+        </fieldset>
+        <div class="calculator-summary">
+          <p class="eyebrow">Предварительная стоимость</p>
+          <div role="status" aria-live="polite" aria-atomic="true">
+            <p id="calculator-total" class="calculator-total">от 2 000 ₽</p>
+            <p id="calculator-count" class="muted">Выбрано услуг: 1</p>
+          </div>
+          <p id="calculator-note" class="calculator-note">Расчёт по начальным ценам, без учёта акций. Итоговая стоимость зависит от выбранной процедуры — уточните её при записи.</p>
+          <a class="btn btn-primary" href="https://dikidi.net/2038825?p=0.pi">Выбрать время онлайн</a>
+        </div>
+      </form>
+      <noscript><p>Для расчёта включите JavaScript или <a href="https://dikidi.net/2038825?p=0.pi">посмотрите цены в онлайн-записи</a>.</p></noscript>
+    </div>
+  </section>
+

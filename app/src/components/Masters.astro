@@ -1,0 +1,21 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, href, media } from '../lib/render';
+import LazyImage from './LazyImage.astro';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const backgrounds = content.studio_photos.filter((item) => media(item));
+---
+{content.masters.length > 0 && <section class="master-carousel" id="master" aria-label={text(content, 'masters_label', 'Мастера студии')}>
+  <div class="master-bg-slides">{backgrounds.map((photo, index) => <LazyImage item={photo} class={`master-bg-slide${index === 0 ? ' is-active' : ''}`} />)}</div>
+  <div class="master-slides">{content.masters.map((master, index) => <div class:list={['master-slide', { 'is-active': index === 0 }]} inert={index !== 0} aria-hidden={index !== 0 ? 'true' : undefined}>
+    <div class="master-frame"><LazyImage item={master} class="master-photo" />
+      <div class="master-overlay-content"><p class="eyebrow">{text(content, 'master_eyebrow', 'О мастере')}</p><h2>{master.title}</h2><ul class="master-credentials">{master.features.map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-primary" href={href(master.booking_url, content.site_settings.booking_url)} aria-label={`${text(content, 'master_cta', 'Записаться к этому мастеру')}: ${master.title}`}>{text(content, 'master_cta', 'Записаться к этому мастеру')}</a></div>
+    </div>
+  </div>)}</div>
+  {content.masters.length > 1 && <>
+    <button class="master-arrow prev" type="button" aria-label={text(content, 'master_previous', 'Предыдущий мастер')}>‹</button><button class="master-arrow next" type="button" aria-label={text(content, 'master_next', 'Следующий мастер')}>›</button>
+    <div class="master-dots">{content.masters.map((_, index) => <button class:list={['master-dot', { 'is-active': index === 0 }]} type="button" aria-label={text(content, 'master_dot_template', 'Мастер {number}').replaceAll('{number}', String(index + 1))}></button>)}</div>
+  </>}
+</section>}
+

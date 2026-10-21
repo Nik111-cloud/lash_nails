@@ -1,0 +1,10 @@
+---
+import type { SiteContent } from '../types/site-content';
+import { text, href, phoneHref } from '../lib/render';
+interface Props { content: SiteContent }
+const { content } = Astro.props;
+const settings = content.site_settings;
+---
+<footer><div class="wrap">{text(content, 'footer_text', '© Эстетика · Салон красоты в Уфе')} <a href="/policy/">{text(content, 'footer_policy', 'Конфиденциальность')}</a> <a href="#contacts">{text(content, 'footer_contacts', 'Контакты и адрес')}</a></div></footer>
+<div class="mobile-bar" aria-label={text(content, 'mobile_bar_label', 'Быстрые действия')}><div class="mobile-bar-inner"><a class="call" href={phoneHref(settings.phone)}>{text(content, 'mobile_call', 'Позвонить')}</a><a class="wa" href={href(settings.whatsapp_url)} target="_blank" rel="noopener">{text(content, 'mobile_whatsapp', 'WhatsApp')}</a></div></div>
+

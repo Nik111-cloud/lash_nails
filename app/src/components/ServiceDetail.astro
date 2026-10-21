@@ -1,0 +1,97 @@
+---
+import type { SiteContent } from '../types/site-content';
+import type { ServicePage } from '../data/service-pages';
+import { servicePages } from '../data/service-pages';
+import { href, media, price } from '../lib/render';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import Contacts from './Contacts.astro';
+import Overlays from './Overlays.astro';
+import LazyImage from './LazyImage.astro';
+interface Props { content: SiteContent; page: ServicePage }
+const { content, page } = Astro.props;
+const service = content.services.find((item) => item.key === page.serviceKey);
+if (!service) throw new Error(`Missing service for ${page.slug}`);
+const settings = content.site_settings;
+const booking = href(service.booking_url, settings.booking_url);
+const masters = content.masters.filter((item) => page.masterIds.includes(item.id));
+const works = page.photoPaths.flatMap((path) => {
+  const item = content.portfolio_items.find((photo) => photo.image_path.replace(/^\//, '') === path);
+  return item && media(item) ? [item] : [];
+});
+const hero = {image_path: service.background_path, image_file: service.background_file, image_alt: `Иллюстрация услуги «${page.name}»`, image_width: 1847, image_height: 851};
+const heroUrl = media(hero);
+const related = servicePages.filter((item) => item.slug !== page.slug);
+const offer = content.hero_slides[0];
+const offerText = offer ? `${offer.title} ${offer.title_secondary}` : '';
+const canonical = new URL(`/${page.slug}/`, settings.canonical_url).href;
+const salonId = new URL('/#salon', settings.canonical_url).href;
+const dailyTimes = /Ежедневно[^\d]*(\d{1,2}:\d{2})\s*[–—-]\s*(\d{1,2}:\d{2})/.exec(settings.hours);
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {'@type': 'BeautySalon', '@id': salonId, name: settings.brand_name, url: settings.canonical_url, telephone: settings.phone,
+      image: new URL('/studio1.avif', settings.canonical_url).href,
+      address: {'@type': 'PostalAddress', streetAddress: settings.address.replace(/^Уфа,\s*/i, ''), addressLocality: 'Уфа', addressCountry: 'RU'},
+      openingHoursSpecification: dailyTimes ? {'@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: dailyTimes[1], closes: dailyTimes[2]} : undefined},
+    {'@type': 'Service', '@id': `${canonical}#service`, name: page.name, serviceType: page.name, url: canonical, provider: {'@id': salonId},
+      areaServed: {'@type': 'City', name: 'Уфа'},
+      offers: {'@type': 'Offer', url: canonical, priceSpecification: {'@type': 'PriceSpecification', minPrice: service.price_from, priceCurrency: 'RUB'}}},
+    {'@type': 'BreadcrumbList', itemListElement: [
+      {'@type': 'ListItem', position: 1, name: 'Главная', item: settings.canonical_url},
+      {'@type': 'ListItem', position: 2, name: page.name, item: canonical},
+    ]},
+  ],
+};
+const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
+---
+<SiteLayout content={content} interactive servicePage bodyClass="service-page" pagePath={`/${page.slug}/`} seoTitle={page.title} seoDescription={page.description} pageImage={heroUrl}>
+  <Header content={content} detail />
+  <main id="service-content" tabindex="-1">
+    <section class="service-hero">
+      <div class="wrap">
+        <nav class="breadcrumbs" aria-label="Хлебные крошки"><ol><li><a href="/">Главная</a></li><li aria-current="page">{page.name}</li></ol></nav>
+        <div class="service-intro">
+          <div class="service-heading"><p class="eyebrow">{page.eyebrow}</p><h1>{page.name} в Уфе</h1><p class="service-lead">{page.lead}</p><a class="service-location" href="#contacts">{settings.address}</a></div>
+          <aside class="service-price-card" aria-label="Стоимость и запись">
+            <p class="eyebrow">Ваш визит в «Эстетику»</p>
+            <p class="service-start-price">{price(content, service.price_from)}</p>
+            <p class="muted service-duration">Время процедуры: {service.duration_label}</p>
+            <a class="btn btn-primary" href={booking}>Выбрать время онлайн</a>
+            <p class="service-booking-hint">Услугу и время выберете в DIKIDI.</p>
+            {offerText && <p class="service-offer">{offerText}</p>}
+            <p class="service-offer-note">Условия акции уточните при записи.</p>
+          </aside>
+        </div>
+        <figure class="service-hero-media"><LazyImage item={hero} eager /><figcaption>{works.length ? 'Иллюстрация услуги. Примеры работ — ниже на странице.' : 'Иллюстрация услуги.'}</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section service-procedure" id="procedure"><div class="wrap">
+      <div class="service-section-heading"><p class="eyebrow">О процедуре</p><h2>{page.detailTitle}</h2><p class="muted">{page.detailIntro}</p></div>
+      <div class="service-detail-grid">{page.details.map((item, index) => <article class="service-detail"><span class="service-detail-number" aria-hidden="true">0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div>
+      {page.serviceKey === 'lashes' && <a class="service-inline-link" href="/#lash-effects">Посмотреть примеры эффектов →</a>}
+    </div></section>
+
+    <section class="section service-works" id="portfolio"><div class="wrap">
+      <div class="service-section-heading"><p class="eyebrow">Портфолио</p><h2>{masters.length === 1 ? 'Работы нашего мастера' : 'Работы наших мастеров'}</h2><p class="muted">{works.length ? 'Нажмите на фотографию, чтобы рассмотреть работу целиком.' : 'Фотографии ламинирования ресниц добавим скоро.'}</p></div>
+      <div class="service-work-grid">{works.length ? works.map((item, index) => <figure class="service-work-card"><button class="portfolio-photo" type="button" aria-haspopup="dialog" aria-label={`Рассмотреть работу: ${page.name}, фото ${index + 1}`}><LazyImage item={item} /><span class="portfolio-enlarge" aria-hidden="true">↗</span></button><figcaption>{page.name} · работа {index + 1}</figcaption></figure>) : [1,2,3].map(() => <div class="service-work-placeholder" aria-hidden="true"><span>Эстетика</span></div>)}</div>
+    </div></section>
+
+    <section class="section service-masters" id="masters"><div class="wrap">
+      <div class="service-section-heading"><p class="eyebrow">Знакомство</p><h2>{masters.length > 1 ? 'Ваши мастера' : 'Ваш мастер'}</h2><p class="muted">{masters.length === 1 ? 'Посмотрите свободное время мастера в онлайн-записи.' : 'Можно выбрать мастера и посмотреть свободное время в онлайн-записи.'}</p></div>
+      <div class="service-master-grid">{masters.map((master) => <article class="service-master-card"><LazyImage item={master} class="service-master-photo" /><div><h3>{master.title}</h3><ul>{master.features.map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-ghost" href={href(master.booking_url, booking)} aria-label={`Записаться к мастеру: ${master.title}`}>Записаться к мастеру →</a></div></article>)}</div>
+    </div></section>
+
+    <section class="section service-questions"><div class="wrap service-faq-layout"><div><p class="eyebrow">Перед визитом</p><h2>Частые вопросы</h2><p class="muted">Если хочется обсудить детали, напишите нам.</p><a class="service-inline-link" href={href(settings.whatsapp_url)} target="_blank" rel="noopener">Задать вопрос в WhatsApp ↗</a></div><div class="service-faq">{page.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
+
+    <section class="section service-related" id="other-services"><div class="wrap"><p class="eyebrow">Ещё время для себя</p><h2>Другие услуги студии</h2><div class="service-related-grid">{related.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><span aria-hidden="true">↗</span></a>)}</div><a class="service-inline-link" href="/#services">Все услуги и цены →</a></div></section>
+
+    <section class="section service-pricing" id="pricing"><div class="wrap service-pricing-grid"><div><p class="eyebrow">Стоимость</p><h2>Сколько стоит {page.name.toLocaleLowerCase('ru-RU')}</h2><p>{page.priceNote}</p><p class="service-duration">Ориентир по времени: {service.duration_label}. Длительность вашего визита уточните у мастера.</p></div><div class="calculator-summary"><p class="eyebrow">{page.name}</p><p class="service-start-price">{price(content, service.price_from)}</p><p class="calculator-note">Указана начальная стоимость, без учёта акции. Окончательную сумму согласуйте при записи.</p><a class="btn btn-primary" href={booking}>Выбрать время онлайн</a><p class="calculator-booking-hint">Услугу и время выберете в DIKIDI.</p></div></div></section>
+    <Contacts content={content} />
+  </main>
+  <Footer content={content} />
+  <Overlays content={content} />
+  <script type="application/ld+json" is:inline set:html={structuredData}></script>
+</SiteLayout>

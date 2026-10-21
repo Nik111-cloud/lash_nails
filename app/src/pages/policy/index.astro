@@ -1,0 +1,20 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getSiteContent } from '../../lib/content';
+import { text } from '../../lib/render';
+import PolicyText from '../../components/PolicyText.astro';
+const content = await getSiteContent();
+const settings = content.site_settings;
+---
+<SiteLayout content={content} bodyClass="policy-page" policy>
+  <a class="skip-link" href="#policy-content">{text(content, 'policy_skip', 'Перейти к политике')}</a>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="/"><span class="brand-name">{settings.brand_name}</span><span class="brand-sub">{settings.brand_subtitle}</span></a><a class="policy-back" href="/">{text(content, 'policy_back', '← На главную')}</a></div></header>
+  <main id="policy-content" class="policy-wrap">
+    <div class="policy-intro"><p class="eyebrow">{text(content, 'policy_eyebrow', 'Конфиденциальность')}</p><h1>{text(content, 'policy_title', 'Политика обработки персональных данных и использования cookie')}</h1><p class="policy-lede">{text(content, 'policy_intro')}</p><p class="policy-date">{text(content, 'policy_date_prefix', 'Редакция от')} <time datetime={settings.policy_date}>{settings.policy_date_label}</time></p></div>
+    <nav class="policy-nav" aria-label={text(content, 'policy_nav_label', 'Содержание политики')}><p>{text(content, 'policy_toc_title', 'Содержание')}</p><ol>{content.policy_sections.map((section) => <li><a href={`#${section.slug}`}>{section.toc_title}</a></li>)}</ol></nav>
+    {content.policy_sections.map((section) => <section class="policy-section" id={section.slug}><h2>{section.title}</h2>{section.blocks.map((block) => block.type === 'paragraph' ? <p><PolicyText segments={block.segments} /></p> : <ul>{block.items.map((segments) => <li><PolicyText segments={segments} /></li>)}</ul>)}</section>)}
+    <div class="policy-end"><a class="btn btn-primary" href="/">{text(content, 'policy_return', 'Вернуться на сайт')}</a></div>
+  </main>
+  <footer><div class="wrap">{text(content, 'footer_text', '© Эстетика · Салон красоты в Уфе')} <a href="/#contacts">{text(content, 'footer_contacts', 'Контакты и адрес')}</a></div></footer>
+</SiteLayout>
+

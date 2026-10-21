@@ -1,0 +1,11 @@
+---
+import { servicePages } from '../data/service-pages';
+import { getSiteContent } from '../lib/content';
+import ServiceDetail from '../components/ServiceDetail.astro';
+export function getStaticPaths() {
+  return servicePages.map((page) => ({params: {slug: page.slug}, props: {page}}));
+}
+const { page } = Astro.props;
+const content = await getSiteContent();
+---
+<ServiceDetail content={content} page={page} />
