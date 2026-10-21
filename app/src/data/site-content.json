@@ -679,7 +679,7 @@
       "price_from": 1000,
       "duration_label": "~30 минут",
       "booking_url": "https://dikidi.net/2038825?p=0.pi",
-      "background_path": "/service-brows.avif",
+      "background_path": "/service-brows.avif?v=20261021-brows-macro",
       "background_file": null,
       "calculator_enabled": true,
       "calculator_label": "Брови",
