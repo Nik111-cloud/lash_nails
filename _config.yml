@@ -1,0 +1,19 @@
+# GitHub Pages serves the generated HTML in the repository root.
+# Astro's --- blocks contain TypeScript, not Jekyll YAML front matter.
+# Keep build sources, local CMS files and project notes out of the published site.
+# Jekyll 3 also prefix-matches "app" against "apple-touch-icon.png".
+include:
+  - apple-touch-icon.png
+exclude:
+  - app
+  - cms
+  - scripts
+  - tests
+  - "*.md"
+  - node_modules
+  - gemfiles
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
