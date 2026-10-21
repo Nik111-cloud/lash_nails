@@ -73,6 +73,7 @@ button,a{touch-action:manipulation}
 .service-row .desc{font-size:14px;margin:0;color:#fff3e9}
 .service-row .price{font-weight:600;white-space:nowrap}
 .service-row .duration{font-size:14px;color:#fff3e9}
+#lash-lamination::before{background:linear-gradient(90deg,rgba(20,14,10,.8),rgba(20,14,10,.56))}
 .service-row .book-link{grid-column:1/-1;justify-self:start;margin-top:8px;color:var(--bg);border-color:rgba(251,247,242,.7);background:rgba(251,247,242,.1)}
 .service-row-actions{grid-column:1/-1;display:flex;align-items:center;flex-wrap:wrap;gap:8px 20px;margin-top:8px}
 .service-row .service-row-actions .book-link{margin:0}
