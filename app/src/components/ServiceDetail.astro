@@ -88,7 +88,14 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
 
     <section class="section service-questions"><div class="wrap service-faq-layout"><div><p class="eyebrow">Перед визитом</p><h2>Частые вопросы</h2><p class="muted">Если хочется обсудить детали, напишите нам.</p><a class="service-inline-link" href={href(settings.whatsapp_url)} target="_blank" rel="noopener">Задать вопрос в WhatsApp ↗</a></div><div class="service-faq">{page.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
 
-    <section class="section service-related" id="other-services"><div class="wrap"><p class="eyebrow">Ещё время для себя</p><h2>Другие услуги студии</h2><div class="service-related-grid">{related.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><span aria-hidden="true">↗</span></a>)}</div><a class="service-inline-link" href="/#services">Все услуги и цены →</a></div></section>
+    <section class="section service-related" id="other-services"><div class="wrap">
+      <p class="eyebrow">Ещё время для себя</p><h2>Другие услуги студии</h2>
+      <div class="service-related-grid">{related.map((item) => <a href={`/${item.slug}/`}>
+        <span>{item.name}</span>
+        <svg class="service-related-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m9 5 7 7-7 7" /></svg>
+      </a>)}</div>
+      <a class="service-inline-link" href="/#services">Все услуги и цены</a>
+    </div></section>
 
     <section class="section service-pricing" id="pricing"><div class="wrap service-pricing-grid"><div><p class="eyebrow">Стоимость</p><h2>Сколько стоит {page.name.toLocaleLowerCase('ru-RU')}</h2><p>{page.priceNote}</p><p class="service-duration">Ориентир по времени: {service.duration_label}. Длительность вашего визита уточните у мастера.</p></div><div class="calculator-summary"><p class="eyebrow">{page.name}</p><p class="service-start-price">{price(content, service.price_from)}</p><p class="calculator-note">Указана начальная стоимость, без учёта акции. Окончательную сумму согласуйте при записи.</p><a class="btn btn-primary" href={booking}>Выбрать время онлайн</a><p class="calculator-booking-hint">Услугу и время выберете в DIKIDI.</p></div></div></section>
     <Contacts content={content} />
