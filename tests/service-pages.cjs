@@ -6,7 +6,7 @@ const root = path.resolve(__dirname, '..');
 const origin = 'https://www.estetika-ufa.online';
 const specs = [
   {slug: 'narashchivanie-resnits', section: 'lashes', price: 2200, masters: ['4373807', '4373819'], photos: 3},
-  {slug: 'laminirovanie-resnits', section: 'lash-lamination', price: 1900, masters: ['4399020'], photos: 0},
+  {slug: 'laminirovanie-resnits', section: 'lash-lamination', price: 1900, masters: ['4399020'], photos: 3},
   {slug: 'manikyur', section: 'manicure', price: 2500, masters: ['4396039'], photos: 3},
 ];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
@@ -57,8 +57,11 @@ for (const spec of specs) {
   assert(html.includes(`src="/${background}"`), `Service illustration matches the landing: ${spec.slug}`);
   assert(html.includes(`property="og:image" content="${origin}/${background}"`), `Social image matches the service: ${spec.slug}`);
   assert.equal((html.match(/class="portfolio-photo"/g) || []).length, spec.photos);
-  if (!spec.photos) {
-    assert.equal((html.match(/class="service-work-placeholder"/g) || []).length, 3);
+  if (spec.slug === 'laminirovanie-resnits') {
+    assert(!html.includes('class="service-work-placeholder"'), 'Provided photographs replace the placeholders');
+    for (const name of ['1lamin.avif', '2lamin.avif', '3lamin.avif']) {
+      assert(html.includes(`data-src="/${name}"`), `Lamination photograph is present: ${name}`);
+    }
     assert(!/data-src="\/(9|1|2)\.avif"/.test(html), 'Lamination does not reuse extension work');
   }
   assert(sitemap.includes(`<loc>${canonical}</loc>`));

@@ -1,4 +1,6 @@
 /** Editorial descriptions; prices, photographs and masters come from SiteContent. */
+import type { ImageFields } from '../types/site-content';
+
 export interface ServicePage {
   slug: string;
   serviceKey: string;
@@ -12,6 +14,8 @@ export interface ServicePage {
   details: { title: string; text: string }[];
   priceNote: string;
   photoPaths: string[];
+  /** Page-specific photographs until matching portfolio rows are added in the CMS. */
+  photoFallbacks?: ImageFields[];
   masterIds: string[];
   faq: { question: string; answer: string }[];
 }
@@ -53,7 +57,12 @@ export const servicePages: ServicePage[] = [
       {title: 'Понятные рекомендации', text: 'После процедуры уточните у мастера особенности ухода и подходящий срок следующего визита именно для ваших ресниц.'},
     ],
     priceNote: 'Указана начальная стоимость ламинирования ресниц. Состав процедуры и окончательную цену уточните у мастера или в онлайн-записи.',
-    photoPaths: [],
+    photoPaths: ['1lamin.avif', '2lamin.avif', '3lamin.avif'],
+    photoFallbacks: [
+      {image_path: '/1lamin.avif', image_file: null, image_alt: 'Ламинирование ресниц — работа мастера студии «Эстетика», портрет', image_width: 864, image_height: 1184},
+      {image_path: '/2lamin.avif', image_file: null, image_alt: 'Ламинирование ресниц — два крупных плана изгиба ресниц', image_width: 720, image_height: 1280},
+      {image_path: '/3lamin.avif', image_file: null, image_alt: 'Ламинирование ресниц — изгиб натуральных ресниц крупным планом', image_width: 853, image_height: 1280},
+    ],
     masterIds: ['bb1baf0d-63c9-565f-83fb-e760f828707d'],
     faq: [
       {question: 'Это то же самое, что наращивание?', answer: 'Нет. Ламинирование подчёркивает изгиб ваших натуральных ресниц. При наращивании добавляют искусственные ресницы, чтобы изменить длину и объём.'},

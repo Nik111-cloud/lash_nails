@@ -17,7 +17,9 @@ const settings = content.site_settings;
 const booking = href(service.booking_url, settings.booking_url);
 const masters = content.masters.filter((item) => page.masterIds.includes(item.id));
 const works = page.photoPaths.flatMap((path) => {
-  const item = content.portfolio_items.find((photo) => photo.image_path.replace(/^\//, '') === path);
+  const matchesPath = (photo: { image_path: string }) => photo.image_path.replace(/^\//, '') === path;
+  const cmsItem = content.portfolio_items.find(matchesPath);
+  const item = cmsItem && media(cmsItem) ? cmsItem : page.photoFallbacks?.find(matchesPath);
   return item && media(item) ? [item] : [];
 });
 const hero = {image_path: service.background_path, image_file: service.background_file, image_alt: `Иллюстрация услуги «${page.name}»`, image_width: 1847, image_height: 851};
