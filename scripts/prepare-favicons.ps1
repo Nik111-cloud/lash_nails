@@ -1,4 +1,4 @@
-# Rebuild the existing monogram without embedding or requesting a font.
+# Rebuild the approved seal logo with a transparent outer background.
 # Run on Windows with Georgia installed. Generated files are committed directly.
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
@@ -36,40 +36,42 @@ for ($i = 0; $i -lt $points.Length; $i++) {
 }
 $pathData = $segments -join ' '
 $svg = @"
-<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 256 256">
   <title>Эстетика</title>
-  <rect width="64" height="64" rx="14" fill="#a23b4e"/>
-  <path fill="#fff9f6" d="$pathData"/>
+  <circle cx="128" cy="128" r="113" fill="#a23b4e"/>
+  <path fill="#fff9f0" transform="translate(128 128) scale(5.1) translate(-32 -30.4)" d="$pathData"/>
 </svg>
 "@
 [System.IO.File]::WriteAllText((Join-Path $outputDirectory 'favicon.svg'), $svg + "`n", [System.Text.UTF8Encoding]::new($false))
 
-$master = [System.Drawing.Bitmap]::new(512, 512)
+$master = [System.Drawing.Bitmap]::new(1024, 1024, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
 $drawing = [System.Drawing.Graphics]::FromImage($master)
 $drawing.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
-$drawing.ScaleTransform(8, 8)
-$square = [System.Drawing.Drawing2D.GraphicsPath]::new()
-$square.AddArc(0, 0, 28, 28, 180, 90)
-$square.AddArc(36, 0, 28, 28, 270, 90)
-$square.AddArc(36, 36, 28, 28, 0, 90)
-$square.AddArc(0, 36, 28, 28, 90, 90)
-$square.CloseFigure()
+$drawing.ScaleTransform(4, 4)
 $background = [System.Drawing.SolidBrush]::new([System.Drawing.ColorTranslator]::FromHtml('#a23b4e'))
-$foreground = [System.Drawing.SolidBrush]::new([System.Drawing.ColorTranslator]::FromHtml('#fff9f6'))
-$drawing.FillPath($background, $square)
+$foreground = [System.Drawing.SolidBrush]::new([System.Drawing.ColorTranslator]::FromHtml('#fff9f0'))
+$drawing.Clear([System.Drawing.Color]::Transparent)
+$drawing.FillEllipse($background, 15, 15, 226, 226)
+$sealTransform = [System.Drawing.Drawing2D.Matrix]::new(5.1, 0, 0, 5.1, -35.2, -27.04)
+$glyph.Transform($sealTransform)
+$sealTransform.Dispose()
 $drawing.FillPath($foreground, $glyph)
 $drawing.Dispose()
 $background.Dispose()
 $foreground.Dispose()
-$square.Dispose()
 $glyph.Dispose()
 
 function Get-IconPng([int]$size) {
-    $bitmap = [System.Drawing.Bitmap]::new($size, $size)
+    $bitmap = [System.Drawing.Bitmap]::new($size, $size, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
     $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
     $graphics.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
     $graphics.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
-    $graphics.DrawImage($master, 0, 0, $size, $size)
+    $graphics.Clear([System.Drawing.Color]::Transparent)
+    $graphics.CompositingMode = [System.Drawing.Drawing2D.CompositingMode]::SourceCopy
+    $attributes = [System.Drawing.Imaging.ImageAttributes]::new()
+    $attributes.SetWrapMode([System.Drawing.Drawing2D.WrapMode]::TileFlipXY)
+    $graphics.DrawImage($master, [System.Drawing.Rectangle]::new(0, 0, $size, $size), 0, 0, $master.Width, $master.Height, [System.Drawing.GraphicsUnit]::Pixel, $attributes)
+    $attributes.Dispose()
     $stream = [System.IO.MemoryStream]::new()
     $bitmap.Save($stream, [System.Drawing.Imaging.ImageFormat]::Png)
     $graphics.Dispose()
@@ -80,6 +82,7 @@ function Get-IconPng([int]$size) {
 }
 [System.IO.File]::WriteAllBytes((Join-Path $outputDirectory 'favicon.png'), (Get-IconPng 120))
 [System.IO.File]::WriteAllBytes((Join-Path $outputDirectory 'apple-touch-icon.png'), (Get-IconPng 180))
+$master.Save((Join-Path $outputDirectory 'logo-estetika.png'), [System.Drawing.Imaging.ImageFormat]::Png)
 
 $sizes = @(16, 32, 48, 64, 128, 256)
 $frames = @($sizes | ForEach-Object { ,(Get-IconPng $_) })
@@ -107,4 +110,4 @@ $writer.Flush()
 $writer.Dispose()
 $iconStream.Dispose()
 $master.Dispose()
-Write-Output 'Prepared SVG outlines, PNG 120, Apple icon 180 and ICO 16/32/48/64/128/256.'
+Write-Output 'Prepared transparent seal logo: PNG 1024, SVG outlines, PNG 120, Apple icon 180 and ICO 16/32/48/64/128/256.'
