@@ -26,7 +26,7 @@ button,a{touch-action:manipulation}
 .skip-link:focus{transform:none}
 .topbar{position:sticky;top:0;z-index:20;background:rgba(251,247,242,.97);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
 .topbar-inner{max-width:var(--maxw);margin:auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.brand{text-decoration:none;line-height:1.2;flex-shrink:0}
+.brand{display:inline-flex;flex-direction:column;justify-content:center;min-height:44px;padding:2px 12px;border:1px solid var(--accent);border-radius:8px;text-decoration:none;line-height:1.2;flex-shrink:0}
 .brand-name{display:block;font-family:'Playfair Display',Georgia,serif;font-size:24px;font-weight:600}
 .brand-sub{display:block;font-size:10px;font-weight:500;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 .section-nav,.topbar-actions{display:flex;align-items:center;gap:20px}
