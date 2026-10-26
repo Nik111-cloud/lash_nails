@@ -5,7 +5,7 @@ interface Props { content: SiteContent }
 const { content } = Astro.props;
 const services = content.services.filter((service) => service.calculator_enabled).sort((a, b) => a.calculator_sort - b.calculator_sort);
 const browService = services.find((service) => service.key === 'brows');
-const browOptions = content.calculator_options.filter((option) => option.service_slug === browService?.slug);
+const browOptions = content.calculator_options.filter((option) => option.service_slug === browService?.slug && !option.is_addon);
 const checked = services.filter((service) => service.calculator_checked);
 const initialSum = checked.reduce((sum, service) => sum + (service.key === 'brows' && browOptions[0] ? browOptions[0].price_from : service.price_from), 0);
 const formatSum = (sum: number) => text(content, 'calculator_total_template', 'от {sum} ₽').replaceAll('{sum}', new Intl.NumberFormat('ru-RU').format(sum));

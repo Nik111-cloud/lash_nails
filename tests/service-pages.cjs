@@ -7,7 +7,9 @@ const origin = 'https://www.estetika-ufa.online';
 const specs = [
   {slug: 'narashchivanie-resnits', section: 'lashes', price: 2200, masters: ['4373807', '4373819'], photos: 3},
   {slug: 'laminirovanie-resnits', section: 'lash-lamination', price: 1900, masters: ['4399020'], photos: 3},
+  {slug: 'brovi', section: 'brows', price: 1000, masters: [], photos: 0, variants: [1000, 1500, 2200]},
   {slug: 'manikyur', section: 'manicure', price: 2500, masters: ['4396039'], photos: 3},
+  {slug: 'pedikyur', section: 'pedicure', price: 2000, masters: ['4396039'], photos: 0, variants: [2000, 2500, 2800, 3000], addons: [400, 800]},
 ];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const landing = read('index.html');
@@ -54,9 +56,29 @@ for (const spec of specs) {
   assert.deepEqual(masterIds, spec.masters, `Master destinations match the service on ${spec.slug}`);
   const background = landing.match(new RegExp(`id="${spec.section}" data-background="([^"]+)"`))?.[1];
   assert(background, `Service illustration is present on the landing: ${spec.slug}`);
-  assert(html.includes(`src="/${background}"`), `Service illustration matches the landing: ${spec.slug}`);
-  assert(html.includes(`property="og:image" content="${origin}/${background}"`), `Social image matches the service: ${spec.slug}`);
+  const backgroundPath = `/${background.replace(/^\/+/, '')}`;
+  assert(html.includes(`src="${backgroundPath}"`), `Service illustration matches the landing: ${spec.slug}`);
+  assert(html.includes(`property="og:image" content="${origin}${backgroundPath}"`), `Social image matches the service: ${spec.slug}`);
   assert.equal((html.match(/class="portfolio-photo"/g) || []).length, spec.photos);
+  if (!spec.photos) {
+    assert(!html.includes('id="portfolio"'), 'No empty gallery or borrowed examples');
+    assert(html.includes('href="#procedure"'), 'Navigation points to a real section when there are no works');
+    assert(!html.includes('Время процедуры:'), 'Unknown duration is not presented as a fact');
+    assert(!/Время работы\s*~/.test(html), 'Generic master duration does not imply an unconfirmed procedure duration');
+  }
+  if (spec.variants) {
+    const options = html.match(/<dl class="service-price-options" aria-label="Варианты услуги и цены">([\s\S]*?)<\/dl>/)?.[1];
+    assert(options, `Visible price variants for ${spec.slug}`);
+    const amounts = [...options.matchAll(/<dd>([^<]+)<\/dd>/g)].map((match) => Number(match[1].replace(/[^\d]/g, '')));
+    assert.deepEqual(amounts, spec.variants, `Confirmed variants match the price list on ${spec.slug}`);
+  }
+  if (spec.addons) {
+    const addons = html.match(/<dl class="service-price-options" aria-label="Доплаты за дизайн">([\s\S]*?)<\/dl>/)?.[1];
+    assert(addons, 'Design surcharges are separate from complete pedicure prices');
+    const amounts = [...addons.matchAll(/<dd>\+([^<]+)<\/dd>/g)].map((match) => Number(match[1].replace(/[^\d]/g, '')));
+    assert.deepEqual(amounts, spec.addons);
+    assert(html.includes('Студия «Эстетика» в Уфе.</figcaption>'), 'Studio photo is identified as the studio');
+  }
   if (spec.slug === 'laminirovanie-resnits') {
     assert(!html.includes('class="service-work-placeholder"'), 'Provided photographs replace the placeholders');
     for (const name of ['1lamin.avif', '2lamin.avif', '3lamin.avif']) {
@@ -72,7 +94,8 @@ for (const spec of specs) {
 assert.equal(titles.size, specs.length);
 assert.equal(descriptions.size, specs.length);
 assert(/name="lashes" value="2200"/.test(landing));
-assert(/id="calculator-total"[^>]*>от 2 200 ₽</.test(landing));
+assert(/name="pedicure" value="2000"/.test(landing));
+assert(/id="calculator-total"[^>]*>от 2 200 ₽</.test(landing.replaceAll('\u00a0', ' ')));
 assert(landing.includes('Скидка 10% на первое посещение'));
 assert(!/15%|22:00/.test(landing));
 assert.equal(scripts(landing).find((item) => item['@type'] === 'BeautySalon').openingHoursSpecification.closes, '21:00');

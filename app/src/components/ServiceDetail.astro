@@ -13,6 +13,14 @@ interface Props { content: SiteContent; page: ServicePage }
 const { content, page } = Astro.props;
 const service = content.services.find((item) => item.key === page.serviceKey);
 if (!service) throw new Error(`Missing service for ${page.slug}`);
+const serviceOptions = content.calculator_options.filter((item) => item.service_slug === service.slug);
+const priceOption = serviceOptions.find((item) => item.key === page.priceOptionKey);
+if (page.priceOptionKey && !priceOption) throw new Error(`Missing price option for ${page.slug}`);
+const priceFrom = priceOption?.price_from ?? service.price_from;
+const duration = page.durationLabel === null ? undefined : page.durationLabel ?? service.duration_label;
+const priceAddons = serviceOptions.filter((item) => page.priceAddonKeys?.includes(item.key));
+const priceVariants = page.showPriceVariants ? serviceOptions.filter((item) => !item.is_addon && !page.priceAddonKeys?.includes(item.key)) : [];
+const formatAmount = (value: number) => `${new Intl.NumberFormat('ru-RU').format(value)} ₽`;
 const settings = content.site_settings;
 const booking = href(service.booking_url, settings.booking_url);
 const masters = content.masters.filter((item) => page.masterIds.includes(item.id));
@@ -22,7 +30,8 @@ const works = page.photoPaths.flatMap((path) => {
   const item = cmsItem && media(cmsItem) ? cmsItem : page.photoFallbacks?.find(matchesPath);
   return item && media(item) ? [item] : [];
 });
-const hero = {image_path: service.background_path, image_file: service.background_file, image_alt: `Иллюстрация услуги «${page.name}»`, image_width: 1847, image_height: 851};
+const studioHero = page.serviceKey === 'pedicure' ? content.studio_photos[0] : undefined;
+const hero = studioHero ?? {image_path: service.background_path, image_file: service.background_file, image_alt: `Иллюстрация услуги «${page.name}»`, image_width: 1847, image_height: 851};
 const heroUrl = media(hero);
 const related = servicePages.filter((item) => item.slug !== page.slug);
 const offer = content.hero_slides[0];
@@ -39,7 +48,7 @@ const graph = {
       openingHoursSpecification: dailyTimes ? {'@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: dailyTimes[1], closes: dailyTimes[2]} : undefined},
     {'@type': 'Service', '@id': `${canonical}#service`, name: page.name, serviceType: page.name, url: canonical, provider: {'@id': salonId},
       areaServed: {'@type': 'City', name: 'Уфа'},
-      offers: {'@type': 'Offer', url: canonical, priceSpecification: {'@type': 'PriceSpecification', minPrice: service.price_from, priceCurrency: 'RUB'}}},
+      offers: {'@type': 'Offer', url: canonical, priceSpecification: {'@type': 'PriceSpecification', minPrice: priceFrom, priceCurrency: 'RUB'}}},
     {'@type': 'BreadcrumbList', itemListElement: [
       {'@type': 'ListItem', position: 1, name: 'Главная', item: settings.canonical_url},
       {'@type': 'ListItem', position: 2, name: page.name, item: canonical},
@@ -49,7 +58,7 @@ const graph = {
 const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
 ---
 <SiteLayout content={content} interactive servicePage bodyClass="service-page" pagePath={`/${page.slug}/`} seoTitle={page.title} seoDescription={page.description} pageImage={heroUrl}>
-  <Header content={content} detail />
+  <Header content={content} detail hasWorks={works.length > 0} />
   <main id="service-content" tabindex="-1">
     <section class="service-hero">
       <div class="wrap">
@@ -58,15 +67,15 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
           <div class="service-heading"><p class="eyebrow">{page.eyebrow}</p><h1>{page.name} в Уфе</h1><p class="service-lead">{page.lead}</p><a class="service-location" href="#contacts">{settings.address}</a></div>
           <aside class="service-price-card" aria-label="Стоимость и запись">
             <p class="eyebrow">Ваш визит в «Эстетику»</p>
-            <p class="service-start-price">{price(content, service.price_from)}</p>
-            <p class="muted service-duration">Время процедуры: {service.duration_label}</p>
+            <p class="service-start-price">{price(content, priceFrom)}</p>
+            {duration && <p class="muted service-duration">Время процедуры: {duration}</p>}
             <a class="btn btn-primary" href={booking}>Выбрать время онлайн</a>
             <p class="service-booking-hint">Услугу и время выберете в DIKIDI.</p>
             {offerText && <p class="service-offer">{offerText}</p>}
             <p class="service-offer-note">Условия акции уточните при записи.</p>
           </aside>
         </div>
-        <figure class="service-hero-media"><LazyImage item={hero} eager /><figcaption>{works.length ? 'Иллюстрация услуги. Примеры работ — ниже на странице.' : 'Иллюстрация услуги.'}</figcaption></figure>
+        {heroUrl && <figure class="service-hero-media"><LazyImage item={hero} eager /><figcaption>{studioHero ? 'Студия «Эстетика» в Уфе.' : works.length ? 'Иллюстрация услуги. Примеры работ — ниже на странице.' : 'Иллюстрация услуги.'}</figcaption></figure>}
       </div>
     </section>
 
@@ -76,15 +85,15 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
       {page.serviceKey === 'lashes' && <a class="service-inline-link" href="/#lash-effects">Посмотреть примеры эффектов →</a>}
     </div></section>
 
-    <section class="section service-works" id="portfolio"><div class="wrap">
-      <div class="service-section-heading"><p class="eyebrow">Портфолио</p><h2>{masters.length === 1 ? 'Работы нашего мастера' : 'Работы наших мастеров'}</h2><p class="muted">{works.length ? 'Нажмите на фотографию, чтобы рассмотреть работу целиком.' : 'Фотографии ламинирования ресниц добавим скоро.'}</p></div>
-      <div class="service-work-grid">{works.length ? works.map((item, index) => <figure class="service-work-card"><button class="portfolio-photo" type="button" aria-haspopup="dialog" aria-label={`Рассмотреть работу: ${page.name}, фото ${index + 1}`}><LazyImage item={item} /><span class="portfolio-enlarge" aria-hidden="true">↗</span></button><figcaption>{page.name} · работа {index + 1}</figcaption></figure>) : [1,2,3].map(() => <div class="service-work-placeholder" aria-hidden="true"><span>Эстетика</span></div>)}</div>
-    </div></section>
+    {works.length > 0 && <section class="section service-works" id="portfolio"><div class="wrap">
+      <div class="service-section-heading"><p class="eyebrow">Портфолио</p><h2>{masters.length === 1 ? 'Работы нашего мастера' : 'Работы наших мастеров'}</h2><p class="muted">Нажмите на фотографию, чтобы рассмотреть работу целиком.</p></div>
+      <div class="service-work-grid">{works.map((item, index) => <figure class="service-work-card"><button class="portfolio-photo" type="button" aria-haspopup="dialog" aria-label={`Рассмотреть работу: ${page.name}, фото ${index + 1}`}><LazyImage item={item} /><span class="portfolio-enlarge" aria-hidden="true">↗</span></button><figcaption>{page.name} · работа {index + 1}</figcaption></figure>)}</div>
+    </div></section>}
 
-    <section class="section service-masters" id="masters"><div class="wrap">
+    {masters.length > 0 && <section class="section service-masters" id="masters"><div class="wrap">
       <div class="service-section-heading"><p class="eyebrow">Знакомство</p><h2>{masters.length > 1 ? 'Ваши мастера' : 'Ваш мастер'}</h2><p class="muted">{masters.length === 1 ? 'Посмотрите свободное время мастера в онлайн-записи.' : 'Можно выбрать мастера и посмотреть свободное время в онлайн-записи.'}</p></div>
-      <div class="service-master-grid">{masters.map((master) => <article class="service-master-card"><LazyImage item={master} class="service-master-photo" /><div><h3>{master.title}</h3><ul>{master.features.map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-ghost" href={href(master.booking_url, booking)} aria-label={`Записаться к мастеру: ${master.title}`}>Записаться к мастеру →</a></div></article>)}</div>
-    </div></section>
+      <div class="service-master-grid">{masters.map((master) => <article class="service-master-card"><LazyImage item={master} class="service-master-photo" /><div><h3>{master.title}</h3><ul>{master.features.filter((feature) => page.durationLabel !== null || !/^Время\s/i.test(feature)).map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-ghost" href={href(master.booking_url, booking)} aria-label={`Записаться к мастеру: ${master.title}`}>Записаться к мастеру →</a></div></article>)}</div>
+    </div></section>}
 
     <section class="section service-questions"><div class="wrap service-faq-layout"><div><p class="eyebrow">Перед визитом</p><h2>Частые вопросы</h2><p class="muted">Если хочется обсудить детали, напишите нам.</p><a class="service-inline-link" href={href(settings.whatsapp_url)} target="_blank" rel="noopener">Задать вопрос в WhatsApp ↗</a></div><div class="service-faq">{page.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
 
@@ -97,7 +106,12 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
       <a class="service-inline-link" href="/#services">Все услуги и цены</a>
     </div></section>
 
-    <section class="section service-pricing" id="pricing"><div class="wrap service-pricing-grid"><div><p class="eyebrow">Стоимость</p><h2>Сколько стоит {page.name.toLocaleLowerCase('ru-RU')}</h2><p>{page.priceNote}</p><p class="service-duration">Ориентир по времени: {service.duration_label}. Длительность вашего визита уточните у мастера.</p></div><div class="calculator-summary"><p class="eyebrow">{page.name}</p><p class="service-start-price">{price(content, service.price_from)}</p><p class="calculator-note">Указана начальная стоимость, без учёта акции. Окончательную сумму согласуйте при записи.</p><a class="btn btn-primary" href={booking}>Выбрать время онлайн</a><p class="calculator-booking-hint">Услугу и время выберете в DIKIDI.</p></div></div></section>
+    <section class="section service-pricing" id="pricing"><div class="wrap service-pricing-grid"><div>
+      <p class="eyebrow">Стоимость</p><h2>Цены на {page.name.toLocaleLowerCase('ru-RU')}</h2><p>{page.priceNote}</p>
+      {priceVariants.length > 0 && <dl class="service-price-options" aria-label="Варианты услуги и цены">{priceVariants.map((option) => <div><dt>{option.title}</dt><dd>{formatAmount(option.price_from)}</dd></div>)}</dl>}
+      {priceAddons.length > 0 && <><h3 class="service-addons-title">Доплаты за дизайн</h3><dl class="service-price-options" aria-label="Доплаты за дизайн">{priceAddons.map((option) => <div><dt>{option.title}</dt><dd>+{formatAmount(option.price_from)}</dd></div>)}</dl></>}
+      {duration && <p class="service-duration">Ориентир по времени: {duration}. Длительность вашего визита уточните у мастера.</p>}
+    </div><div class="calculator-summary"><p class="eyebrow">{page.name}</p><p class="service-start-price">{price(content, priceFrom)}</p><p class="calculator-note">Указана начальная стоимость, без учёта акции. Окончательную сумму согласуйте при записи.</p><a class="btn btn-primary" href={booking}>Выбрать время онлайн</a><p class="calculator-booking-hint">Услугу и время выберете в DIKIDI.</p></div></div></section>
     <Contacts content={content} />
   </main>
   <Footer content={content} />

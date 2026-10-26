@@ -96,6 +96,7 @@ export interface CalculatorOption extends OrderedItem {
   title: string;
   price_from: number;
   service_slug: string;
+  is_addon?: boolean;
 }
 
 export interface TextSegment {

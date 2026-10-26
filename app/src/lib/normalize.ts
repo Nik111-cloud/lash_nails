@@ -148,9 +148,9 @@ export function normalizeContent(input: unknown, fallback: SiteContent): SiteCon
     }).sort((left, right) => Number(left.sort || 0) - Number(right.sort || 0));
     (content[name] as unknown) = rows;
   }
-  // The brow card shows the least expensive active treatment, using the same prices as the select.
+  // Cards show the least expensive complete treatment; add-ons are not standalone prices.
   for (const service of content.services) {
-    const variants = content.calculator_options.filter((option) => option.service_slug === service.slug);
+    const variants = content.calculator_options.filter((option) => option.service_slug === service.slug && !option.is_addon);
     if (variants.length) service.price_from = Math.min(...variants.map((option) => option.price_from));
   }
   return content;

@@ -13,10 +13,10 @@
     "map_org_label": "Lash studio",
     "map_category_url": "https://yandex.ru/maps/172/ufa/category/eyebrow_and_eyelash_salon/7407769291/?utm_medium=mapframe&utm_source=maps",
     "map_category_label": "Салон бровей и ресниц в Уфе",
-    "seo_title": "Эстетика — салон красоты в Уфе: ресницы, брови, маникюр",
-    "seo_description": "Наращивание и ламинирование ресниц, брови, маникюр и макияж в Уфе. Ростовская, 18 лит. К. Цены, работы мастеров и онлайн-запись в студию «Эстетика».",
+    "seo_title": "Салон красоты «Эстетика» в Уфе — ресницы, брови, маникюр и педикюр",
+    "seo_description": "Наращивание и ламинирование ресниц, оформление бровей, маникюр и педикюр в Уфе. Студия «Эстетика», Ростовская, 18 лит. К. Цены, мастера и запись онлайн.",
     "og_title": "Эстетика — салон красоты в Уфе",
-    "og_description": "Ресницы, брови, маникюр и перманент. Уфа, Ростовская, 18 лит. К. Выберите мастера и время онлайн.",
+    "og_description": "Ресницы, брови, маникюр, педикюр и макияж в Уфе. Ростовская, 18 лит. К. Выберите услугу и время онлайн.",
     "canonical_url": "https://www.estetika-ufa.online/",
     "policy_seo_title": "Политика конфиденциальности — Эстетика",
     "policy_seo_description": "Как сайт студии «Эстетика» использует cookie и Яндекс.Метрику, какие данные обрабатываются и как связаться с владельцем студии.",
@@ -675,9 +675,9 @@
       "key": "brows",
       "slug": "brows",
       "title": "Брови",
-      "description": "Ламинирование бровей",
+      "description": "Ламинирование, оформление и окрашивание бровей",
       "price_from": 1000,
-      "duration_label": "~30 минут",
+      "duration_label": "",
       "booking_url": "https://dikidi.net/2038825?p=0.pi",
       "background_path": "/service-brows.avif?v=20261021-brows-macro",
       "background_file": null,
@@ -721,6 +721,24 @@
       "calculator_label": "Вечерний макияж",
       "calculator_checked": false,
       "calculator_sort": 4
+    },
+    {
+      "id": "b9f43c42-3a5f-5cb5-9657-e1ade78e4c1d",
+      "sort": 6,
+      "archived": false,
+      "key": "pedicure",
+      "slug": "pedicure",
+      "title": "Педикюр",
+      "description": "Обработка пальцев и пяток, с покрытием или без",
+      "price_from": 2000,
+      "duration_label": "",
+      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "background_path": "/studio1.avif",
+      "background_file": null,
+      "calculator_enabled": true,
+      "calculator_label": "Педикюр",
+      "calculator_checked": false,
+      "calculator_sort": 6
     }
   ],
   "lash_effects": [
@@ -1116,7 +1134,8 @@
       "key": "brows-lamination",
       "title": "Ламинирование",
       "price_from": 1000,
-      "service_slug": "brows"
+      "service_slug": "brows",
+      "is_addon": false
     },
     {
       "id": "02115294-e81d-51dc-ac7e-a72fee3713b9",
@@ -1125,7 +1144,8 @@
       "key": "brows-shape-color",
       "title": "Оформление и окрашивание",
       "price_from": 1500,
-      "service_slug": "brows"
+      "service_slug": "brows",
+      "is_addon": false
     },
     {
       "id": "1b28a471-f323-5203-be0c-2bef9f90882d",
@@ -1134,7 +1154,68 @@
       "key": "brows-full",
       "title": "Ламинирование, оформление и окрашивание",
       "price_from": 2200,
-      "service_slug": "brows"
+      "service_slug": "brows",
+      "is_addon": false
+    },
+    {
+      "id": "06c71635-a966-584d-bb0f-9aa75ac776ad",
+      "sort": 4,
+      "archived": false,
+      "key": "pedicure-toes",
+      "title": "Обработка пальцев без покрытия",
+      "price_from": 2000,
+      "service_slug": "pedicure",
+      "is_addon": false
+    },
+    {
+      "id": "7141a02f-6c91-5fee-b98c-a1fcd711595b",
+      "sort": 5,
+      "archived": false,
+      "key": "pedicure-toes-heels",
+      "title": "Обработка пальцев и пяток без покрытия",
+      "price_from": 2500,
+      "service_slug": "pedicure",
+      "is_addon": false
+    },
+    {
+      "id": "0f63e93d-7a6e-52e1-b495-ec0717170095",
+      "sort": 6,
+      "archived": false,
+      "key": "pedicure-toes-coating",
+      "title": "Обработка пальцев с покрытием",
+      "price_from": 2800,
+      "service_slug": "pedicure",
+      "is_addon": false
+    },
+    {
+      "id": "8eb34852-d852-5253-8d48-fb3744272144",
+      "sort": 7,
+      "archived": false,
+      "key": "pedicure-toes-heels-coating",
+      "title": "Обработка пальцев и пяток с покрытием",
+      "price_from": 3000,
+      "service_slug": "pedicure",
+      "is_addon": false
+    },
+    {
+      "id": "16fad02d-3bb5-551e-b5f5-90301a753009",
+      "sort": 8,
+      "archived": false,
+      "key": "pedicure-design-simple",
+      "title": "Лёгкий дизайн",
+      "price_from": 400,
+      "service_slug": "pedicure",
+      "is_addon": true
+    },
+    {
+      "id": "5aab179c-ade1-5bd3-bf2c-82e8c099f3bf",
+      "sort": 9,
+      "archived": false,
+      "key": "pedicure-design-complex",
+      "title": "Сложный дизайн",
+      "price_from": 800,
+      "service_slug": "pedicure",
+      "is_addon": true
     }
   ],
   "policy_sections": [
