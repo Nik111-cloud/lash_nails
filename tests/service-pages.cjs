@@ -91,7 +91,7 @@ for (const spec of specs) {
   }
   if (spec.slug === 'brovi') {
     assert(html.includes('href="#portfolio"'), 'Brow navigation opens the real works gallery');
-    assert(html.includes('Оформление бровей — работа студии «Эстетика».</figcaption>'), 'Real brow hero is not labelled as an illustration or studio interior');
+    assert(html.includes('Оформление и окрашивание бровей — работа студии «Эстетика».</figcaption>'), 'Real brow hero is not labelled as an illustration or studio interior');
     for (let number = 1; number <= 4; number++) {
       const name = `oformlenie_brovei_${number}.avif`;
       const image = html.match(new RegExp(`<img\\b[^>]*data-src="/${name}"[^>]*>`))?.[0];
