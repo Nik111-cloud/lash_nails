@@ -18,6 +18,9 @@ export interface ServicePage {
   priceAddonKeys?: string[];
   durationLabel?: string | null;
   photoPaths: string[];
+  heroPhotoPath?: string;
+  worksTitle?: string;
+  workLabel?: string;
   /** Page-specific photographs until matching portfolio rows are added in the CMS. */
   photoFallbacks?: ImageFields[];
   masterIds: string[];
@@ -91,7 +94,16 @@ export const servicePages: ServicePage[] = [
     priceOptionKey: 'brows-lamination',
     showPriceVariants: true,
     durationLabel: null,
-    photoPaths: [],
+    photoPaths: ['oformlenie_brovei_1.avif', 'oformlenie_brovei_2.avif', 'oformlenie_brovei_3.avif', 'oformlenie_brovei_4.avif'],
+    heroPhotoPath: 'oformlenie_brovei_1.avif',
+    worksTitle: 'Работы студии',
+    workLabel: 'Оформление бровей',
+    photoFallbacks: [
+      {image_path: '/oformlenie_brovei_1.avif', image_file: null, image_alt: 'Оформление бровей — работа студии «Эстетика», фото 1', image_width: 853, image_height: 1280},
+      {image_path: '/oformlenie_brovei_2.avif', image_file: null, image_alt: 'Оформление бровей — работа студии «Эстетика», фото 2', image_width: 640, image_height: 853},
+      {image_path: '/oformlenie_brovei_3.avif', image_file: null, image_alt: 'Оформление бровей — работа студии «Эстетика», фото 3', image_width: 960, image_height: 1280},
+      {image_path: '/oformlenie_brovei_4.avif', image_file: null, image_alt: 'Оформление бровей — работа студии «Эстетика», фото 4', image_width: 768, image_height: 1024},
+    ],
     masterIds: [],
     faq: [
       {question: 'Что выбрать: ламинирование или оформление бровей?', answer: 'Ламинирование меняет направление и укладку волосков. Оформление связано с коррекцией формы; в нашем прайсе оно представлено вместе с окрашиванием. Если нужны все три процедуры, можно выбрать комплекс.'},

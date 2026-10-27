@@ -7,9 +7,9 @@ const origin = 'https://www.estetika-ufa.online';
 const specs = [
   {slug: 'narashchivanie-resnits', section: 'lashes', price: 2200, masters: ['4373807', '4373819'], photos: 3},
   {slug: 'laminirovanie-resnits', section: 'lash-lamination', price: 1900, masters: ['4399020'], photos: 3},
-  {slug: 'brovi', section: 'brows', price: 1000, masters: [], photos: 0, variants: [1000, 1500, 2200]},
+  {slug: 'brovi', section: 'brows', price: 1000, masters: [], photos: 4, variants: [1000, 1500, 2200], hero: '/oformlenie_brovei_1.avif', durationUnknown: true},
   {slug: 'manikyur', section: 'manicure', price: 2500, masters: ['4396039'], photos: 3},
-  {slug: 'pedikyur', section: 'pedicure', price: 2000, masters: ['4396039'], photos: 0, variants: [2000, 2500, 2800, 3000], addons: [400, 800]},
+  {slug: 'pedikyur', section: 'pedicure', price: 2000, masters: ['4396039'], photos: 0, variants: [2000, 2500, 2800, 3000], addons: [400, 800], durationUnknown: true},
 ];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const landing = read('index.html');
@@ -57,12 +57,15 @@ for (const spec of specs) {
   const background = landing.match(new RegExp(`id="${spec.section}" data-background="([^"]+)"`))?.[1];
   assert(background, `Service illustration is present on the landing: ${spec.slug}`);
   const backgroundPath = `/${background.replace(/^\/+/, '')}`;
-  assert(html.includes(`src="${backgroundPath}"`), `Service illustration matches the landing: ${spec.slug}`);
-  assert(html.includes(`property="og:image" content="${origin}${backgroundPath}"`), `Social image matches the service: ${spec.slug}`);
+  const heroPath = spec.hero ?? backgroundPath;
+  assert(html.includes(`src="${heroPath}"`), `Expected service hero: ${spec.slug}`);
+  assert(html.includes(`property="og:image" content="${origin}${heroPath}"`), `Social image matches the service: ${spec.slug}`);
   assert.equal((html.match(/class="portfolio-photo"/g) || []).length, spec.photos);
   if (!spec.photos) {
     assert(!html.includes('id="portfolio"'), 'No empty gallery or borrowed examples');
     assert(html.includes('href="#procedure"'), 'Navigation points to a real section when there are no works');
+  }
+  if (spec.durationUnknown) {
     assert(!html.includes('Время процедуры:'), 'Unknown duration is not presented as a fact');
     assert(!/Время работы\s*~/.test(html), 'Generic master duration does not imply an unconfirmed procedure duration');
   }
@@ -85,6 +88,18 @@ for (const spec of specs) {
       assert(html.includes(`data-src="/${name}"`), `Lamination photograph is present: ${name}`);
     }
     assert(!/data-src="\/(9|1|2)\.avif"/.test(html), 'Lamination does not reuse extension work');
+  }
+  if (spec.slug === 'brovi') {
+    assert(html.includes('href="#portfolio"'), 'Brow navigation opens the real works gallery');
+    assert(html.includes('Оформление бровей — работа студии «Эстетика».</figcaption>'), 'Real brow hero is not labelled as an illustration or studio interior');
+    for (let number = 1; number <= 4; number++) {
+      const name = `oformlenie_brovei_${number}.avif`;
+      const image = html.match(new RegExp(`<img\\b[^>]*data-src="/${name}"[^>]*>`))?.[0];
+      assert(image, `Brow work ${number} is present`);
+      const width = Number(image.match(/\bwidth="(\d+)"/)?.[1]);
+      const height = Number(image.match(/\bheight="(\d+)"/)?.[1]);
+      assert(width > 0 && height > width, `Brow work ${number} is a portrait with valid dimensions`);
+    }
   }
   assert(sitemap.includes(`<loc>${canonical}</loc>`));
   assert(landing.includes(`href="/${spec.slug}/"`));

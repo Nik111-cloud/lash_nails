@@ -18,6 +18,7 @@
 .service-offer-note{font-size:12px;color:var(--muted);margin:0}
 .service-hero-media{margin:40px 0 0}
 .service-hero-media img{width:100%;height:auto;aspect-ratio:1847/851;object-fit:cover;border-radius:16px}
+.service-hero-media--work img{object-position:center 35%}
 .service-hero-media figcaption{margin-top:10px;font-size:12px;color:var(--muted)}
 .service-section-heading{max-width:680px;margin-bottom:32px}
 .service-section-heading>p:last-child{margin-bottom:0}
@@ -30,6 +31,7 @@
 .service-works{background:var(--bg-alt)}
 .service-work-card{margin:0;min-width:0}
 .service-work-card .portfolio-photo{height:360px;background:var(--bg)}
+.service-work-grid--four{grid-template-columns:repeat(4,minmax(0,1fr))}
 .service-work-card figcaption{font-size:13px;color:var(--muted);margin-top:12px}
 .service-work-placeholder{display:grid;place-items:center;min-height:360px;background:var(--bg);border:1px dashed var(--line);border-radius:16px}
 .service-work-placeholder span{font-family:'Playfair Display',Georgia,serif;font-size:24px;color:var(--muted)}
@@ -63,6 +65,7 @@
   .service-intro{grid-template-columns:1.1fr .9fr;gap:24px}
   .service-price-card{padding:24px}
   .service-detail-grid,.service-work-grid{gap:16px}
+  .service-work-grid--four{grid-template-columns:repeat(2,minmax(0,1fr))}
   .service-work-card .portfolio-photo,.service-work-placeholder{height:300px;min-height:300px}
   .service-master-grid{grid-template-columns:1fr}
   .service-faq-layout,.service-pricing-grid{grid-template-columns:1fr;gap:28px}
@@ -85,3 +88,4 @@
   .service-master-card .btn{width:100%}
   .service-related-grid{grid-template-columns:1fr;gap:12px}
 }
+.service-work-grid--four .portfolio-photo{height:auto;min-height:0;aspect-ratio:3/4}
