@@ -1,6 +1,6 @@
 ---
 import type { SiteContent } from '../types/site-content';
-import { text, href } from '../lib/render';
+import { text, bookingHref } from '../lib/render';
 import LazyImage from './LazyImage.astro';
 interface Props { content: SiteContent }
 const { content } = Astro.props;
@@ -14,7 +14,7 @@ const slides = content.hero_slides;
         <p class="eyebrow">{slide.eyebrow}</p>
         {index === 0 ? <><h1>{text(content, 'hero_main_title', `Салон красоты «${content.site_settings.brand_name}» в Уфе`)}</h1><p class="hero-offer">{slide.title} {slide.title_secondary}</p></> : <h2>{slide.title}{slide.title_secondary && <><br />{slide.title_secondary}</>}</h2>}
         <p class="lede">{slide.description}{slide.description_secondary && <><br />{slide.description_secondary}</>}</p>
-        <div class="hero-actions"><a class="btn btn-primary" href={href(slide.booking_url, content.site_settings.booking_url)}>{slide.cta_label}</a></div>
+        <div class="hero-actions"><a class="btn btn-primary" href={bookingHref(slide.booking_url, content.site_settings.booking_url)} data-dikidi-widget>{slide.cta_label}</a></div>
       </div>
     </div>)}
   </div>

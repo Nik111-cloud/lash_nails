@@ -28,6 +28,16 @@ export function href(value: string | null | undefined, fallback = '#'): string {
   return allowed(value) ?? (fallback === '' ? '' : allowed(fallback)) ?? '#';
 }
 
+/** Existing CMS links for this studio use the shared booking widget. */
+export function bookingHref(value: string | null | undefined, fallback = 'https://dikidi.net/#widget=221383'): string {
+  const destination = href(value, fallback);
+  try {
+    const url = new URL(destination);
+    if (url.hostname === 'dikidi.net' && /^\/2038825\/?$/.test(url.pathname)) return 'https://dikidi.net/#widget=221383';
+  } catch { /* Keep other destinations subject to the normal safe-link rules. */ }
+  return destination;
+}
+
 export function media(item: ImageFields): string {
   const file = item.image_file;
   const id = typeof file === 'string' ? file : file?.id;

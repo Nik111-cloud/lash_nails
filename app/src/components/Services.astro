@@ -1,6 +1,6 @@
 ---
 import type { SiteContent } from '../types/site-content';
-import { text, href, price, media } from '../lib/render';
+import { text, bookingHref, price, media } from '../lib/render';
 import { servicePath } from '../data/service-pages';
 interface Props { content: SiteContent }
 const { content } = Astro.props;
@@ -10,7 +10,7 @@ const { content } = Astro.props;
   <div class="services-list">{content.services.map((service) => <div class="service-row" id={service.slug} data-background={media({ image_path: service.background_path, image_file: service.background_file, image_alt: '', image_width: 0, image_height: 0 }) || undefined}>
     <div><h3>{service.title}</h3><p class="desc">{service.description}</p></div>
     <div class="price">{price(content, service.price_from)}</div><div class="duration">{service.duration_label}</div>
-    <div class="service-row-actions"><a class="btn btn-ghost btn-small book-link" href={href(service.booking_url, content.site_settings.booking_url)} aria-label={`${text(content, 'services.book', 'Записаться →')}: ${service.title}`}>{text(content, 'services.book', 'Записаться →')}</a>{servicePath(service.key) && <a class="service-details-link" href={servicePath(service.key)} aria-label={`Подробнее об услуге: ${service.description}`}>Подробнее об услуге →</a>}</div>
+    <div class="service-row-actions"><a class="btn btn-ghost btn-small book-link" href={bookingHref(service.booking_url, content.site_settings.booking_url)} data-dikidi-widget aria-label={`${text(content, 'services.book', 'Записаться →')}: ${service.title}`}>{text(content, 'services.book', 'Записаться →')}</a>{servicePath(service.key) && <a class="service-details-link" href={servicePath(service.key)} aria-label={`Подробнее об услуге: ${service.description}`}>Подробнее об услуге →</a>}</div>
   </div>)}</div>
 </div></section>
 

@@ -2,7 +2,7 @@
 import type { SiteContent } from '../types/site-content';
 import type { ServicePage } from '../data/service-pages';
 import { servicePages } from '../data/service-pages';
-import { href, media, price } from '../lib/render';
+import { href, bookingHref, media, price } from '../lib/render';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
@@ -22,7 +22,7 @@ const priceAddons = serviceOptions.filter((item) => page.priceAddonKeys?.include
 const priceVariants = page.showPriceVariants ? serviceOptions.filter((item) => !item.is_addon && !page.priceAddonKeys?.includes(item.key)) : [];
 const formatAmount = (value: number) => `${new Intl.NumberFormat('ru-RU').format(value)} ₽`;
 const settings = content.site_settings;
-const booking = href(service.booking_url, settings.booking_url);
+const booking = bookingHref(service.booking_url, settings.booking_url);
 const masters = content.masters.filter((item) => page.masterIds.includes(item.id));
 const works = page.photoPaths.flatMap((path) => {
   const matchesPath = (photo: { image_path: string }) => photo.image_path.replace(/^\//, '') === path;
@@ -72,7 +72,7 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
             <p class="eyebrow">Ваш визит в «Эстетику»</p>
             <p class="service-start-price">{price(content, priceFrom)}</p>
             {duration && <p class="muted service-duration">Время процедуры: {duration}</p>}
-            <a class="btn btn-primary" href={booking}>Выбрать время онлайн</a>
+            <a class="btn btn-primary" href={booking} data-dikidi-widget>Выбрать время онлайн</a>
             <p class="service-booking-hint">Услугу и время выберете в DIKIDI.</p>
             {offerText && <p class="service-offer">{offerText}</p>}
             <p class="service-offer-note">Условия акции уточните при записи.</p>
@@ -95,7 +95,7 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
 
     {masters.length > 0 && <section class="section service-masters" id="masters"><div class="wrap">
       <div class="service-section-heading"><p class="eyebrow">Знакомство</p><h2>{masters.length > 1 ? 'Ваши мастера' : 'Ваш мастер'}</h2><p class="muted">{masters.length === 1 ? 'Посмотрите свободное время мастера в онлайн-записи.' : 'Можно выбрать мастера и посмотреть свободное время в онлайн-записи.'}</p></div>
-      <div class="service-master-grid">{masters.map((master) => <article class="service-master-card"><LazyImage item={master} class="service-master-photo" /><div><h3>{master.title}</h3><ul>{master.features.filter((feature) => page.durationLabel !== null || !/^Время\s/i.test(feature)).map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-ghost" href={href(master.booking_url, booking)} aria-label={`Записаться к мастеру: ${master.title}`}>Записаться к мастеру →</a></div></article>)}</div>
+      <div class="service-master-grid">{masters.map((master) => <article class="service-master-card"><LazyImage item={master} class="service-master-photo" /><div><h3>{master.title}</h3><ul>{master.features.filter((feature) => page.durationLabel !== null || !/^Время\s/i.test(feature)).map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-ghost" href={bookingHref(master.booking_url, booking)} data-dikidi-widget aria-label={`Записаться к мастеру: ${master.title}`}>Записаться к мастеру →</a></div></article>)}</div>
     </div></section>}
 
     <section class="section service-questions"><div class="wrap service-faq-layout"><div><p class="eyebrow">Перед визитом</p><h2>Частые вопросы</h2><p class="muted">Если хочется обсудить детали, напишите нам.</p><a class="service-inline-link" href={href(settings.whatsapp_url)} target="_blank" rel="noopener">Задать вопрос в WhatsApp ↗</a></div><div class="service-faq">{page.faq.map((item) => <details><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div></div></section>
@@ -114,7 +114,7 @@ const structuredData = JSON.stringify(graph).replace(/</g, '\\u003c');
       {priceVariants.length > 0 && <dl class="service-price-options" aria-label="Варианты услуги и цены">{priceVariants.map((option) => <div><dt>{option.title}</dt><dd>{formatAmount(option.price_from)}</dd></div>)}</dl>}
       {priceAddons.length > 0 && <><h3 class="service-addons-title">Доплаты за дизайн</h3><dl class="service-price-options" aria-label="Доплаты за дизайн">{priceAddons.map((option) => <div><dt>{option.title}</dt><dd>+{formatAmount(option.price_from)}</dd></div>)}</dl></>}
       {duration && <p class="service-duration">Ориентир по времени: {duration}. Длительность вашего визита уточните у мастера.</p>}
-    </div><div class="calculator-summary"><p class="eyebrow">{page.name}</p><p class="service-start-price">{price(content, priceFrom)}</p><p class="calculator-note">Указана начальная стоимость, без учёта акции. Окончательную сумму согласуйте при записи.</p><a class="btn btn-primary" href={booking}>Выбрать время онлайн</a><p class="calculator-booking-hint">Услугу и время выберете в DIKIDI.</p></div></div></section>
+    </div><div class="calculator-summary"><p class="eyebrow">{page.name}</p><p class="service-start-price">{price(content, priceFrom)}</p><p class="calculator-note">Указана начальная стоимость, без учёта акции. Окончательную сумму согласуйте при записи.</p><a class="btn btn-primary" href={booking} data-dikidi-widget>Выбрать время онлайн</a><p class="calculator-booking-hint">Услугу и время выберете в DIKIDI.</p></div></div></section>
     <Contacts content={content} />
   </main>
   <Footer content={content} />

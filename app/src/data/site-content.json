@@ -2,7 +2,7 @@
   "site_settings": {
     "brand_name": "Эстетика",
     "brand_subtitle": "Салон красоты",
-    "booking_url": "https://dikidi.net/2038825?p=0.pi",
+    "booking_url": "https://dikidi.net/#widget=221383",
     "phone": "+79649644775",
     "phone_display": "+7 964 964-47-75",
     "whatsapp_url": "https://wa.me/79649644775",
@@ -611,7 +611,7 @@
       "description": "Салон красоты в Уфе",
       "description_secondary": "Ростовская, 18 лит. К · 3 этаж, офис 314",
       "cta_label": "Выбрать время онлайн",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi"
+      "booking_url": "https://dikidi.net/#widget=221383"
     },
     {
       "id": "d6ae7833-47d9-59a0-9287-21ce8b2678d0",
@@ -628,7 +628,7 @@
       "description": "На каждого клиента — полное внимание.",
       "description_secondary": "",
       "cta_label": "Записаться онлайн",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi"
+      "booking_url": "https://dikidi.net/#widget=221383"
     }
   ],
   "services": [
@@ -642,7 +642,7 @@
       "description": "Наращивание ресниц",
       "price_from": 2200,
       "duration_label": "~1,5 часа",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "booking_url": "https://dikidi.net/#widget=221383",
       "background_path": "/service-lashes.avif?v=20261021-macro",
       "background_file": null,
       "calculator_enabled": true,
@@ -660,7 +660,7 @@
       "description": "Ламинирование натуральных ресниц",
       "price_from": 1900,
       "duration_label": "~1,5 часа",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "booking_url": "https://dikidi.net/#widget=221383",
       "background_path": "/service-lamination.avif?v=20261021-light",
       "background_file": null,
       "calculator_enabled": true,
@@ -678,7 +678,7 @@
       "description": "Ламинирование, оформление и окрашивание бровей",
       "price_from": 1000,
       "duration_label": "",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "booking_url": "https://dikidi.net/#widget=221383",
       "background_path": "/service-brows.avif?v=20261021-brows-macro",
       "background_file": null,
       "calculator_enabled": true,
@@ -696,7 +696,7 @@
       "description": "Классический или аппаратный, гель-лак, укрепление",
       "price_from": 2500,
       "duration_label": "~2 часа",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "booking_url": "https://dikidi.net/#widget=221383",
       "background_path": "/service-manicure.avif?v=20261022-light-manicure",
       "background_file": null,
       "calculator_enabled": true,
@@ -714,7 +714,7 @@
       "description": "Образ для особого случая",
       "price_from": 2000,
       "duration_label": "~1 час",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "booking_url": "https://dikidi.net/#widget=221383",
       "background_path": "/service-makeup.avif?v=20261022-makeup-front",
       "background_file": null,
       "calculator_enabled": true,
@@ -732,7 +732,7 @@
       "description": "Обработка пальцев и пяток, с покрытием или без",
       "price_from": 2000,
       "duration_label": "",
-      "booking_url": "https://dikidi.net/2038825?p=0.pi",
+      "booking_url": "https://dikidi.net/#widget=221383",
       "background_path": "/studio1.avif",
       "background_file": null,
       "calculator_enabled": true,
@@ -1049,7 +1049,7 @@
         "Ресницы и перманентный макияж",
         "Индивидуальный подход"
       ],
-      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373807"
+      "booking_url": "https://dikidi.net/#widget=221383"
     },
     {
       "id": "9a35b179-3767-5670-8c61-11545e236a39",
@@ -1067,7 +1067,7 @@
         "Наращивание ресниц",
         "Индивидуальный подбор эффекта"
       ],
-      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4373819"
+      "booking_url": "https://dikidi.net/#widget=221383"
     },
     {
       "id": "a26aff70-ceb1-51a7-8a6e-488aca48dc66",
@@ -1084,7 +1084,7 @@
         "Время работы ~2-2,5 часа",
         "Маникюр и педикюр"
       ],
-      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4396039"
+      "booking_url": "https://dikidi.net/#widget=221383"
     },
     {
       "id": "bb1baf0d-63c9-565f-83fb-e760f828707d",
@@ -1101,7 +1101,7 @@
         "Время работы ~1,5 часа",
         "Ламинирование ресниц"
       ],
-      "booking_url": "https://dikidi.net/2038825?p=1.pi-mi&o=11&m=4399020"
+      "booking_url": "https://dikidi.net/#widget=221383"
     }
   ],
   "studio_photos": [

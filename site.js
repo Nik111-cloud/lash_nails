@@ -356,43 +356,22 @@ function setupCarousel(rootSelector, slideSelector, dotSelector, trackSelector) 
 setupCarousel('.hero-carousel', '.hero-slide', '.hero-dot', '.hero-slides');
 setupCarousel('.master-carousel', '.master-slide', '.master-dot');
 
-// These goals record intent; a DIKIDI link click is not a completed appointment.
+// Track intent only; DIKIDI handles opening the form and completed bookings.
 (() => {
-  const overlay = document.getElementById('booking-overlay');
-  let navigationTimer;
-  let fallbackTimer;
-  const hide = () => {
-    clearTimeout(navigationTimer);
-    clearTimeout(fallbackTimer);
-    overlay.classList.remove('is-active');
-    overlay.setAttribute('aria-hidden', 'true');
-  };
   const track = event => {
     if (event.defaultPrevented || (event.type === 'auxclick' && event.button !== 1)) return;
     const link = event.target.closest('a[href]');
     if (!link) return;
     const url = new URL(link.href);
-    const widget = link.hasAttribute('data-dikidi-widget') && url.hostname === 'dikidi.net' && url.pathname === '/' && /^#widget=\d+$/.test(url.hash);
-    const booking = widget || (url.hostname === 'dikidi.net' && url.pathname === '/2038825');
+    const booking = link.hasAttribute('data-dikidi-widget') && url.hostname === 'dikidi.net' && url.pathname === '/' && /^#widget=\d+$/.test(url.hash);
     const goal = booking ? 'booking_click' : url.protocol === 'tel:' ? 'phone_click' : url.hostname === 'wa.me' ? 'whatsapp_click' : null;
     if (!goal) return;
     const section = link.closest('section');
     const params = {placement: section?.id || (section?.classList.contains('hero-carousel') ? 'hero' : link.closest('.mobile-bar') ? 'mobile_bar' : 'header'), master_id: url.searchParams.get('m') || '', service: link.closest('.service-row')?.id || ''};
-    try {if (typeof window.ym === 'function') window.ym(113129252, 'reachGoal', goal, params);} catch (_) { /* Analytics must never prevent navigation. */ }
-    if (!booking || widget || event.type !== 'click' || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (link.target && link.target !== '_self')) return;
-    event.preventDefault();
-    hide();
-    overlay.classList.add('is-active');
-    overlay.setAttribute('aria-hidden', 'false');
-    navigationTimer = setTimeout(() => {window.location.assign(url.href);}, 550);
-    fallbackTimer = setTimeout(hide, 4550);
+    try {if (typeof window.ym === 'function') window.ym(113129252, 'reachGoal', goal, params);} catch (_) { /* Analytics must never prevent opening the form. */ }
   };
   document.addEventListener('click', track);
   document.addEventListener('auxclick', track);
-  overlay.addEventListener('click', hide);
-  document.addEventListener('keydown', event => {if (event.key === 'Escape') hide();});
-  window.addEventListener('pageshow', hide);
-  document.addEventListener('visibilitychange', () => {if (!document.hidden) hide();});
 })();
 
 // Keep one full photograph visible; load other work only when it is selected.

@@ -1,6 +1,6 @@
 ---
 import type { SiteContent } from '../types/site-content';
-import { text, href, media } from '../lib/render';
+import { text, bookingHref, media } from '../lib/render';
 import LazyImage from './LazyImage.astro';
 interface Props { content: SiteContent }
 const { content } = Astro.props;
@@ -10,7 +10,7 @@ const backgrounds = content.studio_photos.filter((item) => media(item));
   <div class="master-bg-slides">{backgrounds.map((photo, index) => <LazyImage item={photo} class={`master-bg-slide${index === 0 ? ' is-active' : ''}`} />)}</div>
   <div class="master-slides">{content.masters.map((master, index) => <div class:list={['master-slide', { 'is-active': index === 0 }]} inert={index !== 0} aria-hidden={index !== 0 ? 'true' : undefined}>
     <div class="master-frame"><LazyImage item={master} class="master-photo" />
-      <div class="master-overlay-content"><p class="eyebrow">{text(content, 'master_eyebrow', 'О мастере')}</p><h2>{master.title}</h2><ul class="master-credentials">{master.features.map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-primary" href={href(master.booking_url, content.site_settings.booking_url)} aria-label={`${text(content, 'master_cta', 'Записаться к этому мастеру')}: ${master.title}`}>{text(content, 'master_cta', 'Записаться к этому мастеру')}</a></div>
+      <div class="master-overlay-content"><p class="eyebrow">{text(content, 'master_eyebrow', 'О мастере')}</p><h2>{master.title}</h2><ul class="master-credentials">{master.features.map((feature) => <li>{feature}</li>)}</ul><a class="btn btn-primary" href={bookingHref(master.booking_url, content.site_settings.booking_url)} data-dikidi-widget aria-label={`${text(content, 'master_cta', 'Записаться к этому мастеру')}: ${master.title}`}>{text(content, 'master_cta', 'Записаться к этому мастеру')}</a></div>
     </div>
   </div>)}</div>
   {content.masters.length > 1 && <>

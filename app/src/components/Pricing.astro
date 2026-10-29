@@ -1,6 +1,6 @@
 ---
 import type { SiteContent } from '../types/site-content';
-import { text, href, price } from '../lib/render';
+import { text, bookingHref, price } from '../lib/render';
 interface Props { content: SiteContent }
 const { content } = Astro.props;
 const services = content.services.filter((service) => service.calculator_enabled).sort((a, b) => a.calculator_sort - b.calculator_sort);
@@ -20,10 +20,10 @@ const formatSum = (sum: number) => text(content, 'calculator_total_template', '�
       </select></div>}
     </fieldset>
     <div class="calculator-summary"><p class="eyebrow">{text(content, 'calculator_summary_label', 'Предварительная стоимость')}</p><div role="status" aria-live="polite" aria-atomic="true"><p id="calculator-total" class="calculator-total">{checked.length ? formatSum(initialSum) : text(content, 'calculator_empty', 'Выберите услугу')}</p><p id="calculator-count" class="muted">{checked.length ? text(content, 'calculator_count_template', 'Выбрано услуг: {count}').replaceAll('{count}', String(checked.length)) : text(content, 'calculator_count_empty', 'Можно выбрать несколько услуг')}</p></div>
-      <p id="calculator-note" class="calculator-note">{text(content, 'calculator_note', 'Расчёт по начальным ценам, без учёта акций. Итоговая стоимость зависит от выбранной процедуры — уточните её при записи.')}</p><a class="btn btn-primary" href={href(content.site_settings.booking_url)}>{text(content, 'calculator_cta', 'Выбрать время онлайн')}</a>
+      <p id="calculator-note" class="calculator-note">{text(content, 'calculator_note', 'Расчёт по начальным ценам, без учёта акций. Итоговая стоимость зависит от выбранной процедуры — уточните её при записи.')}</p><a class="btn btn-primary" href={bookingHref(content.site_settings.booking_url)} data-dikidi-widget>{text(content, 'calculator_cta', 'Выбрать время онлайн')}</a>
       <p class="calculator-booking-hint muted">{text(content, 'calculator_booking_hint', 'Услуги и время выберете в DIKIDI.')}</p>
     </div>
   </form>
-  <noscript><p>{text(content, 'calculator_noscript_intro', 'Для расчёта включите JavaScript или')} <a href={href(content.site_settings.booking_url)}>{text(content, 'calculator_noscript_link', 'посмотрите цены в онлайн-записи')}</a>{text(content, 'calculator_noscript_suffix', '.')}</p></noscript>
+  <noscript><p>{text(content, 'calculator_noscript_intro', 'Для расчёта включите JavaScript или')} <a href="https://dikidi.net/2038825?p=0.pi">{text(content, 'calculator_noscript_link', 'посмотрите цены в онлайн-записи')}</a>{text(content, 'calculator_noscript_suffix', '.')}</p></noscript>
 </div></section>
 

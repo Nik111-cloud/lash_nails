@@ -5,6 +5,26 @@ const path = require('node:path');
 const fs = require('node:fs');
 const base = process.env.REVIEW_URL || 'http://127.0.0.1:4173';
 const output = process.env.REVIEW_OUTPUT;
+const bookingUrl = 'https://dikidi.net/#widget=221383';
+const widgetScript = 'https://dikidi.ru/assets/js/widget_record/widget2.min.js?v=1';
+
+async function stubBookingWidget(context) {
+  // Exercise the official script's link contract without loading its UI or sending bookings.
+  await context.route('https://dikidi.ru/**', route => {
+    const url = new URL(route.request().url());
+    if (url.pathname !== '/assets/js/widget_record/widget2.min.js') return route.abort();
+    return route.fulfill({contentType:'application/javascript',body:`
+      window.reviewWidgetOpens = [];
+      document.addEventListener('click', event => {
+        const link = event.target.closest('a[data-dikidi-widget]');
+        if (!link || link.href !== ${JSON.stringify(bookingUrl)}) return;
+        event.preventDefault();
+        window.reviewWidgetOpens.push(link.href);
+      });
+    `});
+  });
+  await context.route('https://dikidi.net/**', route => route.abort());
+}
 
 (async () => {
   const browser = await chromium.launch({headless: true, channel: 'chrome'});
@@ -14,6 +34,7 @@ const output = process.env.REVIEW_OUTPUT;
     for (const [width,height] of sizes) {
       const context = await browser.newContext({viewport:{width,height},reducedMotion:'reduce'});
       await context.route('**/mc.yandex.ru/**', route => route.abort());
+      await stubBookingWidget(context);
       const page = await context.newPage();
       const requests = [];
       page.on('request', request => requests.push(request.url()));
@@ -97,17 +118,25 @@ const output = process.env.REVIEW_OUTPUT;
       assert.equal(calculations,192);
       // Stub analytics: validation never sends conversion events to the production counter.
       await page.evaluate(() => {window.reviewGoals=[];window.ym=(...args)=>window.reviewGoals.push(args);});
+      assert.equal(await page.locator(`script[src="${widgetScript}"]`).count(),1,'Official widget script is included');
+      const bookingLinks = page.locator('a[href^="https://dikidi.net/"]:not(noscript a),a[href^="https://dikidi.ru/"]:not(noscript a)');
+      assert(await bookingLinks.count() > 0,'Online booking links exist');
+      for (const link of await bookingLinks.all()) {
+        assert.equal(await link.getAttribute('href'),bookingUrl,'Every booking link uses the shared widget');
+        assert.equal(await link.evaluate(el => el.hasAttribute('data-dikidi-widget')),true,'Every booking link binds the official widget');
+      }
+      assert.equal(await page.locator('#booking-overlay').count(),0,'No simulated booking loader');
+      const bookingPageUrl = page.url();
       await page.locator('#pricing .btn').click();
-      assert.equal(await page.locator('#booking-overlay').getAttribute('aria-hidden'),'false');
-      await page.keyboard.press('Escape');
-      assert.equal(await page.locator('#booking-overlay').getAttribute('aria-hidden'),'true');
-      assert.equal(await page.evaluate(() => window.reviewGoals[0][2]),'booking_click');
-      await context.route('https://dikidi.net/**',route=>route.fulfill({contentType:'text/html',body:'<title>Booking test</title>DIKIDI navigation test'}));
+      assert.equal(page.url(),bookingPageUrl,'The widget opens without leaving the page');
+      assert.deepEqual(await page.evaluate(() => window.reviewWidgetOpens),[bookingUrl]);
+      assert.deepEqual(await page.evaluate(() => window.reviewGoals.map(args => args[2])),['booking_click']);
       await page.locator('.master-slide.is-active a').click();
-      await page.waitForURL('https://dikidi.net/**');
-      assert.match(page.url(),/m=4373807/);
-      await page.goBack({waitUntil:'networkidle'});
-      assert.equal(await page.locator('#booking-overlay').getAttribute('aria-hidden'),'true');
+      assert.equal(page.url(),bookingPageUrl,'Master booking also stays on the page');
+      assert.deepEqual(await page.evaluate(() => window.reviewWidgetOpens),[bookingUrl,bookingUrl]);
+      assert.deepEqual(await page.evaluate(() => window.reviewGoals.map(args => args[2])),['booking_click','booking_click'],'One intent goal per booking click, without completed-booking goals');
+      assert.equal(await page.locator('#booking-overlay').count(),0);
+      assert.equal(requests.some(url => url.startsWith('https://dikidi.net/')),false,'The test never opens the real booking service');
       await page.evaluate(() => {window.reviewGoals=[];window.ym=(...args)=>window.reviewGoals.push(args);});
       // Prevent external handlers after goal listeners have had a chance to record intent.
       await page.evaluate(() => document.addEventListener('click',e=>{if(e.target.closest('a[href^="tel:"]')) e.preventDefault();}));
@@ -132,20 +161,23 @@ const output = process.env.REVIEW_OUTPUT;
         await page.addStyleTag({content:'.topbar,.mobile-bar,.skip-link{visibility:hidden!important}'});
         await page.locator('#pricing').screenshot({path:path.join(output,`calculator-${width}.png`)});
       }
-      console.log(`PASS ${width}×${height}: layout, images, carousels, modal, 96 calculations, booking/back, 3 goals`);
+      console.log(`PASS ${width}×${height}: layout, images, carousels, modal, ${calculations} calculations, official widget bindings and intent goals`);
       await context.close();
     }
     assert.deepEqual(errors,[],'Browser runtime errors');
     const noJs = await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});
     await noJs.route('**/mc.yandex.ru/**',route=>route.abort());
+    await stubBookingWidget(noJs);
     const fallback = await noJs.newPage();
     await fallback.goto(base);
     assert.equal(await fallback.locator('.hero-slide').first().getByRole('link').isVisible(),true);
     assert.equal(await fallback.locator('#pricing noscript').isVisible(),true);
+    assert.equal(await fallback.locator('#pricing noscript a').getAttribute('href'),'https://dikidi.net/2038825?p=0.pi','Without JavaScript, the price fallback remains available');
     await noJs.close();
     console.log('PASS no-JavaScript fallback; no runtime errors');
     const fast = await browser.newContext({viewport:{width:390,height:844}});
     await fast.route('**/mc.yandex.ru/**',route=>route.abort());
+    await stubBookingWidget(fast);
     let releaseHero;
     const heroHeld = new Promise(resolve=>{releaseHero=resolve;});
     await fast.route('**/img1.avif',async route=>{await heroHeld;await route.continue();});
@@ -160,7 +192,8 @@ const output = process.env.REVIEW_OUTPUT;
     if (process.env.CHECK_LIVE) {
       const live = await browser.newContext();
       await live.route('**/mc.yandex.ru/**',route=>route.abort());
-      for (const url of ['https://www.estetika-ufa.online/','https://estetika-ufa.online/','http://www.estetika-ufa.online/','http://estetika-ufa.online/','https://dikidi.net/2038825?p=0.pi']) {
+      await stubBookingWidget(live);
+      for (const url of ['https://www.estetika-ufa.online/','https://estetika-ufa.online/','http://www.estetika-ufa.online/','http://estetika-ufa.online/']) {
         const page = await live.newPage();
         try {
           const response = await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});

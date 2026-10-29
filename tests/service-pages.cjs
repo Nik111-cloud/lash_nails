@@ -4,12 +4,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const origin = 'https://www.estetika-ufa.online';
+const bookingUrl = 'https://dikidi.net/#widget=221383';
+const widgetScript = 'https://dikidi.ru/assets/js/widget_record/widget2.min.js?v=1';
 const specs = [
-  {slug: 'narashchivanie-resnits', section: 'lashes', price: 2200, masters: ['4373807', '4373819'], photos: 3},
-  {slug: 'laminirovanie-resnits', section: 'lash-lamination', price: 1900, masters: ['4399020'], photos: 3},
+  {slug: 'narashchivanie-resnits', section: 'lashes', price: 2200, masters: ['Айгуль', 'Анастасия'], photos: 3},
+  {slug: 'laminirovanie-resnits', section: 'lash-lamination', price: 1900, masters: ['Дияна'], photos: 3},
   {slug: 'brovi', section: 'brows', price: 1000, masters: [], photos: 4, variants: [1000, 1500, 2200], hero: '/oformlenie_brovei_1.avif', durationUnknown: true},
-  {slug: 'manikyur', section: 'manicure', price: 2500, masters: ['4396039'], photos: 3},
-  {slug: 'pedikyur', section: 'pedicure', price: 2000, masters: ['4396039'], photos: 0, variants: [2000, 2500, 2800, 3000], addons: [400, 800], durationUnknown: true},
+  {slug: 'manikyur', section: 'manicure', price: 2500, masters: ['Ярослава'], photos: 3},
+  {slug: 'pedikyur', section: 'pedicure', price: 2000, masters: ['Ярослава'], photos: 0, variants: [2000, 2500, 2800, 3000], addons: [400, 800], durationUnknown: true},
 ];
 const read = (file) => fs.readFileSync(path.join(root, file), 'utf8');
 const landing = read('index.html');
@@ -18,6 +20,20 @@ const titles = new Set();
 const descriptions = new Set();
 function scripts(html) {
   return [...html.matchAll(/<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((match) => JSON.parse(match[1]));
+}
+function bookingLinks(html, page) {
+  const interactiveHtml = html.replace(/<noscript\b[^>]*>[\s\S]*?<\/noscript>/g, '');
+  const links = [...interactiveHtml.matchAll(/<a\b[^>]*>/g)].map((match) => match[0]).filter((tag) => {
+    const href = tag.match(/\bhref="([^"]+)"/)?.[1];
+    return href && /^https:\/\/(?:www\.)?dikidi\.(?:net|ru)\//.test(href);
+  });
+  assert(links.length > 0, `Online booking is available on ${page}`);
+  for (const tag of links) {
+    assert.equal(tag.match(/\bhref="([^"]+)"/)[1], bookingUrl, `Shared official widget destination on ${page}`);
+    assert(/\bdata-dikidi-widget(?:\s|=|>)/.test(tag), `Widget binding on every online booking link on ${page}`);
+  }
+  assert(html.includes(`src="${widgetScript}"`), `Official DIKIDI widget script on ${page}`);
+  assert(!/id="booking-overlay"/.test(html), `No simulated booking loader on ${page}`);
 }
 function localLinks(html, base) {
   for (const match of html.matchAll(/\b(?:href|src|data-src)="([^"<>]+)"/g)) {
@@ -52,8 +68,9 @@ for (const spec of specs) {
   const normal = html.replaceAll('\u00a0', ' ');
   assert(normal.includes(`от ${new Intl.NumberFormat('ru-RU').format(spec.price).replaceAll('\u00a0', ' ')} ₽`));
   const masterCards = [...html.matchAll(/<article class="service-master-card">([\s\S]*?)<\/article>/g)];
-  const masterIds = masterCards.map((match) => match[1].match(/href="https:\/\/dikidi\.net\/2038825\?[^"<>]*\bm=(\d+)/)?.[1]);
-  assert.deepEqual(masterIds, spec.masters, `Master destinations match the service on ${spec.slug}`);
+  const masterNames = masterCards.map((match) => match[1].match(/<h3>([^<]+)<\/h3>/)?.[1]);
+  assert.deepEqual(masterNames, spec.masters, `Displayed masters match the service on ${spec.slug}`);
+  bookingLinks(html, spec.slug);
   const background = landing.match(new RegExp(`id="${spec.section}" data-background="([^"]+)"`))?.[1];
   assert(background, `Service illustration is present on the landing: ${spec.slug}`);
   const backgroundPath = `/${background.replace(/^\/+/, '')}`;
@@ -114,4 +131,7 @@ assert(/id="calculator-total"[^>]*>от 2 200 ₽</.test(landing.replaceAll('\u0
 assert(landing.includes('Скидка 10% на первое посещение'));
 assert(!/15%|22:00/.test(landing));
 assert.equal(scripts(landing).find((item) => item['@type'] === 'BeautySalon').openingHoursSpecification.closes, '21:00');
-console.log('PASS landing: confirmed price, 10% offer and closing time 21:00');
+bookingLinks(landing, 'landing');
+const calculatorFallback = landing.match(/<noscript><p>Для расчёта[\s\S]*?<\/noscript>/)?.[0];
+assert(calculatorFallback?.includes('href="https://dikidi.net/2038825?p=0.pi"'), 'The no-JavaScript calculator retains a direct link to booking prices');
+console.log('PASS landing: confirmed price, 10% offer, closing time 21:00 and official booking widget');

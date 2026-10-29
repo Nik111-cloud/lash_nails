@@ -148,13 +148,6 @@ body.visit-theme-ready #pricing,body.visit-theme-ready #contacts,body.visit-them
 body.visit-theme-ready :is(#pricing,#contacts,#reviews) :is(.eyebrow,.muted){transition:color .72s ease}
 body.visit-theme-ready :is(#pricing,#contacts,#reviews,footer) :focus-visible{outline-color:var(--visit-ink,var(--ink))}
 body.visit-theme-ready #reviews .review-strip{scrollbar-color:var(--visit-ink,var(--ink)) transparent}
-.booking-overlay{position:fixed;inset:0;z-index:50;background:rgba(42,32,25,.96);color:var(--bg);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .2s}
-.booking-overlay.is-active{opacity:1;visibility:visible}
-.booking-overlay-inner{display:flex;flex-direction:column;align-items:center;gap:16px;padding:24px;text-align:center}
-.booking-overlay-inner p{margin:0;font-size:16px}
-.booking-overlay-inner .booking-hint{font-size:13px;color:#e2d8ce}
-.booking-spinner{width:36px;height:36px;border:3px solid rgba(251,247,242,.3);border-top-color:var(--bg);border-radius:50%;animation:booking-spin .8s linear infinite}
-@keyframes booking-spin{to{transform:rotate(360deg)}}
 .contacts-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .contact-line{display:flex;gap:16px;padding:14px 0;border-top:1px solid var(--line);font-size:15px}
 .contact-line strong{flex:0 0 80px;font-weight:600}

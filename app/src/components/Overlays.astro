@@ -4,7 +4,6 @@ import { text } from '../lib/render';
 interface Props { content: SiteContent }
 const { content } = Astro.props;
 ---
-<div id="booking-overlay" class="booking-overlay" aria-hidden="true"><div class="booking-overlay-inner" role="status"><div class="booking-spinner" aria-hidden="true"></div><p>{text(content, 'booking_loading_title', 'Переходим к онлайн-записи…')}</p><p class="booking-hint">{text(content, 'booking_loading_hint', 'Загружается сервис DIKIDI')}</p></div></div>
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label={text(content, 'lightbox_label', 'Просмотр фото')} aria-describedby="lightbox-help" aria-hidden="true"><button class="lightbox-close" type="button" aria-label={text(content, 'lightbox_close', 'Закрыть')}>×</button><img id="lightbox-img" alt="" />
   <div class="lightbox-tools" role="group" aria-label={text(content, 'lightbox_zoom_label', 'Масштаб фотографии')}>
     <button class="lightbox-zoom-out" type="button" aria-label={text(content, 'lightbox_zoom_out', 'Уменьшить фото')}>−</button>
