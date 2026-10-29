@@ -62,7 +62,8 @@ const uiCopy = JSON.stringify(Object.fromEntries(content.site_texts.map((item) =
     )}
     <slot />
     {interactive && <script id="site-ui-copy" type="application/json" is:inline set:html={uiCopy}></script>}
-    {interactive && <script is:inline src="/site.js?v=20261019-ux" defer></script>}
+    {interactive && <script is:inline src="/site.js?v=20261029-dikidi-widget" defer></script>}
     {interactive && analyticsEnabled && <script is:inline src="/metrika-client.js" defer></script>}
+    {interactive && <script is:inline src="https://dikidi.ru/assets/js/widget_record/widget2.min.js?v=1" defer></script>}
   </body>
 </html>

@@ -1,6 +1,6 @@
 ---
 import type { SiteContent } from '../types/site-content';
-import { text, href, phoneHref } from '../lib/render';
+import { text, phoneHref } from '../lib/render';
 interface Props { content: SiteContent; detail?: boolean; hasWorks?: boolean }
 const { content, detail = false, hasWorks = true } = Astro.props;
 const settings = content.site_settings;
@@ -14,6 +14,6 @@ const settings = content.site_settings;
 <header class="topbar"><div class="topbar-inner">
   <a class="brand" href={detail ? '/' : '#top'}><span class="brand-name">{settings.brand_name}</span><span class="brand-sub">{settings.brand_subtitle}</span></a>
   <nav class="section-nav" aria-label={text(content, 'header.nav_aria', 'Разделы сайта')}><a href={detail ? '/#services' : '#services'}>{text(content, 'nav.services', 'Услуги')}</a><a href={hasWorks ? '#portfolio' : '#procedure'}>{hasWorks ? text(content, 'nav.portfolio', 'Работы') : 'О процедуре'}</a><a href="#pricing">{text(content, 'nav.pricing', 'Цены')}</a><a href="#contacts">{text(content, 'nav.contacts', 'Контакты')}</a></nav>
-  <div class="topbar-actions"><a class="btn btn-ghost btn-small" href={phoneHref(settings.phone)}>{text(content, 'header.call', 'Позвонить')}</a><a class="btn btn-primary btn-small btn-wave" href={href(settings.booking_url)}>{text(content, 'header.book', 'Записаться')}</a></div>
+  <div class="topbar-actions"><a class="btn btn-ghost btn-small" href={phoneHref(settings.phone)}>{text(content, 'header.call', 'Позвонить')}</a><a class="btn btn-primary btn-small btn-wave" href="https://dikidi.net/#widget=221383" data-dikidi-widget>{text(content, 'header.book', 'Записаться')}</a></div>
 </div></header>
 

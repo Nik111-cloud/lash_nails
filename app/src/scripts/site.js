@@ -378,13 +378,14 @@ setupCarousel('.master-carousel', '.master-slide', '.master-dot');
     const link = event.target.closest('a[href]');
     if (!link) return;
     const url = new URL(link.href);
-    const booking = url.hostname === 'dikidi.net' && /^\/\d+\/?$/.test(url.pathname);
+    const widget = link.hasAttribute('data-dikidi-widget') && url.hostname === 'dikidi.net' && url.pathname === '/' && /^#widget=\d+$/.test(url.hash);
+    const booking = widget || (url.hostname === 'dikidi.net' && /^\/\d+\/?$/.test(url.pathname));
     const goal = booking ? 'booking_click' : url.protocol === 'tel:' ? 'phone_click' : url.hostname === 'wa.me' ? 'whatsapp_click' : null;
     if (!goal) return;
     const section = link.closest('section');
     const params = {placement: section?.id || (section?.classList.contains('hero-carousel') ? 'hero' : link.closest('.mobile-bar') ? 'mobile_bar' : 'header'), master_id: url.searchParams.get('m') || '', service: link.closest('.service-row')?.id || ''};
     try {if (typeof window.ym === 'function') window.ym(113129252, 'reachGoal', goal, params);} catch (_) { /* Analytics must never prevent navigation. */ }
-    if (!booking || event.type !== 'click' || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (link.target && link.target !== '_self')) return;
+    if (!booking || widget || event.type !== 'click' || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || (link.target && link.target !== '_self')) return;
     event.preventDefault();
     hide();
     overlay.classList.add('is-active');
